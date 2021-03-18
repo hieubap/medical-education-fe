@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>HShop</title>
+    <link rel="stylesheet" type="text/css" href="CSS/base.css" />
+    <link rel="stylesheet" type="text/css" href="CSS/main.css" />
+    <link rel="stylesheet" type="text/css" href="CSS/grid.css" />
+    <link rel="stylesheet" type="text/css" href="CSS/responsive.css" />
+    <link rel="stylesheet" href="font/css/all.css">
+
+    <link rel="stylesheet" type="text/css" href="CSS/management.css" />
+
+    <script src="Javascript/common/common.js"></script>
+    <script src="Javascript/chart/Chart.min.js"></script>
+    <script src="./Javascript/management.js"></script>
+
+
+
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <!-- Block Element Modifier -->
+    <div class="app">
+        <header class="header">
+            <div class="grid wide">
+                <input type="checkbox" hidden class="nav__input" id="nav-mobile-input"></input>
+
+                <!-- Nav on mobile -->
+                <div class="nav__mobile">
+                    <ul class="nav__mobile-list">
+                        <div class="category__heading">Danh mục</div>
+                        <ul class="category-list">
+                            <li class="category-item category-item--active">
+                                <a href="" class="category-item__link">Đồ bán chạy hôm nay</a>
+                            </li>
+                            <li class="category-item">
+                                <a href="" class="category-item__link">Bình giữ nhiệt</a>
+                            </li>
+                            <li class="category-item">
+                                <a href="" class="category-item__link">Bộ lắp ghép Minecraft</a>
+                            </li>
+                            <li class="category-item">
+                                <a href="" class="category-item__link">Hộp bút chì Creeper</a>
+                            </li>
+                            <li class="category-item">
+                                <a href="" class="category-item__link">Túi khăn tắm 3 hộp</a>
+                            </li>
+                            <li class="category-item">
+                                <a href="" class="category-item__link">Balo Creeper</a>
+                            </li>
+                            <li class="category-item">
+                                <a href="" class="category-item__link">Móc khóa Diamond Word</a>
+                            </li>
+                            <li class="category-item">
+                                <a href="" class="category-item__link">Bộ lắp ghép Bàn chế tạo</a>
+                            </li>
+                            <li class="category-item">
+                                <a href="" class="category-item__link">Hộp thẻ bài 4 người</a>
+                            </li>
+                            <li class="category-item">
+                                <a href="" class="category-item__link">Cốc lạc đà Llama</a>
+                            </li>
+                        </ul>
+                    </ul>
+                    <label for="nav-mobile-input" class="nav__mobile-close">
+						<i class="nav__mobile-close--icon fas fa-times"></i>
+					</label>
+                </div>
+
+                <label for="nav-mobile-input" class="nav__overlay"></label>
+
+                <!-- Header-with-search -->
+                <div class="header-with-search">
+                    <label for="nav-mobile-input" class="mobile__menu-btn">
+						<i class="mobile__menu-icon fas fa-bars"></i>						
+					</label>
+                    <label for="mobile-search-checkbox" class="header__mobile-search">
+						<i class="header__mobile-search-icon fas fa-search"></i>
+					</label>
+                    <input type="checkbox" hidden class="header__search-checkbox" id="mobile-search-checkbox">
+
+                    <div class="header__logo hide-on-tablet">
+                        <a href="index.html" class="header__logo-link">
+                            <img src="Images/logo.png" class="header__logo-img" />
+                        </a>
+                    </div>
+                    <div class="header__search">
+                        <div class="header__search-input-wrap">
+                            <input id="search_input" type="text" class="header__search-input" placeholder="Nhập để tìm kiếm"></input>
+
+                            <!-- Search history -->
+                            <div class="header__search-history">
+                                <div class="header__search-history-heading">Lịch sử tìm kiếm</div>
+                                <ul class="header__search-history-list">
+                                    <li class="header__search-history-item">
+                                        <a href="#">Đồ chơi</a>
+                                    </li>
+                                    <li class="header__search-history-item">
+                                        <a href="#">Cặp sách</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <button class="header__search-btn" id="search_btn">
+							<i class="header__search-btn-icon fas fa-search"></i>
+						</button>
+                    </div>
+
+                    <!-- Cart layout -->
+                    <div class="header__cart">
+                        <div class="header__cart-wrap">
+                            <i class="header__cart-icon fas fa-shopping-cart"></i>
+                            <span class="header__cart-wrap-notice" id="number_select"></span>
+
+                            <!-- No cart: Header__cart-list--no-cart -->
+                            <div class="header__cart-list">
+                                <img src="Images/sellout.png" class="header__cart-no-card-img"></img>
+                                <span class="header__cart-list-no-card-msg">
+									Chưa có sản phẩm
+								</span>
+
+
+                                <div class="header__cart-heading">Sản phẩm đã thêm</div>
+                                <ul class="header__cart-list-item" id="list_select">
+
+                                </ul>
+
+                                <button class="header__cart-view-cart btn btn--primary" id="xem_gio_hang">Xem giỏ hàng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sort bar on mobile -->
+            <ul class="header__sort-bar">
+                <li class="header__sort-item">
+                    <a href="" class="header__sort-link">Liên quan</a>
+                </li>
+                <li class="header__sort-item header__sort-item--active">
+                    <a href="" class="header__sort-link">Mới nhất</a>
+                </li>
+                <li class="header__sort-item">
+                    <a href="" class="header__sort-link">Bán chạy</a>
+                </li>
+                <li class="header__sort-item">
+                    <a href="" class="header__sort-link">Giá</a>
+                </li>
+            </ul>
+        </header>
+        <div class="menu_select" style="width:12%">
+            <h3 class="w3-bar-item" style="text-align: center;">Menu</h3>
+            <button class="w3-bar-item w3-button" onclick="openScreen('screen1')">Thống kê </button>
+            <button class="w3-bar-item w3-button" onclick="openScreen('screen2')">Sản phẩm</button>
+            <button class="w3-bar-item w3-button" onclick="openScreen('screen3')">Hóa đơn</button>
+            <button class="w3-bar-item w3-button" onclick="openScreen('screen4')">Thông báo</button>
+            <button class="w3-bar-item w3-button" onclick="openScreen('screen5')">Cửa hàng</button>
+            <button class="w3-bar-item w3-button" onclick="openScreen('screen6')">Loại sản phẩm</button>
+            <button class="w3-bar-item w3-button" onclick="openScreen('screen7')">Đánh giá</button>
+        </div>
+        <div id="screen1" class="container screen">
+            <h2 class=" text-center head_tag" data-wow-duration="1s" data-wow-delay="0.1s">
+                Thống kê
+            </h2>
+            <div class="content">
+                <canvas id="chart" width="50%"></canvas>
+            </div>
+        </div>
+
+
+        <div id="screen2" class="container screen" style="font-size: 17px;display: none;">
+            <button id="create_btn" class="btn btn-default" style="margin-top:10px">Thêm mới</button>
+            <h2 class=" text-center head_tag" data-wow-duration="1s" data-wow-delay="0.1s">
+                Menu
+            </h2>
+
+            <div id="list_menu"></div>
+            <div>
+                <button onclick="goMenuR()" class="btn_next">
+      >
+    </button>
+                <label class="btn_next" id="menu_page">1</label>
+                <button onclick="goMenuL()" class="btn_next">
+      <
+    </button>
+            </div>
+        </div>
+
+        <div id="screen3" class="container screen" style="font-size: 17px;display: none;">
+            <h2 class=" text-center head_tag" data-wow-duration="1s" data-wow-delay="0.1s">
+                Các đơn trong tháng
+            </h2>
+            <div id="list_bill"></div>
+            <div>
+                <button onclick="goBillR()" class="btn_next">
+      >
+    </button>
+                <label class="btn_next" id="bill_page">1</label>
+                <button onclick="goBillL()" class="btn_next">
+      <
+    </button>
+            </div>
+        </div>
+
+        <div id="screen4" class="container screen" style="font-size: 17px;display: none;">
+            <h2 class=" text-center head_tag" data-wow-duration="1s" data-wow-delay="0.1s">
+                Thông báo
+            </h2>
+            <div id="list_notification"></div>
+            <div>
+                <button onclick="goNotifiR()" class="btn_next">
+      >
+    </button>
+                <label class="btn_next" id="notifi_page">1</label>
+                <button onclick="goNotifiL()" class="btn_next">
+      <
+    </button>
+            </div>
+        </div>
+
+        <div id="screen5" class="container screen" style="font-size: 17px;display: none;">
+            <h2 class=" text-center head_tag" data-wow-duration="1s" data-wow-delay="0.1s">
+                Cửa hàng
+            </h2>
+            <div id="list_store"></div>
+            <div>
+                <button onclick="goNotifiR()" class="btn_next">
+      >
+    </button>
+                <label class="btn_next" id="notifi_page">1</label>
+                <button onclick="goNotifiL()" class="btn_next">
+      <
+    </button>
+            </div>
+        </div>
+
+        <div id="screen6" class="container screen" style="font-size: 17px;display: none;">
+            <h2 class=" text-center head_tag" data-wow-duration="1s" data-wow-delay="0.1s">
+                Loại Sản Phẩm
+            </h2>
+            <div id="list_typeProduct"></div>
+            <div>
+                <button onclick="goNotifiR()" class="btn_next">
+      >
+    </button>
+                <label class="btn_next" id="notifi_page">1</label>
+                <button onclick="goNotifiL()" class="btn_next">
+      <
+    </button>
+            </div>
+        </div>
+
+        <div id="screen7" class="container screen" style="font-size: 17px;display: none;">
+            <h2 class=" text-center head_tag" data-wow-duration="1s" data-wow-delay="0.1s">
+                Đánh giá
+            </h2>
+            <div id="list_evaluate"></div>
+            <div>
+                <button onclick="goNotifiR()" class="btn_next">
+      >
+    </button>
+                <label class="btn_next" id="notifi_page">1</label>
+                <button onclick="goNotifiL()" class="btn_next">
+      <
+    </button>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal layout-->
+    <div class="modal">
+        <div class="modal__overlay"></div>
+
+        <div class="modal__body">
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form fm">
+                <div class="auth-form__container">
+                    <div class="auth-form__header">
+                        <div class="auth-form__heading">Đăng ký</div>
+                    </div>
+
+                    <div class="auth-form__groups">
+                        <div class="auth-form__group">
+                            <input id="email" rule="email" type="text" class="auth-form__input" placeholder="Email của bạn" />
+                        </div>
+                        <div class="auth-form__group">
+                            <input id="password" rule="password" type="password" class="auth-form__input" placeholder="Mật khẩu của bạn" />
+                        </div>
+                        <div class="auth-form__group">
+                            <input id="password_confirmation" rule="password_confirmation" type="password" class="auth-form__input" placeholder="Nhập lại mật khẩu của bạn" /><span class="auth-form__message"></span>
+                        </div>
+                    </div>
+
+                    <div class="auth-form__aside">
+                        <p class="auth-form__policy-text">
+                            Bằng việc đăng ký, bạn đã đồng ý với Minecraft Shop
+                            <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a> &
+                            <a href="" class="auth-form__text-link">Chính sách bảo mật</a>
+                        </p>
+
+                        <div class="auth-form__switch-wrapper">
+                            <span class="auth-form__switch-text">Bạn đã có tài khoản?</span>
+                            <span class="auth-form__switch-btn">Đăng nhập</span>
+                        </div>
+                    </div>
+
+                    <div class="auth-form__controls">
+                        <button class="btn auth-form__controls-back">TRỞ LẠI</button>
+                        <button class="btn btn--primary">ĐĂNG KÝ</button>
+                    </div>
+                </div>
+
+
+                <div class="auth-form__socials">
+                    <a href="" class="auth-form__socials--facebook btn btn--size-s btn--with-icon">
+                        <i class="auth-form__socials-icon fab fa-facebook-square"></i>
+                        <span class="auth-form__socials-title">
+							Kết nối với Facebook
+						</span>
+                    </a>
+                    <a href="" class="auth-form__socials--google btn btn--size-s btn--with-icon">
+                        <i class="auth-form__socials-icon fab fa-google"></i>
+                        <span class="auth-form__socials-title">
+							Kết nối với Google
+						</span>
+                    </a>
+                </div>
+            </form>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form fm">
+                <div class="auth-form__container">
+                    <div class="auth-form__header">
+                        <div class="auth-form__heading">Đăng nhập</div>
+                    </div>
+
+                    <div class="auth-form__groups">
+                        <div class="auth-form__group">
+                            <input id="login-username-input" rule="email" type="text" class="auth-form__input" placeholder="Email của bạn" />
+                        </div>
+                        <div class="auth-form__group">
+                            <input id="login-password-input" rule="password" type="password" class="auth-form__input" placeholder="Mật khẩu của bạn" />
+                        </div>
+                    </div>
+
+                    <div class="auth-form__aside">
+                        <div class="auth-form__help">
+                            <a href="" class="auth-form__help-link auth-form__help-forgot">Quên mật khẩu</a>
+                            <span class="auth-form__help-separate"></span>
+                            <a href="" class="auth-form__help-link">Cần trợ giúp?</a>
+                        </div>
+                    </div>
+
+                    <div class="auth-form__controls">
+                        <button class="btn auth-form__controls-back">TRỞ LẠI</button>
+                        <button id="btn-login" class="btn btn--primary">ĐĂNG NHẬP</button>
+                    </div>
+
+                    <div class="auth-form__switch-wrapper">
+                        <span class="auth-form__switch-text">Bạn chưa có tài khoản?</span>
+                        <span class="auth-form__switch-btn">Đăng ký</span>
+                    </div>
+                </div>
+
+
+                <div class="auth-form__socials">
+                    <a href="" class="auth-form__socials--facebook btn btn--size-s btn--with-icon">
+                        <i class="auth-form__socials-icon fab fa-facebook-square"></i>
+                        <span class="auth-form__socials-title">
+							Kết nối với Facebook
+						</span>
+                    </a>
+                    <a href="" class="auth-form__socials--google btn btn--size-s btn--with-icon">
+                        <i class="auth-form__socials-icon fab fa-google"></i>
+                        <span class="auth-form__socials-title">
+							Kết nối với Google
+						</span>
+                    </a>
+                </div>
+            </form>
+
+            <form id="create-product-form" class="create-form fm">
+                <div class="auth-form__container">
+                    <div class="auth-form__header">
+                        <div class="auth-form__heading">Thêm mới</div>
+                    </div>
+
+                    <div style="display:flex;flex-direction: row;">
+                        <div class="" style="flex-basis: 50%;">
+                            <div class="create_groups">
+                                <label>Tiêu đề</label>
+                                <input id="create_title" type="text" class="create_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Tên</label>
+                                <input id="" type="text" class="create_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Giá cũ</label>
+                                <input id="" value="0" type="number" class="create_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Giá mới</label>
+                                <input id="" value="0" type="number" class="create_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Link ảnh</label>
+                                <input id="" value="http://93.188.162.82:8081/Images/3942p_21c_1x_3c19c696-c546-4248-814a-042ebdb0df20_800x.png" type="text" class="create_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Số lượng</label>
+                                <input id="" value="0" type="number" class="create_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Chi Tiết</label>
+                                <input id="" type="text" class="create_input" placeholder="" />
+                            </div>
+                        </div>
+                        <div class="create_groups" style="flex-basis: 50%;">
+                            <div class="create_groups">
+                                <label>Loại</label>
+                                <input id="" type="text" class="create_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Màu sắc</label>
+                                <input id="" type="text" class="create_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Nhãn hiệu</label>
+                                <input id="" type="text" class="create_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Xuất xứ</label>
+                                <input id="" type="text" class="create_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Nhà phân phối</label>
+                                <input id="" type="text" class="create_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Thể tích</label>
+                                <input id="" value="0" type="number" class="create_input" placeholder="0" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Khối lượng</label>
+                                <input id="" value="0" type="number" class="create_input" placeholder="0" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="auth-form__controls">
+                        <button id="back_btn" class="btn create_btn_cancel">TRỞ LẠI</button>
+                        <button id="cancel_btn" class="btn create_btn_cancel">HỦY</button>
+                        <button id="create_btn2" class="btn create_btn_cancel">THÊM MỚI</button>
+                    </div>
+                </div>
+            </form>
+            <form id="update-product-form" class="create-form fm">
+                <div class="auth-form__container">
+                    <div class="auth-form__header">
+                        <div class="auth-form__heading">Cập nhật</div>
+                    </div>
+
+                    <div style="display:flex;flex-direction: row;">
+                        <div class="" style="flex-basis: 50%;">
+                            <div class="create_groups">
+                                <label>Tiêu đề</label>
+                                <input id="update_title" type="text" class="update_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Tên</label>
+                                <input id="" type="text" class="update_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Giá cũ</label>
+                                <input id="" type="text" class="update_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Giá mới</label>
+                                <input id="" type="text" class="update_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Link ảnh</label>
+                                <input id="" type="text" class="update_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Số lượng</label>
+                                <input id="" type="text" class="update_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Chi Tiết</label>
+                                <input id="" type="text" class="update_input" placeholder="" />
+                            </div>
+                        </div>
+                        <div class="create_groups" style="flex-basis: 50%;">
+                            <div class="create_groups">
+                                <label>Loại</label>
+                                <input id="" type="text" class="update_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Màu sắc</label>
+                                <input id="" type="text" class="update_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Nhãn hiệu</label>
+                                <input id="" type="text" class="update_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Xuất xứ</label>
+                                <input id="" type="text" class="update_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Nhà phân phối</label>
+                                <input id="" type="text" class="update_input" placeholder="" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Thể tích</label>
+                                <input id="" type="number" class="update_input" placeholder="0" />
+                            </div>
+                            <div class="create_groups">
+                                <label>Khối lượng</label>
+                                <input id="" type="text" class="update_input" placeholder="0" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="auth-form__controls">
+                        <button id="update-back_btn" class="btn create_btn_cancel">TRỞ LẠI</button>
+                        <button id="update-cancel_btn" class="btn create_btn_cancel">HỦY</button>
+                        <button id="update-btn" class="btn create_btn_cancel">CẬP NHẬT</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
