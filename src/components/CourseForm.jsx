@@ -44,7 +44,10 @@ class CourseForm extends Component {
     })
       .then((res) => res.json())
       .then((json) => {
+        console.log("--------");
         console.log(json);
+
+        this.props.setData(json.data,-1);
         this.props.eventBack();
       });
   };
@@ -66,6 +69,8 @@ class CourseForm extends Component {
     })
       .then((res) => res.json())
       .then((json) => {
+        
+        this.props.setData(json.data,this.props.index);
         console.log(json);
         this.props.eventBack();
       });

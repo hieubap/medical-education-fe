@@ -15,6 +15,7 @@ class Course extends Component {
       size: 10,
       sizePage: 0,
       data: [],
+      index:-1,
       showModal: false,
     };
   }
@@ -42,11 +43,23 @@ class Course extends Component {
     this.setState(newState);
   };
 
-  read = (index, id) => {
-    const newState = Object.assign({}, this.state);
-    newState.data[index].isRead = 0;
+  setData = (data,index) =>{
+    var newData = Object.assign([], this.state.data);
+    
+    if(index === -1)
+    {
+      console.log("***********");
+      console.log(newData.length);
+      newData = [data,...newData];
+      console.log(newData.length);
+
+    }
+    else
+    newData[index] = data;
+
+    const newState = {...this.state,data: newData};
     this.setState(newState);
-  };
+  }
 
   delete = (index, id) => {
     const newState = Object.assign({}, this.state);
@@ -54,11 +67,11 @@ class Course extends Component {
     this.setState(newState);
   };
 
-  changeModel = (dataSet) => {
+  changeModel = (dataSet,index) => {
     var newState = Object.assign({}, this.state);
     newState.showModal = !newState.showModal;
     if(dataSet != null)
-    newState = { ...newState, param: dataSet };
+    newState = { ...newState, param: dataSet,index : index };
     else
     newState = { ...newState, param: dataSet, isCreate: true };
 
@@ -134,7 +147,7 @@ class Course extends Component {
                       </button>
                       <button
                         class="btn btn-default btn-ud"
-                        onClick={() => this.changeModel(feedback)}
+                        onClick={() => this.changeModel(feedback,index)}
                       >
                         <FontAwesomeIcon icon="edit" className="icon" />
                       </button>
@@ -160,6 +173,8 @@ class Course extends Component {
               <CourseForm
                 param={this.state.param}
                 eventBack={() => this.changeModel()}
+                setData={this.setData}
+                index={this.state.index}
               ></CourseForm>
             </div>
           </div>
