@@ -8,33 +8,29 @@ import "./../CSS/responsive.css";
 import "./../CSS/management.css";
 
 import Menu from "./Menu.jsx";
-import Product from "./Products.jsx";
-import Order from "./Order.jsx";
-import Bill from "./Bill.jsx";
+import ChartRender from './ChartRender.jsx';
 import Notification from "./Notification.jsx";
-import Store from "./Store.jsx";
-import TypeProduct from "./TypeProduct.jsx";
-import Evaluate from "./Evaluate.jsx";
+import FeedBack from "./FeedBack";
+import Course from "./Course";
+import Subject from "./Subject";
+import Student from "./Student";
+import Schedule from "./Schedule";
+import Room from "./Room";
+import History from "./History";
+import Infrastructure from "./Infrastructure";
+import RegistryCourse from "./RegistryCourse";
+import User from './User.jsx'
 
-import FormProduct from "./FormProduct.jsx";
 
 class ManageAdmin extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      screen: 'course',
       showModal: false,
-      dataDetail: {},
-      screen: "product",
+      dataDetail: {}
     };
   }
-
-  changeModel = (dataSet) => {
-    var newState = Object.assign({}, this.state);
-    newState.dataDetail = dataSet;
-    newState.showModal = !newState.showModal;
-
-    this.setState(newState);
-  };
 
   changeScreen = (screen) => {
     const newState = Object.assign({}, this.state);
@@ -48,32 +44,20 @@ class ManageAdmin extends Component {
     return (
       <>
         <div className="app">
-          <Menu event={this.changeScreen}></Menu>
-          {this.state.screen === "product" && (
-            <Product
-              sendData={this.changeModel}
-              eventChange={this.changeModel.bind()}
-            />
-          )}
-          {this.state.screen === "order" && <Order />}
-          {this.state.screen === "bill" && <Bill />}
+          <Menu  event={this.changeScreen}></Menu>
+          {this.state.screen === 'chart' && <ChartRender />}
+          {this.state.screen === "course" && <Course />}
+          {this.state.screen === "subject" && <Subject />}
+          {this.state.screen === "student" && <Student />}
+          {this.state.screen === "schedule" && <Schedule />}
+          {this.state.screen === "room" && <Room />}
+          {this.state.screen === "history" && <History />}
+          {this.state.screen === "infrastructure" && <Infrastructure />}
+          {this.state.screen === "order" && <RegistryCourse />}
+          {this.state.screen === "user" && <User />}
+          {this.state.screen === "feedback" && <FeedBack />}
           {this.state.screen === "notification" && <Notification />}
-          {this.state.screen === "store" && <Store />}
-          {this.state.screen === "type-product" && <TypeProduct />}
-          {this.state.screen === "evaluate" && <Evaluate />}
         </div>
-        {showModal ? (
-          <div className="modal" style={{ display: "flex" }}>
-            <div class="modal__overlay"></div>
-            <div class="modal__body">
-              <FormProduct
-                param={this.state.dataDetail}
-                eventChange={this.changeModel.bind()}
-                eventScreen={this.changeScreen}
-              />
-            </div>
-          </div>
-        ) : null}
       </>
     );
   }

@@ -81,7 +81,6 @@ class FormProduct extends Component {
     })
     .then((res) => {
       this.props.eventChange();
-      this.props.eventScreen('product');
     });
   };
 

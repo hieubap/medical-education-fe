@@ -209,7 +209,6 @@ tr:nth-child(even) {
 .create_btn_cancel:hover {
     background-color: #c83a3a;
     border-color: #c83a3a;
-    margin-right: 8px;
     /* border: 1px solid #8D8D8D; */
     color: #fff;
     font-size: 0.9rem;
@@ -264,4 +263,15 @@ tr:nth-child(even) {
 .w3-button:hover {
     color: #000!important;
     background-color: #ccc!important
+}
+
+input {
+    width: 100%;
+    height: 40px;
+    margin: 10px 0 2px;
+    padding: 0 12px;
+    border: 1px solid #8d8d8d;
+    font-size: 1.1rem;
+    border-radius: 2px;
+    tab-size: 2;   
 }

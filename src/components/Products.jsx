@@ -1,6 +1,8 @@
 import React, { Component, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import FormProduct from "./FormProduct.jsx";
+
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
 
@@ -9,6 +11,7 @@ class Products extends Component {
     super(props);
     this.state = {
       loading: true,
+      showModal: false,
       data: [],
       detail: [],
       page: 0,
@@ -32,6 +35,13 @@ class Products extends Component {
 
       console.log('call api product');
   }
+
+  changeModel = (dataSet) => {
+    var newState = Object.assign({}, this.state);
+    newState.showModal = !newState.showModal;
+
+    this.setState(newState);
+  };
 
   setPage = (index) => {
     const newState = Object.assign({}, this.state);
@@ -139,7 +149,7 @@ class Products extends Component {
                     </button>
                     <button
                       class="btn btn-default btn-ud"
-                      onClick={() => this.props.sendData(product)}
+                      onClick={() => this.changeModel()}
                     >
                       <FontAwesomeIcon icon="edit" className="icon" />
                     </button>
@@ -237,6 +247,17 @@ class Products extends Component {
             );
         })}
         <ul class="pagination">{listPage}</ul>
+        {this.state.showModal ? (
+          <div className="modal" style={{ display: "flex" }}>
+            <div class="modal__overlay"></div>
+            <div class="modal__body">
+              <FormProduct
+                param={this.state.dataDetail}
+                eventChange={this.changeModel.bind()}
+              />
+            </div>
+          </div>
+        ) : null}
       </div>
     );
   }
