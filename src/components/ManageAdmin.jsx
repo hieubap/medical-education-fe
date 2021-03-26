@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import "./FontAwesomeIcons";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./../CSS/base.css";
 import "./../CSS/main.css";
@@ -8,7 +9,7 @@ import "./../CSS/responsive.css";
 import "./../CSS/management.css";
 
 import Menu from "./Menu.jsx";
-import ChartRender from './ChartRender.jsx';
+import ChartRender from "./ChartRender.jsx";
 import Notification from "./Notification.jsx";
 import FeedBack from "./FeedBack";
 import Course from "./Course";
@@ -19,16 +20,15 @@ import Room from "./Room";
 import History from "./History";
 import Infrastructure from "./Infrastructure";
 import RegistryCourse from "./RegistryCourse";
-import User from './User.jsx'
-
+import User from "./User.jsx";
 
 class ManageAdmin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      screen: 'course',
+      screen: "course",
       showModal: false,
-      dataDetail: {}
+      dataDetail: {},
     };
   }
 
@@ -39,13 +39,12 @@ class ManageAdmin extends Component {
   };
 
   render() {
-    const {showModal} = this.state;
-
     return (
       <>
         <div className="app">
-          <Menu  event={this.changeScreen}></Menu>
-          {this.state.screen === 'chart' && <ChartRender />}
+          <ToastContainer className="toast-down-right"/>
+          <Menu event={this.changeScreen}></Menu>
+          {this.state.screen === "chart" && <ChartRender />}
           {this.state.screen === "course" && <Course />}
           {this.state.screen === "subject" && <Subject />}
           {this.state.screen === "student" && <Student />}

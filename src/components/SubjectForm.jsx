@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import UniqueId from "react-html-id";
-import { api_course, api_course_delete, api_course_update, token } from "./API.js";
+import {
+  api_course,
+  api_course_delete,
+  api_course_update,
+  api_subject,
+  api_subject_update,
+  token,
+} from "./API.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -9,7 +16,7 @@ import "./../CSS/base.css";
 import "./../CSS/grid.css";
 import "./../CSS/responsive.css";
 
-class CourseForm extends Component {
+class SubjectForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,6 +26,7 @@ class CourseForm extends Component {
     };
     if (props.param == null) {
       this.state.isCreate = true;
+      
     }
     console.log(this.state);
   }
@@ -33,9 +41,9 @@ class CourseForm extends Component {
   create = (e) => {
     e.preventDefault();
     var bodyRequest = JSON.stringify(this.state.props.param);
-    console.log(bodyRequest);
+    console.log(this.state.props.param);
     this.state.loading = true;
-    fetch(api_course, {
+    fetch(api_subject, {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -45,11 +53,15 @@ class CourseForm extends Component {
     })
       .then((res) => res.json())
       .then((json) => {
-        console.log("--------");
-        console.log(json);
-        this.props.setData(json.data,-1);
-        this.props.eventBack();
-        toast.success("Create Successful");
+        if (json.code === 200) {
+          this.props.setData(json.data, -1);
+          this.props.eventBack();
+          toast.success("Create Successful");
+        }
+        else{
+            toast.error(json.message);
+        }
+        this.state.loading = false;
       });
   };
 
@@ -59,21 +71,25 @@ class CourseForm extends Component {
     var bodyRequest = JSON.stringify(this.state.props.param);
     // this.props.eventChange();
     this.state.loading = true;
-    fetch(api_course_update + this.state.props.param.id, {
+    fetch(api_subject_update + this.state.props.param.id, {
       method: "put",
       headers: {
         "content-type": "application/json",
-        Authorization:token
+        Authorization: token,
       },
       body: bodyRequest,
     })
       .then((res) => res.json())
       .then((json) => {
-        
-        this.props.setData(json.data,this.props.index);
-        console.log(json);
-        this.props.eventBack();
-        toast.success("Update Successful");
+        if (json.code === 200) {
+          this.props.setData(json.data, this.props.index);
+          console.log(json);
+          this.props.eventBack();
+          toast.success("Update Successful");
+        } else {
+          toast.error(json.message);
+        }
+        this.state.loading = false;
       });
   };
 
@@ -88,7 +104,7 @@ class CourseForm extends Component {
           <div style={{ display: "flex", flexDirection: "row" }}>
             <div style={{ flexBasis: "100%" }}>
               <div className="create_groups">
-                <label>Mã Khóa học</label>
+                <label>Mã Môn học</label>
                 <input
                   type="text"
                   name="value"
@@ -114,26 +130,13 @@ class CourseForm extends Component {
                 />
               </div>
               <div className="create_groups">
-                <label>Giá</label>
+                <label>Loại</label>
                 <input
-                  name="price"
-                  type="number"
+                  name="type"
+                  type="text"
                   value={
                     this.state.props.param != null
-                      ? this.state.props.param.price
-                      : ""
-                  }
-                  onChange={this.change.bind(this)}
-                />
-              </div>
-              <div className="create_groups">
-                <label>Thời gian (tháng)</label>
-                <input
-                  name="thoiGianHoc"
-                  type="number"
-                  value={
-                    this.state.props.param != null
-                      ? this.state.props.param.thoiGianHoc
+                      ? this.state.props.param.type
                       : ""
                   }
                   onChange={this.change.bind(this)}
@@ -181,4 +184,4 @@ class CourseForm extends Component {
   }
 }
 
-export default CourseForm;
+export default SubjectForm;

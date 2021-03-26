@@ -1,6 +1,13 @@
 import React, { Component, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { convertPrice } from "./common.js";
+import {
+  url_notification,
+  url_notification_read,
+  url_notification_count_read,
+  url_notification_delete,
+  token,
+} from "./API";
 
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
@@ -18,7 +25,7 @@ class Notification extends Component {
   }
 
   componentDidMount() {
-    fetch("http://93.188.162.82:8088/notification?size=10000")
+    fetch(url_notification+"&size=10000")
       .then((res) => res.json())
       .then((json) => {
         const size = parseInt(json.totalElements / this.state.size);
@@ -38,11 +45,10 @@ class Notification extends Component {
   };
 
   read = (index, id) => {
-    fetch("http://93.188.162.82:8088/notification/read/" + id, {
+    fetch(url_notification_read + id, {
       method: "put",
       headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzM4NCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaWF0IjoxNjE0ODU2ODgxLCJleHAiOjE2MTYwMDA0MDB9.wVq1WwAO7v9NAxfylit_pGv69Jz_zqXNJTAgbfUFqo-aLAKVzOfJbro3PX8jXpxW",
+        Authorization:token
       },
     });
     const newState = Object.assign({}, this.state);
@@ -51,11 +57,10 @@ class Notification extends Component {
   };
 
   delete = (index, id) => {
-    fetch("http://93.188.162.82:8088/notification/" + id, {
+    fetch(url_notification_delete + id, {
       method: "delete",
       headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzM4NCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaWF0IjoxNjE0ODU2ODgxLCJleHAiOjE2MTYwMDA0MDB9.wVq1WwAO7v9NAxfylit_pGv69Jz_zqXNJTAgbfUFqo-aLAKVzOfJbro3PX8jXpxW",
+        Authorization:token
       },
     });
     const newState = Object.assign({}, this.state);
@@ -68,7 +73,9 @@ class Notification extends Component {
     for (let i = 0; i < this.state.sizePage; i++) {
       listPage.push(
         <li>
-          <a href="#" onClick={() => this.setPage(i)}>{i + 1}</a>
+          <a href="#" onClick={() => this.setPage(i)}>
+            {i + 1}
+          </a>
         </li>
       );
     }
@@ -132,7 +139,7 @@ class Notification extends Component {
                       </button>
                     </div>
                   </div>
-                )
+                );
             })}
           </div>
           <ul class="pagination" id="pageTag1">

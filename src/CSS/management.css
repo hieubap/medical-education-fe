@@ -105,6 +105,7 @@ tr:nth-child(even) {
 .btn {
     margin-right: 5px;
     padding: 16px;
+    width: 40px;
 }
 
 .btn-ud {
@@ -201,6 +202,7 @@ tr:nth-child(even) {
     background-color: #7db641;
     border-color: #7db641;
     margin-right: 8px;
+    width: 100%;
     /* margin-top: -23%; */
     /* border: 1px solid #8D8D8D; */
     font-size: 0.9rem;

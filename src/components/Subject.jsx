@@ -1,10 +1,11 @@
 import React, { Component, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { convertPrice } from "./common.js";
+import { api_subject} from "./API"
 
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
-import { faFontAwesomeLogoFull } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import SubjectForm from "./SubjectForm";
 
 class Subject extends Component {
   constructor(props) {
@@ -15,11 +16,13 @@ class Subject extends Component {
       size: 10,
       sizePage: 0,
       data: [],
+      showModal: false,
+      param:{}
     };
   }
 
   componentDidMount() {
-    fetch("http://93.188.162.82:8082/subjects")
+    fetch(api_subject)
       .then((res) => res.json())
       .then((json) => {
         const size = parseInt(json.totalElements / this.state.size) + 1;
@@ -34,6 +37,31 @@ class Subject extends Component {
 
       console.log('call api product');
   }
+
+  changeModel = (dataSet, index) => {
+    var newState = Object.assign({}, this.state);
+    newState.showModal = !newState.showModal;
+    if (dataSet != null)
+      newState = { ...newState, param: dataSet, index: index };
+    else newState = { ...newState, param: dataSet, isCreate: true };
+
+    this.setState(newState);
+  };
+
+  setData = (data, index) => {
+    var newData = Object.assign([], this.state.data);
+
+    if (index === -1) {
+      console.log("***********");
+      console.log(newData.length);
+      newData = [data, ...newData];
+      console.log(data);
+      console.log(newData);
+    } else newData[index] = data;
+
+    const newState = { ...this.state, data: newData };
+    this.setState(newState);
+  };
 
   setPage = (index) => {
     const newState = Object.assign({}, this.state);
@@ -72,6 +100,9 @@ class Subject extends Component {
         style={{ fontSize: "17px" }}
       >
         {this.state.loading && <div class="loader" id="loader"></div>}
+        <button class="dropbtn dropup" onClick={() => this.changeModel()}>
+            Thêm mới
+          </button>
         <h2
           className=" text-center head_tag"
           data-wow-duration="1s"
@@ -113,19 +144,19 @@ class Subject extends Component {
                       class="btn btn-default btn-rm"
                       onclick="deleteProduct(${product.id});"
                     >
-                      <FontAwesomeIcon icon="trash-alt" className="icon" />
+                      <FontAwesomeIcon icon={faTrashAlt} className="icon" />
                     </button>
                     <button
                       class="btn btn-default btn-ud"
-                      onClick={() => this.changeModel()}
+                      onClick={() => this.changeModel(feedback)}
                     >
-                      <FontAwesomeIcon icon="edit" className="icon" />
+                      <FontAwesomeIcon icon={faEdit} className="icon" />
                     </button>
                     <button
                       class="btn btn-default btn-dt"
-                      onClick={() => this.setDetail(feedback.id)}
+                      
                     >
-                      <FontAwesomeIcon icon="eye" className="icon" />
+                      <FontAwesomeIcon icon={faEye} className="icon" />
                     </button>
                     </td>
                   </tr>
@@ -136,6 +167,19 @@ class Subject extends Component {
         <ul class="pagination" id="pageTag1">
           {listPage}
         </ul>
+        {this.state.showModal ? (
+            <div className="modal" style={{ display: "flex" }}>
+              <div class="modal__overlay"></div>
+              <div class="modal__body">
+                <SubjectForm
+                  param={this.state.param}
+                  eventBack={() => this.changeModel()}
+                  setData={this.setData}
+                  index={this.state.index}
+                ></SubjectForm>
+              </div>
+            </div>
+          ) : null}
       </div>
     );
   }
