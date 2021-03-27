@@ -16,7 +16,7 @@ import Course from "./Course";
 import Subject from "./Subject";
 import Student from "./Student";
 import Schedule from "./Schedule";
-import Room from "./Room";
+import Class from "./Class";
 import History from "./History";
 import Infrastructure from "./Infrastructure";
 import RegistryCourse from "./RegistryCourse";
@@ -49,7 +49,7 @@ class ManageAdmin extends Component {
           {this.state.screen === "subject" && <Subject />}
           {this.state.screen === "student" && <Student />}
           {this.state.screen === "schedule" && <Schedule />}
-          {this.state.screen === "room" && <Room />}
+          {this.state.screen === "room" && <Class />}
           {this.state.screen === "history" && <History />}
           {this.state.screen === "infrastructure" && <Infrastructure />}
           {this.state.screen === "order" && <RegistryCourse />}

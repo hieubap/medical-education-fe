@@ -23,6 +23,22 @@ class Student extends Component {
           name: "Ngô Quang hiếu",
           status: "đang học",
         },
+        {
+          id: 1,
+          code: "20182514",
+          createdAt: "19-03-2021 06:00:00",
+          createdBy: "ngo quang hieu",
+          name: "Ngô Quang hiếu",
+          status: "đang học",
+        },
+        {
+          id: 1,
+          code: "20182514",
+          createdAt: "19-03-2021 06:00:00",
+          createdBy: "ngo quang hieu",
+          name: "Ngô Quang hiếu",
+          status: "đang học",
+        },
       ],
     };
   }

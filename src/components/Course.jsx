@@ -126,7 +126,6 @@ class Course extends Component {
     if (this.state.isDetail) {
       return (
         <div
-          id="screen4"
           className="container screen"
           style={{ fontSize: "17px" }}
         >

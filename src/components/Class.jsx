@@ -1,12 +1,13 @@
 import React, { Component, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { convertPrice } from "./common.js";
+import {url_class} from "./API"
 
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
 import { faFontAwesomeLogoFull } from "@fortawesome/free-solid-svg-icons";
 
-class Room extends Component {
+class Class extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,13 +16,25 @@ class Room extends Component {
       size: 10,
       sizePage: 0,
       data: [
-        {
-          class: "Lớp A",
-          teacher:"giáo viên dạy học",
-          course:"khóa học thứ 1"
-        },
       ],
     };
+  }
+
+  componentDidMount() {
+    fetch(url_class)
+      .then((res) => res.json())
+      .then((json) => {
+        const size = parseInt(json.totalElements / this.state.size) + 1;
+        console.log(json.data);
+        this.setState({
+          loading: false,
+          data: json.data,
+          detail: new Array(json.data.length).fill(true),
+          sizePage: size,
+        });
+      });
+
+    console.log("call api product");
   }
 
   setPage = (index) => {
@@ -71,9 +84,15 @@ class Room extends Component {
         <div>
           <table>
             <tr>
+              <th>ID</th>
               <th>Tên lớp</th>
               <th>Khóa học</th>
               <th>Giáo viên</th>
+              <th>Băt đầu</th>
+              <th>Kết thúc</th>
+              <th>Số lượng đăng kí</th>
+              <th>Trạng thái</th>
+              
               <th></th>
             </tr>
             {this.state.data.map((feedback, index) => {
@@ -83,9 +102,14 @@ class Room extends Component {
               )
                 return (
                   <tr style={{ fontSize: "17px" }}>
-                    <td style={{ width: "15%" }}>{feedback.class}</td>
-                    <td>{feedback.course}</td>
+                    <td>{feedback.id}</td>
+                    <td style={{ width: "15%" }}>{feedback.subject.name}</td>
+                    <td>{feedback.subject.name}</td>
                     <td>{feedback.teacher}</td>
+                    <td>{feedback.start}</td>
+                    <td>{feedback.end}</td>
+                    <td>{feedback.numberRegister}</td>
+                    <td>{feedback.status}</td>
                     <td style={{ width: "17%" }}>
                       <button
                         style={{ marginRight: "20px" }}
@@ -120,4 +144,4 @@ class Room extends Component {
   }
 }
 
-export default Room;
+export default Class;

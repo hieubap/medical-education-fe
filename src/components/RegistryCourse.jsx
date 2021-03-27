@@ -5,6 +5,7 @@ import { convertPrice } from "./common.js";
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
 import { faFontAwesomeLogoFull } from "@fortawesome/free-solid-svg-icons";
+import { url_course_register } from "./API.js";
 
 class RegistryCourse extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class RegistryCourse extends Component {
           class: "Lớp A",
         },
       ],
+      codeSubject:""
     };
   }
 
@@ -42,6 +44,30 @@ class RegistryCourse extends Component {
     this.setState(newState);
   };
 
+  registerCourse = (index) => {
+    var json = JSON.stringify({
+
+    });
+    fetch(url_course_register,{
+      method:"post",
+      body:json
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        
+      });
+    const newState = Object.assign({}, this.state);
+    newState.data = newState.data.splice(index, 1);
+    this.setState(newState);
+  };
+
+  change = (e) => {
+    var newParam = Object.assign({}, this.state.props.param);
+    newParam = { ...newParam, [e.target.name]: e.target.value };
+    const newProps = { ...this.state.props, param: newParam };
+    this.setState({ ...this.state, props: newProps });
+  };
+  
   render() {
     var listPage = [];
     for (let i = 0; i < 5; i++) {
@@ -55,18 +81,23 @@ class RegistryCourse extends Component {
     }
 
     return (
-      <div
-        id="screen4"
-        className="container screen"
-        style={{ fontSize: "17px" }}
-      >
+      <div className="container screen" style={{ fontSize: "17px" }}>
         {/* {this.state.loading && <div class="loader" id="loader"></div>} */}
+        <button class="dropbtn dropup" onClick={() => this.changeModel()}>
+          đăng kí
+        </button>
+        <input
+          type="text"
+          class=""
+          style={{ float: "right", width: "200px", marginLeft: "100px" }}
+          value={this.state.codeSubject}
+        ></input>
         <h2
           className=" text-center head_tag"
           data-wow-duration="1s"
           data-wow-delay="0.1s"
         >
-          Thông báo
+          Đăng kí môn học
         </h2>
         <div>
           <table>
