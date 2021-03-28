@@ -5,8 +5,9 @@ import { convertPrice } from "./common.js";
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
 import { faFontAwesomeLogoFull } from "@fortawesome/free-solid-svg-icons";
+import { api_study_process } from "./API.js";
 
-class History extends Component {
+class StudyProcess extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,14 +15,26 @@ class History extends Component {
       page: 0,
       size: 10,
       sizePage: 0,
-      data: [
-        {
-          id: 1,
-          time: "06:00 - 08:00",
-          class: "Lớp A",
-        },
-      ],
+      data: [],
     };
+  }
+
+  componentDidMount() {
+    fetch(api_study_process)
+      .then((res) => res.json())
+      .then((json) => {
+        const size = parseInt(json.totalElements / this.state.size) + 1;
+        console.log(json.data);
+        this.setState({
+          ...this.state,
+          loading: false,
+          data: json.data,
+          detail: new Array(json.data.length).fill(true),
+          sizePage: size,
+        });
+      });
+
+    console.log("call api product");
   }
 
   setPage = (index) => {
@@ -66,13 +79,20 @@ class History extends Component {
           data-wow-duration="1s"
           data-wow-delay="0.1s"
         >
-          Thông báo
+          Kết quả học tập
         </h2>
         <div>
           <table>
             <tr>
-              <th>Thời gian</th>
-              <th>Các lớp</th>
+              <th>stt</th>
+              <th>Mã Môn học</th>
+              <th>Môn học</th>
+              <th>Điểm danh</th>
+              <th>Điểm giữa kì</th>
+              <th>Điểm cuối kì</th>
+              <th>Trung bình</th>
+              <th>Điểm</th>
+              
             </tr>
             {this.state.data.map((feedback, index) => {
               if (
@@ -81,8 +101,16 @@ class History extends Component {
               )
                 return (
                   <tr style={{ fontSize: "17px" }}>
-                    <td style={{ width: "15%" }}>{feedback.time}</td>
-                    <td>{feedback.class}</td>
+                    <td>{index+1}</td>
+                    <td>{feedback.subject.code}</td>
+                    <td>{feedback.subject.name}</td>
+                    <td>{feedback.muster}</td>
+                    <td>{feedback.midPoint}</td>
+                    <td>{feedback.endPoint}</td>
+                    <td>{feedback.total}</td>
+                    <td>{feedback.time}</td>
+                    
+
                   </tr>
                 );
             })}
@@ -96,4 +124,4 @@ class History extends Component {
   }
 }
 
-export default History;
+export default StudyProcess;

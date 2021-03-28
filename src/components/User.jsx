@@ -4,7 +4,15 @@ import { convertPrice } from "./common.js";
 
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
-import { faFontAwesomeLogoFull } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faEye,
+  faFontAwesomeLogoFull,
+  faLock,
+  faTrash,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import { api_user } from "./API.js";
 
 class User extends Component {
   constructor(props) {
@@ -14,14 +22,26 @@ class User extends Component {
       page: 0,
       size: 10,
       sizePage: 0,
-      data: [
-        {
-          id: 1,
-          time: "06:00 - 08:00",
-          class: "Lớp A",
-        },
-      ],
+      data: [],
     };
+  }
+
+  componentDidMount() {
+    fetch(api_user)
+      .then((res) => res.json())
+      .then((json) => {
+        const size = parseInt(json.totalElements / this.state.size) + 1;
+        console.log(json.data);
+        this.setState({
+          ...this.state,
+          loading: false,
+          data: json.data,
+          detail: new Array(json.data.length).fill(true),
+          sizePage: size,
+        });
+      });
+
+    console.log("call api product");
   }
 
   setPage = (index) => {
@@ -66,13 +86,25 @@ class User extends Component {
           data-wow-duration="1s"
           data-wow-delay="0.1s"
         >
-          Thông báo
+          Quản lý tài khoản
         </h2>
         <div>
-          <table>
+          <table style={{overflow:"scroll"}}>
             <tr>
-              <th>Thời gian</th>
-              <th>Các lớp</th>
+              <th>stt</th>
+              <th>ID</th>
+              <th>Tên</th>
+              <th>Username</th>
+              <th>Trạng thái</th>
+              <th>Vai trò</th>
+              <th>Giới tính</th>
+              <th>Tuổi</th>
+              <th>Địa chỉ</th>
+              <th>SĐT</th>
+              <th>email</th>
+              <th>Ngày tạo</th>
+              <th>Ngày cập nhật</th>
+              <th></th>
             </tr>
             {this.state.data.map((feedback, index) => {
               if (
@@ -81,8 +113,44 @@ class User extends Component {
               )
                 return (
                   <tr style={{ fontSize: "17px" }}>
-                    <td style={{ width: "15%" }}>{feedback.time}</td>
-                    <td>{feedback.class}</td>
+                    <td>{index + 1}</td>
+                    <td>{feedback.id}</td>
+                    <td>{feedback.fullName}</td>
+                    <td>{feedback.username}</td>
+                    <td>{feedback.status}</td>
+                    <td>{feedback.role}</td>
+                    <td>{feedback.gender}</td>
+                    <td>{feedback.age}</td>
+                    <td>{feedback.address}</td>
+                    <td>{feedback.phoneNumber}</td>
+                    <td>{feedback.email}</td>
+                    <td>{feedback.createAt}</td>
+                    <td>{feedback.updateAt}</td>
+                    <td style={{ width: "17%" }}>
+                    <button
+                        class="btn btn-default btn-rm"
+                        onclick="deleteProduct(${product.id});"
+                      >
+                        <FontAwesomeIcon icon={faTrashAlt} className="icon" />
+                      </button>
+                      <button
+                        class="btn btn-default btn-mangeto"
+                      >
+                        <FontAwesomeIcon icon={faLock} className="icon" />
+                      </button>
+                      <button
+                        class="btn btn-default btn-ud"
+                        onClick={() => this.changeModel()}
+                      >
+                        <FontAwesomeIcon icon={faEdit} className="icon" />
+                      </button>
+                      <button
+                        class="btn btn-default btn-dt"
+                        onClick={() => this.setDetail(feedback.id)}
+                      >
+                        <FontAwesomeIcon icon={faEye} className="icon" />
+                      </button>
+                    </td>
                   </tr>
                 );
             })}

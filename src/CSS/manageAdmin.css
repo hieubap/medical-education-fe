@@ -114,7 +114,7 @@ tr:nth-child(even) {
 
 .btn-default.active,
 .open .dropdown-toggle .btn-default,
-.btn-default:not(.btn-ud, .btn-dt, .btn-rm):hover,
+.btn-default:not(.btn-mangeto.btn-ud, .btn-dt, .btn-rm):hover,
 .btn-default:active {
     color: #fff;
     background-color: #c83a3a !important;
@@ -137,6 +137,9 @@ tr:nth-child(even) {
 
 .btn-ck {
     background-color: #f4a838;
+}
+.btn-mangeto {
+    background-color: #ac14ea;
 }
 
 .btn-rm:hover {

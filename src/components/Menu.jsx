@@ -56,39 +56,25 @@ class Menu extends Component {
           Quản lý môn học
         </button>
         <button
-          id="m3"
-          class={this.state.status[3]}
-          onClick={() => this.setActive(3,'student')}
-        >
-          Quản lý học viên
-        </button>
-        <button
-          id="m4"
-          class={this.state.status[4]}
-          onClick={() => this.setActive(4,'schedule')}
-        >
-          Lịch
-        </button>
-        <button
           id="m5"
           class={this.state.status[5]}
           onClick={() => this.setActive(5,'room')}
         >
-          Lớp
-        </button>
-        <button
-          id="m6"
-          class={this.state.status[6]}
-          onClick={() => this.setActive(6,'history')}
-        >
-          Lịch sử học tập
+          Quản lý lớp
         </button>
         <button
           id="m7"
           class={this.state.status[7]}
           onClick={() => this.setActive(7,'infrastructure')}
         >
-          Cơ sở
+          Quản lý địa điểm
+        </button>
+        <button
+          id="m3"
+          class={this.state.status[3]}
+          onClick={() => this.setActive(3,'student')}
+        >
+          Quản lý học viên
         </button>
         <button
           id="m9"
@@ -97,12 +83,27 @@ class Menu extends Component {
         >
           Đăng ký
         </button>
+
+        <button
+          id="m4"
+          class={this.state.status[4]}
+          onClick={() => this.setActive(4,'schedule')}
+        >
+          Lịch
+        </button>
+        <button
+          id="m6"
+          class={this.state.status[6]}
+          onClick={() => this.setActive(6,'history')}
+        >
+          Kết quả học tập
+        </button>
         <button
           id="m10"
           class={this.state.status[9]}
           onClick={() => this.setActive(9,'user')}
         >
-          Quản Lý Người dùng
+          Quản Lý Tài khoản
         </button>
         <button
           id="m11"

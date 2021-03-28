@@ -1,11 +1,12 @@
 import React, { Component, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { convertPrice } from "./common.js";
-import {url_class} from "./API"
+import {api_class, url_class} from "./API"
 
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
-import { faFontAwesomeLogoFull } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faEdit, faEye, faTrashAlt, faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import ClassDetail from "./ClassDetail.jsx";
 
 class Class extends Component {
   constructor(props) {
@@ -15,8 +16,10 @@ class Class extends Component {
       page: 0,
       size: 10,
       sizePage: 0,
-      data: [
-      ],
+      data: [],
+      isDetail: false,
+      idDetail: -1,
+      
     };
   }
 
@@ -29,13 +32,20 @@ class Class extends Component {
         this.setState({
           loading: false,
           data: json.data,
-          detail: new Array(json.data.length).fill(true),
+          isDetail: false,
           sizePage: size,
         });
       });
 
     console.log("call api product");
   }
+
+  detail = (id) => {
+    var newState = Object.assign({}, this.state);
+    newState.isDetail = true;
+    newState.idDetail = id;
+    this.setState(newState);
+  };
 
   setPage = (index) => {
     const newState = Object.assign({}, this.state);
@@ -55,6 +65,10 @@ class Class extends Component {
     this.setState(newState);
   };
 
+  back = () => {
+    this.setState({ ...this.state, isDetail: false });
+  };
+
   render() {
     var listPage = [];
     for (let i = 0; i < 5; i++) {
@@ -67,6 +81,12 @@ class Class extends Component {
       );
     }
 
+    if(this.state.isDetail){
+      return (
+        <ClassDetail id={this.state.idDetail} back={() => this.back()} ></ClassDetail>
+      );
+    }
+    else
     return (
       <div
         id="screen4"
@@ -79,7 +99,7 @@ class Class extends Component {
           data-wow-duration="1s"
           data-wow-delay="0.1s"
         >
-          Thông báo
+          Lớp
         </h2>
         <div>
           <table>
@@ -92,7 +112,6 @@ class Class extends Component {
               <th>Kết thúc</th>
               <th>Số lượng đăng kí</th>
               <th>Trạng thái</th>
-              
               <th></th>
             </tr>
             {this.state.data.map((feedback, index) => {
@@ -116,19 +135,24 @@ class Class extends Component {
                         class="btn btn-default btn-rm"
                         onclick="deleteProduct(${product.id});"
                       >
-                        <FontAwesomeIcon icon="trash-alt" className="icon" />
+                        <FontAwesomeIcon icon={faWindowClose} className="icon" />
                       </button>
                       <button
                         class="btn btn-default btn-ud"
-                        onClick={() => this.changeModel()}
+                        // onClick={() => this.changeModel()}
                       >
-                        <FontAwesomeIcon icon="edit" className="icon" />
+                        <FontAwesomeIcon icon={faEdit} className="icon" />
                       </button>
                       <button
                         class="btn btn-default btn-dt"
-                        onClick={() => this.setDetail(feedback.id)}
+                        onClick={() => this.detail(feedback.id)}
                       >
-                        <FontAwesomeIcon icon="eye" className="icon" />
+                        <FontAwesomeIcon icon={faEye} className="icon" />
+                      </button>
+                      <button
+                        class="btn btn-default btn-ck"
+                      >
+                        <FontAwesomeIcon icon={faCheckCircle} className="icon" />
                       </button>
                     </td>
                   </tr>

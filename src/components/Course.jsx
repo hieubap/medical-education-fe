@@ -24,7 +24,7 @@ class Course extends Component {
       showModal: false,
       isDetail: false,
       idDetail: -1,
-      param: {}
+      param: {},
     };
   }
 
@@ -87,15 +87,14 @@ class Course extends Component {
   };
 
   detail = (id) => {
-    var newState = Object.assign({},this.state);
+    var newState = Object.assign({}, this.state);
     newState.isDetail = true;
     newState.idDetail = id;
-    fetch(api_course+ "?id=" + id, {
-    })
+    fetch(api_course + "?id=" + id, {})
       .then((res) => res.json())
       .then((json) => {
         if (json.code === 200) {
-          console.log('code 200');
+          console.log("code 200");
         }
       });
     this.setState(newState);
@@ -109,6 +108,10 @@ class Course extends Component {
     else newState = { ...newState, param: dataSet, isCreate: true };
 
     this.setState(newState);
+  };
+
+  back = () => {
+    this.setState({ ...this.state, isDetail: false });
   };
 
   render() {
@@ -125,31 +128,11 @@ class Course extends Component {
 
     if (this.state.isDetail) {
       return (
-        <div
-          className="container screen"
-          style={{ fontSize: "17px" }}
-        >
-          {this.state.loading && <div class="loader" id="loader"></div>}
-          <button class="dropbtn dropup" onClick={() => this.changeModel()}>
-            Thêm mới
-          </button>
-          <h2
-            className=" text-center head_tag"
-            data-wow-duration="1s"
-            data-wow-delay="0.1s"
-          >
-            Khóa học
-          </h2>
-          
-          <CourseDetail id={this.state.idDetail}></CourseDetail>
-        </div>
+        <CourseDetail id={this.state.idDetail} back={() => this.back()} />
       );
     } else
       return (
-        <div
-          className="container screen"
-          style={{ fontSize: "17px" }}
-        >
+        <div className="container screen" style={{ fontSize: "17px" }}>
           {this.state.loading && <div class="loader" id="loader"></div>}
           <button class="dropbtn dropup" onClick={() => this.changeModel()}>
             Thêm mới
@@ -169,6 +152,8 @@ class Course extends Component {
                 <th>Tên khóa học</th>
                 <th>Người tạo</th>
                 <th>Giá</th>
+                <th>Số lượng đăng kí</th>
+                <th>Số lượng đăng kí mới</th>
                 <th></th>
               </tr>
               {this.state.data.map((feedback, index) => {
@@ -190,6 +175,8 @@ class Course extends Component {
                       <td style={{ width: "15%" }}>{feedback.name}</td>
                       <td style={{ width: "15%" }}>{feedback.createdBy}</td>
                       <td>{convertPrice(feedback.price)}</td>
+                      <td></td>
+                      <td></td>
                       <td style={{ width: "17%" }}>
                         <button
                           style={{ marginRight: "20px" }}
@@ -204,8 +191,10 @@ class Course extends Component {
                         >
                           <FontAwesomeIcon icon={faEdit} className="icon" />
                         </button>
-                        <button class="btn btn-default btn-dt"
-                        onClick={() => this.detail(feedback.id)}>
+                        <button
+                          class="btn btn-default btn-dt"
+                          onClick={() => this.detail(feedback.id)}
+                        >
                           <FontAwesomeIcon icon={faEye} className="icon" />
                         </button>
                       </td>

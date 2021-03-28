@@ -85,7 +85,6 @@ tr:nth-child(even) {
 
 .btn-default {
     color: #fff;
-    background-color: #7db641;
     border-color: #7db641;
     margin-top: 10px;
     border-radius: 2px;
@@ -94,7 +93,7 @@ tr:nth-child(even) {
 
 .btn-default.active,
 .open .dropdown-toggle .btn-default,
-.btn-default:not(.btn-ud, .btn-dt, .btn-rm):hover,
+.btn-default:not(.btn-blue, .btn-dt, .btn-red, .btn-mangeto):hover,
 .btn-default:active {
     color: #fff;
     background-color: #c83a3a !important;
@@ -108,23 +107,28 @@ tr:nth-child(even) {
     width: 40px;
 }
 
-.btn-ud {
+.btn-blue {
     background-color: royalblue;
 }
-
-.btn-rm {
+.btn-red {
     background-color: #c83a3a;
 }
-
-.btn-ck {
+.btn-yellow {
     background-color: #f4a838;
 }
+.btn-green {
+    background-color: #7db641;
+}
+.btn-mangeto {
+    background-color: #ac14ea;
+}
 
-.btn-rm:hover {
+
+.btn-red:hover {
     background-color: #d84a4a;
 }
 
-.btn-ud:hover {
+.btn-blue:hover {
     background-color: #6189f1;
 }
 

@@ -17,8 +17,8 @@ import Subject from "./Subject";
 import Student from "./Student";
 import Schedule from "./Schedule";
 import Class from "./Class";
-import History from "./History";
-import Infrastructure from "./Infrastructure";
+import StudyProcess from "./StudyProcess";
+import Place from "./Place";
 import RegistryCourse from "./RegistryCourse";
 import User from "./User.jsx";
 
@@ -50,8 +50,8 @@ class ManageAdmin extends Component {
           {this.state.screen === "student" && <Student />}
           {this.state.screen === "schedule" && <Schedule />}
           {this.state.screen === "room" && <Class />}
-          {this.state.screen === "history" && <History />}
-          {this.state.screen === "infrastructure" && <Infrastructure />}
+          {this.state.screen === "history" && <StudyProcess />}
+          {this.state.screen === "infrastructure" && <Place />}
           {this.state.screen === "order" && <RegistryCourse />}
           {this.state.screen === "user" && <User />}
           {this.state.screen === "feedback" && <FeedBack />}

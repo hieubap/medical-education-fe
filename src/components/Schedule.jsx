@@ -5,6 +5,7 @@ import { convertPrice } from "./common.js";
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
 import { faFontAwesomeLogoFull } from "@fortawesome/free-solid-svg-icons";
+import { api_class_register } from "./API.js";
 
 class Schedule extends Component {
   constructor(props) {
@@ -14,14 +15,26 @@ class Schedule extends Component {
       page: 0,
       size: 10,
       sizePage: 0,
-      data: [
-        {
-          id: 1,
-          time: "06:00 - 08:00",
-          class: "Lớp A",
-        },
-      ],
+      data: [],
     };
+  }
+
+  componentDidMount() {
+    fetch(api_class_register)
+      .then((res) => res.json())
+      .then((json) => {
+        const size = parseInt(json.totalElements / this.state.size) + 1;
+        console.log(json.data);
+        this.setState({
+          ...this.state,
+          loading: false,
+          data: json.data,
+          detail: new Array(json.data.length).fill(true),
+          sizePage: size,
+        });
+      });
+
+    console.log("call api product");
   }
 
   setPage = (index) => {
@@ -66,13 +79,15 @@ class Schedule extends Component {
           data-wow-duration="1s"
           data-wow-delay="0.1s"
         >
-          Thông báo
+          Lịch 
         </h2>
         <div>
           <table>
             <tr>
+              <th>stt</th>
               <th>Thời gian</th>
-              <th>Các lớp</th>
+              <th>Lớp</th>
+              <th>Địa điểm</th>
             </tr>
             {this.state.data.map((feedback, index) => {
               if (
@@ -81,8 +96,12 @@ class Schedule extends Component {
               )
                 return (
                   <tr style={{ fontSize: "17px" }}>
-                    <td style={{ width: "15%" }}>{feedback.time}</td>
-                    <td>{feedback.class}</td>
+                    <td>{index+1}</td>
+                    <td>{feedback.time}</td>
+                    <td>{feedback.subjectName}</td>
+                    <td>{feedback.place.address}</td>
+                    
+
                   </tr>
                 );
             })}

@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import UniqueId from "react-html-id";
 import {
-  api_course,
-  api_course_delete,
-  api_course_update,
-  api_subject,
+  api_place,
   api_subject_update,
   token,
 } from "./API.js";
@@ -16,7 +13,7 @@ import "./../CSS/base.css";
 import "./../CSS/grid.css";
 import "./../CSS/responsive.css";
 
-class SubjectForm extends Component {
+class PlaceForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,7 +40,7 @@ class SubjectForm extends Component {
     var bodyRequest = JSON.stringify({...this.state.props.param,id:null});
     console.log(this.state.props.param);
     this.state.loading = true;
-    fetch(api_subject, {
+    fetch(api_place, {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -69,9 +66,8 @@ class SubjectForm extends Component {
     e.preventDefault();
     console.log(this.state.props.param);
     var bodyRequest = JSON.stringify(this.state.props.param);
-    // this.props.eventChange();
     this.state.loading = true;
-    fetch(api_subject_update + this.state.props.param.id, {
+    fetch(api_place +"/"+ this.state.props.param.id, {
       method: "put",
       headers: {
         "content-type": "application/json",
@@ -104,52 +100,13 @@ class SubjectForm extends Component {
           <div style={{ display: "flex", flexDirection: "row" }}>
             <div style={{ flexBasis: "100%" }}>
               <div className="create_groups">
-                <label>Mã Môn học</label>
+                <label>Địa điểm</label>
                 <input
                   type="text"
-                  name="value"
+                  name="address"
                   value={
                     this.state.props.param != null
                       ? this.state.props.param.value
-                      : ""
-                  }
-                  onChange={this.change.bind(this)}
-                />
-              </div>
-              <div className="create_groups">
-                <label>Tên</label>
-                <input
-                  name="name"
-                  type="text"
-                  value={
-                    this.state.props.param != null
-                      ? this.state.props.param.name
-                      : ""
-                  }
-                  onChange={this.change.bind(this)}
-                />
-              </div>
-              <div className="create_groups">
-                <label>Loại</label>
-                <input
-                  name="type"
-                  type="text"
-                  value={
-                    this.state.props.param != null
-                      ? this.state.props.param.type
-                      : ""
-                  }
-                  onChange={this.change.bind(this)}
-                />
-              </div>
-              <div className="create_groups">
-                <label>Chi Tiết</label>
-                <input
-                  name="detail"
-                  type="text"
-                  value={
-                    this.state.props.param != null
-                      ? this.state.props.param.details
                       : ""
                   }
                   onChange={this.change.bind(this)}
@@ -184,4 +141,4 @@ class SubjectForm extends Component {
   }
 }
 
-export default SubjectForm;
+export default PlaceForm;

@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import UniqueId from "react-html-id";
 import {
-  api_course,
-  api_course_delete,
-  api_course_update,
+  api_class,
   url_course_subject,
   token,
   api_subject,
+  url_class,
 } from "./API.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,7 +17,7 @@ import "./../CSS/grid.css";
 import "./../CSS/responsive.css";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
-class CourseDetail extends Component {
+class ClassDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +28,7 @@ class CourseDetail extends Component {
   }
 
   componentDidMount() {
-    fetch(api_course + "?id=" + this.props.id)
+    fetch(api_class + "?id=" + this.props.id)
       .then((res) => res.json())
       .then((json) => {
         if (json.code === 200) {
@@ -40,22 +39,8 @@ class CourseDetail extends Component {
           });
         }
       });
-    fetch(api_subject)
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.code === 200) {
-          console.log("call api course detail");
-          this.setState({
-            ...this.state,
-            loading: false,
-            subjects: json.data,
-          });
-        } else {
-          toast.error(json.message);
-        }
-      });
 
-    console.log("call api product");
+    console.log("call api class ...");
   }
 
   setSelectSubject = (id) => {
@@ -124,7 +109,7 @@ class CourseDetail extends Component {
 
   render() {
     console.log(this.state.data);
-    if (this.state.data == null || this.state.subjects == null)
+    if (this.state.data == null)
       return <div></div>;
     else
       return (
@@ -139,18 +124,8 @@ class CourseDetail extends Component {
             data-wow-duration="1s"
             data-wow-delay="0.1s"
           >
-            Khóa học \ {this.state.data.name}
+            Lớp \ {this.state.data.name}
           </h2>
-          <select
-            class="create_input select-type-product"
-            name="carlist"
-            form="carform"
-            onChange={(e) => this.setSelectSubject(e.target.value)}
-          >
-            {this.state.subjects.map((subject, index) => {
-              return <option value={subject.id}>{subject.name}</option>;
-            })}
-          </select>
           <button class="dropbtn dropup" onClick={() => this.add()}>
             Thêm Môn
           </button>
@@ -159,12 +134,12 @@ class CourseDetail extends Component {
             <div style={{ backgroundColor: "#ddd", width: "50%" }}>
               <table>
                 <tr>
-                  <td>Mã khóa học</td>
+                  <td>Mã lớp học</td>
                   <td>{this.state.data.id}</td>
                 </tr>
                 <tr>
-                  <td>Tên khóa học</td>
-                  <td>{this.state.data.name}</td>
+                  <td>Môn học</td>
+                  <td>{this.state.data.subject.name}</td>
                 </tr>
                 <tr>
                   <td>Thời gian</td>
@@ -177,31 +152,21 @@ class CourseDetail extends Component {
               </table>
             </div>
             <div style={{ backgroundColor: "#ddd", width: "50%" }}>
-              <div>Các môn trong chương trình:</div>
+              <div>Các học viên đăng kí:</div>
               <table>
                 <tr>
                   <th>stt</th>
-                  <th>mã môn học</th>
-                  <th>tên môn học</th>
-                  <th>Thời gian học</th>
-                  <th></th>
+                  <th>Mã học viên</th>
+                  <th>tên học viên</th>
+                  <th>Thời gian đăng kí</th>
                 </tr>
-                {this.state.data.subjects.map((subject, index) => {
+                {this.state.data.register.map((subject, index) => {
                   return (
                     <tr>
                       <td>{index + 1}</td>
                       <td>{subject.id}</td>
-                      <td>{subject.name}</td>
-                      <td>{subject.id}</td>
-                      <td>
-                        <button
-                          style={{ marginRight: "20px" }}
-                          class="btn btn-default btn-rm"
-                          onClick={() => this.remove(subject.id, index)}
-                        >
-                          <FontAwesomeIcon icon={faTrashAlt} className="icon" />
-                        </button>
-                      </td>
+                      <td>{subject.fullName}</td>
+                      <td>{subject.createAt}</td>
                     </tr>
                   );
                 })}
@@ -213,4 +178,4 @@ class CourseDetail extends Component {
   }
 }
 
-export default CourseDetail;
+export default ClassDetail;

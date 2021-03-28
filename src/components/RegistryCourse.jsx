@@ -4,7 +4,7 @@ import { convertPrice } from "./common.js";
 
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
-import { faFontAwesomeLogoFull } from "@fortawesome/free-solid-svg-icons";
+import { faDoorClosed, faFontAwesomeLogoFull, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { url_course_register } from "./API.js";
 
 class RegistryCourse extends Component {
@@ -15,15 +15,27 @@ class RegistryCourse extends Component {
       page: 0,
       size: 10,
       sizePage: 0,
-      data: [
-        {
-          id: 1,
-          time: "06:00 - 08:00",
-          class: "Lớp A",
-        },
-      ],
-      codeSubject:""
+      data: [],
+      codeSubject: "",
     };
+  }
+
+  componentDidMount() {
+    fetch(url_course_register)
+      .then((res) => res.json())
+      .then((json) => {
+        const size = parseInt(json.totalElements / this.state.size) + 1;
+        console.log(json.data);
+        this.setState({
+          ...this.state,
+          loading: false,
+          data: json.data,
+          detail: new Array(json.data.length).fill(true),
+          sizePage: size,
+        });
+      });
+
+    console.log("call api product");
   }
 
   setPage = (index) => {
@@ -45,17 +57,13 @@ class RegistryCourse extends Component {
   };
 
   registerCourse = (index) => {
-    var json = JSON.stringify({
-
-    });
-    fetch(url_course_register,{
-      method:"post",
-      body:json
+    var json = JSON.stringify({});
+    fetch(url_course_register, {
+      method: "post",
+      body: json,
     })
       .then((res) => res.json())
-      .then((json) => {
-        
-      });
+      .then((json) => {});
     const newState = Object.assign({}, this.state);
     newState.data = newState.data.splice(index, 1);
     this.setState(newState);
@@ -67,7 +75,7 @@ class RegistryCourse extends Component {
     const newProps = { ...this.state.props, param: newParam };
     this.setState({ ...this.state, props: newProps });
   };
-  
+
   render() {
     var listPage = [];
     for (let i = 0; i < 5; i++) {
@@ -97,25 +105,47 @@ class RegistryCourse extends Component {
           data-wow-duration="1s"
           data-wow-delay="0.1s"
         >
-          Đăng kí môn học
+          Đăng kí Khóa học
         </h2>
         <div>
           <table>
             <tr>
-              <th>Thời gian</th>
-              <th>Các lớp</th>
+              <th>stt</th>
+              <th>Ngày đăng kí</th>
+              <th>Ngày cập nhật</th>
+              <th>Mã sinh viên</th>
+              <th>Tên sinh viên</th>
+              <th>Mã Khóa học</th>
+              <th>Khóa đăng kí</th>
+              <th></th>
             </tr>
             {this.state.data.map((feedback, index) => {
               if (
                 this.state.page * this.state.size <= index &&
                 index < (this.state.page + 1) * this.state.size
-              )
-                return (
-                  <tr style={{ fontSize: "17px" }}>
-                    <td style={{ width: "15%" }}>{feedback.time}</td>
-                    <td>{feedback.class}</td>
-                  </tr>
-                );
+              ) {
+                console.log(feedback);
+              }
+              return (
+                <tr style={{ fontSize: "17px" }}>
+                  <td>{index + 1}</td>
+                  <td>{feedback.createAt}</td>
+                  <td>{feedback.updateAt}</td>
+                  <td>{feedback.student.code}</td>
+                  <td>{feedback.student.fullName}</td>
+                  <td>{feedback.course.code}</td>
+                  <td>{feedback.course.name}</td>
+                  <td>
+                    <button
+                      style={{ marginRight: "20px" }}
+                      class="btn btn-default btn-rm"
+                      onclick="deleteProduct(${product.id});"
+                    >
+                      <FontAwesomeIcon icon={faWindowClose} className="icon" />
+                    </button>
+                  </td>
+                </tr>
+              );
             })}
           </table>
         </div>

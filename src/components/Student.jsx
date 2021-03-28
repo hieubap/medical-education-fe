@@ -1,10 +1,11 @@
 import React, { Component, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { convertPrice } from "./common.js";
+import {url_student} from "./API"
 
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
-import { faFontAwesomeLogoFull } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faEye, faFontAwesomeLogoFull, faLock, faTrashAlt, faUserLock } from "@fortawesome/free-solid-svg-icons";
 
 class Student extends Component {
   constructor(props) {
@@ -14,33 +15,26 @@ class Student extends Component {
       page: 0,
       size: 10,
       sizePage: 0,
-      data: [
-        {
-          id: 1,
-          code: "20182514",
-          createdAt: "19-03-2021 06:00:00",
-          createdBy: "ngo quang hieu",
-          name: "Ngô Quang hiếu",
-          status: "đang học",
-        },
-        {
-          id: 1,
-          code: "20182514",
-          createdAt: "19-03-2021 06:00:00",
-          createdBy: "ngo quang hieu",
-          name: "Ngô Quang hiếu",
-          status: "đang học",
-        },
-        {
-          id: 1,
-          code: "20182514",
-          createdAt: "19-03-2021 06:00:00",
-          createdBy: "ngo quang hieu",
-          name: "Ngô Quang hiếu",
-          status: "đang học",
-        },
-      ],
+      data: [],
     };
+  }
+
+  componentDidMount() {
+    fetch(url_student)
+      .then((res) => res.json())
+      .then((json) => {
+        const size = parseInt(json.totalElements / this.state.size) + 1;
+        console.log(json.data);
+        this.setState({
+          ...this.state,
+          loading: false,
+          data: json.data,
+          detail: new Array(json.data.length).fill(true),
+          sizePage: size,
+        });
+      });
+
+    console.log("call api product");
   }
 
   setPage = (index) => {
@@ -79,7 +73,7 @@ class Student extends Component {
         className="container screen"
         style={{ fontSize: "17px" }}
       >
-        {/* {this.state.loading && <div class="loader" id="loader"></div>} */}
+        {this.state.loading && <div class="loader" id="loader"></div>}
         <h2
           className=" text-center head_tag"
           data-wow-duration="1s"
@@ -111,8 +105,8 @@ class Student extends Component {
                     >
                       {feedback.id}
                     </td>
-                    <td style={{ width: "15%" }}>{feedback.code}</td>
-                    <td style={{ width: "15%" }}>{feedback.name}</td>
+                    <td style={{ width: "15%" }}>{feedback.value}</td>
+                    <td style={{ width: "15%" }}>{feedback.fullName}</td>
                     <td style={{ width: "15%" }}>{feedback.status}</td>
                     <td style={{ width: "17%" }}>
                       <button
@@ -120,19 +114,19 @@ class Student extends Component {
                         class="btn btn-default btn-rm"
                         onclick="deleteProduct(${product.id});"
                       >
-                        <FontAwesomeIcon icon="trash-alt" className="icon" />
+                        <FontAwesomeIcon icon={faLock} className="icon" />
                       </button>
                       <button
                         class="btn btn-default btn-ud"
                         onClick={() => this.changeModel()}
                       >
-                        <FontAwesomeIcon icon="edit" className="icon" />
+                        <FontAwesomeIcon icon={faEdit} className="icon" />
                       </button>
                       <button
                         class="btn btn-default btn-dt"
                         onClick={() => this.setDetail(feedback.id)}
                       >
-                        <FontAwesomeIcon icon="eye" className="icon" />
+                        <FontAwesomeIcon icon={faEye} className="icon" />
                       </button>
                     </td>
                   </tr>
