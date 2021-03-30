@@ -1,10 +1,9 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { convertPrice } from "./common.js";
 
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
-import { faDoorClosed, faFontAwesomeLogoFull, faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { url_course_register } from "./API.js";
 
 class RegistryCourse extends Component {
@@ -80,23 +79,23 @@ class RegistryCourse extends Component {
     var listPage = [];
     for (let i = 0; i < 5; i++) {
       listPage.push(
-        <li>
-          <a href="#" onClick={() => this.setPage(i)}>
+        <li key={i}>
+          <button onClick={() => this.setPage(i)}>
             {i + 1}
-          </a>
+          </button>
         </li>
       );
     }
 
     return (
       <div className="container screen" style={{ fontSize: "17px" }}>
-        {/* {this.state.loading && <div class="loader" id="loader"></div>} */}
-        <button class="dropbtn dropup" onClick={() => this.changeModel()}>
+        {/* {this.state.loading && <div className="loader" id="loader"></div>} */}
+        <button className="dropbtn dropup" onClick={() => this.changeModel()}>
           đăng kí
         </button>
         <input
           type="text"
-          class=""
+          className=""
           style={{ float: "right", width: "200px", marginLeft: "100px" }}
           value={this.state.codeSubject}
         ></input>
@@ -138,8 +137,7 @@ class RegistryCourse extends Component {
                   <td>
                     <button
                       style={{ marginRight: "20px" }}
-                      class="btn btn-default btn-rm"
-                      onclick="deleteProduct(${product.id});"
+                      className="btn btn-default btn-rm"
                     >
                       <FontAwesomeIcon icon={faWindowClose} className="icon" />
                     </button>
@@ -149,7 +147,7 @@ class RegistryCourse extends Component {
             })}
           </table>
         </div>
-        <ul class="pagination" id="pageTag1">
+        <ul className="pagination" id="pageTag1">
           {listPage}
         </ul>
       </div>

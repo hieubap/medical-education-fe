@@ -1,6 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { api_subject} from "./API"
+import { api_subject } from "./API";
 
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
@@ -17,7 +17,7 @@ class Subject extends Component {
       sizePage: 0,
       data: [],
       showModal: false,
-      param:{}
+      param: {},
     };
   }
 
@@ -35,7 +35,7 @@ class Subject extends Component {
         });
       });
 
-      console.log('call api product');
+    console.log("call api product");
   }
 
   changeModel = (dataSet, index) => {
@@ -85,10 +85,10 @@ class Subject extends Component {
     var listPage = [];
     for (let i = 0; i < 5; i++) {
       listPage.push(
-        <li>
-          <a href="#" onClick={() => this.setPage(i)}>
+        <li key={i}>
+          <button onClick={() => this.setPage(i)}>
             {i + 1}
-          </a>
+          </button>
         </li>
       );
     }
@@ -101,8 +101,8 @@ class Subject extends Component {
       >
         {this.state.loading && <div class="loader" id="loader"></div>}
         <button class="dropbtn dropup" onClick={() => this.changeModel()}>
-            Thêm mới
-          </button>
+          Thêm mới
+        </button>
         <h2
           className=" text-center head_tag"
           data-wow-duration="1s"
@@ -119,11 +119,13 @@ class Subject extends Component {
               <th>loại môn học</th>
               <th></th>
             </tr>
-            {this.state.data.map((feedback, index) => {
-              if (
-                this.state.page * this.state.size <= index &&
-                index < (this.state.page + 1) * this.state.size
+            {this.state.data
+              .filter(
+                (o, index) =>
+                  this.state.page * this.state.size <= index &&
+                  index < (this.state.page + 1) * this.state.size
               )
+              .map((feedback, index) => {
                 return (
                   <tr style={{ fontSize: "17px" }}>
                     <td
@@ -135,51 +137,47 @@ class Subject extends Component {
                     >
                       {feedback.id}
                     </td>
-                    <td style={{ width: "15%" }}>{feedback.value}</td>
+                    <td style={{ width: "15%" }}>{feedback.code}</td>
                     <td>{feedback.name}</td>
                     <td style={{ width: "15%" }}>{feedback.type}</td>
                     <td style={{ width: "18%" }}>
-                    <button
-                      style={{ marginRight: "20px" }}
-                      class="btn btn-default btn-rm"
-                      onclick="deleteProduct(${product.id});"
-                    >
-                      <FontAwesomeIcon icon={faTrashAlt} className="icon" />
-                    </button>
-                    <button
-                      class="btn btn-default btn-ud"
-                      onClick={() => this.changeModel(feedback)}
-                    >
-                      <FontAwesomeIcon icon={faEdit} className="icon" />
-                    </button>
-                    <button
-                      class="btn btn-default btn-dt"
-                      
-                    >
-                      <FontAwesomeIcon icon={faEye} className="icon" />
-                    </button>
+                      <button
+                        style={{ marginRight: "20px" }}
+                        class="btn btn-default btn-rm"
+                      >
+                        <FontAwesomeIcon icon={faTrashAlt} className="icon" />
+                      </button>
+                      <button
+                        class="btn btn-default btn-ud"
+                        onClick={() => this.changeModel(feedback)}
+                      >
+                        <FontAwesomeIcon icon={faEdit} className="icon" />
+                      </button>
+                      <button class="btn btn-default btn-dt">
+                        <FontAwesomeIcon icon={faEye} className="icon" />
+                      </button>
                     </td>
                   </tr>
                 );
-            })}
+              })}
           </table>
         </div>
         <ul class="pagination" id="pageTag1">
           {listPage}
         </ul>
         {this.state.showModal ? (
-            <div className="modal" style={{ display: "flex" }}>
-              <div class="modal__overlay"></div>
-              <div class="modal__body">
-                <SubjectForm
-                  param={this.state.param}
-                  eventBack={() => this.changeModel()}
-                  setData={this.setData}
-                  index={this.state.index}
-                ></SubjectForm>
-              </div>
+          <div className="modal" style={{ display: "flex" }}>
+            <div class="modal__overlay"></div>
+            <div class="modal__body">
+              <SubjectForm
+                param={this.state.param}
+                eventBack={() => this.changeModel()}
+                setData={this.setData}
+                index={this.state.index}
+              ></SubjectForm>
             </div>
-          ) : null}
+          </div>
+        ) : null}
       </div>
     );
   }

@@ -1,10 +1,7 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { convertPrice } from "./common.js";
-
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
-import { faFontAwesomeLogoFull } from "@fortawesome/free-solid-svg-icons";
 
 class FeedBack extends Component {
   constructor(props) {
@@ -168,9 +165,7 @@ class FeedBack extends Component {
     for (let i = 0; i < 5; i++) {
       listPage.push(
         <li>
-          <a href="#" onClick={() => this.setPage(i)}>
-            {i + 1}
-          </a>
+          <button onClick={() => this.setPage(i)}>{i + 1}</button>
         </li>
       );
     }
@@ -198,11 +193,13 @@ class FeedBack extends Component {
               <th>nội dung</th>
               <th></th>
             </tr>
-            {this.state.data.map((feedback, index) => {
-              if (
-                this.state.page * this.state.size <= index &&
-                index < (this.state.page + 1) * this.state.size
+            {this.state.data
+              .filter(
+                (o, index) =>
+                  this.state.page * this.state.size <= index &&
+                  index < (this.state.page + 1) * this.state.size
               )
+              .map((feedback, index) => {
                 return (
                   <tr style={{ fontSize: "17px" }}>
                     <td
@@ -227,7 +224,7 @@ class FeedBack extends Component {
                     </td>
                   </tr>
                 );
-            })}
+              })}
           </table>
         </div>
         <ul class="pagination" id="pageTag1">

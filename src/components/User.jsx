@@ -1,15 +1,11 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { convertPrice } from "./common.js";
 
-import "./../CSS/manageAdmin.css";
-import "./../CSS/main.css";
+import "./CSS/baseComponent.css"
 import {
   faEdit,
   faEye,
-  faFontAwesomeLogoFull,
   faLock,
-  faTrash,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { api_user } from "./API.js";
@@ -66,10 +62,10 @@ class User extends Component {
     var listPage = [];
     for (let i = 0; i < 5; i++) {
       listPage.push(
-        <li>
-          <a href="#" onClick={() => this.setPage(i)}>
+        <li key={i}>
+          <button onClick={() => this.setPage(i)}>
             {i + 1}
-          </a>
+          </button>
         </li>
       );
     }
@@ -89,7 +85,7 @@ class User extends Component {
           Quản lý tài khoản
         </h2>
         <div>
-          <table style={{overflow:"scroll"}}>
+          <table>
             <tr>
               <th>stt</th>
               <th>ID</th>
@@ -106,11 +102,13 @@ class User extends Component {
               <th>Ngày cập nhật</th>
               <th></th>
             </tr>
-            {this.state.data.map((feedback, index) => {
-              if (
-                this.state.page * this.state.size <= index &&
-                index < (this.state.page + 1) * this.state.size
+            {this.state.data
+              .filter(
+                (o, index) =>
+                  this.state.page * this.state.size <= index &&
+                  index < (this.state.page + 1) * this.state.size
               )
+              .map((feedback, index) => {
                 return (
                   <tr style={{ fontSize: "17px" }}>
                     <td>{index + 1}</td>
@@ -127,15 +125,10 @@ class User extends Component {
                     <td>{feedback.createAt}</td>
                     <td>{feedback.updateAt}</td>
                     <td style={{ width: "17%" }}>
-                    <button
-                        class="btn btn-default btn-rm"
-                        onclick="deleteProduct(${product.id});"
-                      >
+                      <button class="btn btn-default btn-rm">
                         <FontAwesomeIcon icon={faTrashAlt} className="icon" />
                       </button>
-                      <button
-                        class="btn btn-default btn-mangeto"
-                      >
+                      <button class="btn btn-default btn-mangeto">
                         <FontAwesomeIcon icon={faLock} className="icon" />
                       </button>
                       <button
@@ -153,7 +146,7 @@ class User extends Component {
                     </td>
                   </tr>
                 );
-            })}
+              })}
           </table>
         </div>
         <ul class="pagination" id="pageTag1">

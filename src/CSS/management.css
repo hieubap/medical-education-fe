@@ -123,15 +123,12 @@ tr:nth-child(even) {
     background-color: #ac14ea;
 }
 
-
 .btn-red:hover {
     background-color: #d84a4a;
 }
-
 .btn-blue:hover {
     background-color: #6189f1;
 }
-
 .btn-dt:hover {
     background-color: #8dc651;
 }

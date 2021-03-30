@@ -1,14 +1,6 @@
 import React, { Component } from "react";
-import UniqueId from "react-html-id";
-import {
-  api_course,
-  api_course_delete,
-  api_course_update,
-  api_subject,
-  api_subject_update,
-  token,
-} from "./API.js";
-import { ToastContainer, toast } from "react-toastify";
+import { api_subject, api_subject_update, token } from "./API.js";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "./../CSS/manageAdmin.css";
@@ -26,7 +18,6 @@ class SubjectForm extends Component {
     };
     if (props.param == null) {
       this.state.isCreate = true;
-      
     }
     console.log(this.state);
   }
@@ -40,9 +31,9 @@ class SubjectForm extends Component {
 
   create = (e) => {
     e.preventDefault();
-    var bodyRequest = JSON.stringify({...this.state.props.param,id:null});
+    var bodyRequest = JSON.stringify({ ...this.state.props.param, id: null });
     console.log(this.state.props.param);
-    this.state.loading = true;
+    this.setState({ ...this.state, loading: true });
     fetch(api_subject, {
       method: "post",
       headers: {
@@ -57,20 +48,17 @@ class SubjectForm extends Component {
           this.props.setData(json.data, -1);
           this.props.eventBack();
           toast.success("Create Successful");
+        } else {
+          toast.error(json.message);
         }
-        else{
-            toast.error(json.message);
-        }
-        this.state.loading = false;
+        this.setState({ ...this.state, loading: false });
       });
   };
 
   update = (e) => {
     e.preventDefault();
-    console.log(this.state.props.param);
     var bodyRequest = JSON.stringify(this.state.props.param);
-    // this.props.eventChange();
-    this.state.loading = true;
+    this.setState({ ...this.state, loading: true });
     fetch(api_subject_update + this.state.props.param.id, {
       method: "put",
       headers: {
@@ -89,7 +77,7 @@ class SubjectForm extends Component {
         } else {
           toast.error(json.message);
         }
-        this.state.loading = false;
+        this.setState({ ...this.state, loading: false });
       });
   };
 

@@ -1,21 +1,12 @@
 import React, { Component } from "react";
-import UniqueId from "react-html-id";
 import {
   api_course,
-  api_course_delete,
-  api_course_update,
   url_course_subject,
   token,
   api_subject,
 } from "./API.js";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import "./../CSS/manageAdmin.css";
-import "./../CSS/base.css";
-import "./../CSS/grid.css";
-import "./../CSS/responsive.css";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 class CourseDetail extends Component {
@@ -96,7 +87,7 @@ class CourseDetail extends Component {
   };
 
   remove = (id, index) => {
-    fetch(url_course_subject + "/" + id, {
+    fetch(url_course_subject + "?courseId="+ this.props.id+ "&subjectId=" + id, {
       method: "delete",
       headers: {
         "content-type": "application/json",

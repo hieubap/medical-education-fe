@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "./../CSS/base.css";
@@ -21,6 +21,7 @@ import StudyProcess from "./StudyProcess";
 import Place from "./Place";
 import RegistryCourse from "./RegistryCourse";
 import User from "./User.jsx";
+import RegisterClass from "./RegisterClass";
 
 class ManageAdmin extends Component {
   constructor(props) {
@@ -53,6 +54,7 @@ class ManageAdmin extends Component {
           {this.state.screen === "history" && <StudyProcess />}
           {this.state.screen === "infrastructure" && <Place />}
           {this.state.screen === "order" && <RegistryCourse />}
+          {this.state.screen === "register-class" && <RegisterClass />}
           {this.state.screen === "user" && <User />}
           {this.state.screen === "feedback" && <FeedBack />}
           {this.state.screen === "notification" && <Notification />}

@@ -1,8 +1,7 @@
 import "./App.css";
 
-import { Component, useState } from "react";
+import { Component } from "react";
 import ManageAdmin from './components/ManageAdmin.jsx'
-
 
 class App extends Component {
   

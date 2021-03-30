@@ -1,14 +1,11 @@
-import React, { Component, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import React, { Component } from "react";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CourseForm from "./CourseForm";
 import CourseDetail from "./CourseDetail";
 import { api_course, api_course_delete, token } from "./API";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { convertPrice, withSuffix } from "./common";
-
-import "./../CSS/manageAdmin.css";
-import "./../CSS/main.css";
+import { convertPrice } from "./common";
 import { faEdit, faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 class Course extends Component {
@@ -67,7 +64,7 @@ class Course extends Component {
   };
 
   delete = (index, id) => {
-    this.state.loading = true;
+    this.setState({ ...this.state, loading: true });
     fetch(api_course_delete + id, {
       method: "delete",
       headers: {
@@ -118,23 +115,19 @@ class Course extends Component {
     var listPage = [];
     for (let i = 0; i < 5; i++) {
       listPage.push(
-        <li>
-          <a href="#" onClick={() => this.setPage(i)}>
-            {i + 1}
-          </a>
+        <li key={i}>
+          <button onClick={() => this.setPage(i)}>{i + 1}</button>
         </li>
       );
     }
 
     if (this.state.isDetail) {
-      return (
-        <CourseDetail id={this.state.idDetail} back={() => this.back()} />
-      );
+      return <CourseDetail id={this.state.idDetail} back={() => this.back()} />;
     } else
       return (
         <div className="container screen" style={{ fontSize: "17px" }}>
-          {this.state.loading && <div class="loader" id="loader"></div>}
-          <button class="dropbtn dropup" onClick={() => this.changeModel()}>
+          {this.state.loading && <div className="loader" id="loader"></div>}
+          <button className="dropbtn dropup" onClick={() => this.changeModel()}>
             Thêm mới
           </button>
           <h2
@@ -146,70 +139,77 @@ class Course extends Component {
           </h2>
           <div>
             <table>
-              <tr>
-                <th>ID</th>
-                <th>Mã khóa học</th>
-                <th>Tên khóa học</th>
-                <th>Người tạo</th>
-                <th>Giá</th>
-                <th>Số lượng đăng kí</th>
-                <th>Số lượng đăng kí mới</th>
-                <th></th>
-              </tr>
-              {this.state.data.map((feedback, index) => {
-                if (
-                  this.state.page * this.state.size <= index &&
-                  index < (this.state.page + 1) * this.state.size
-                )
-                  return (
-                    <tr style={{ fontSize: "17px" }}>
-                      <td
-                        style={{
-                          width: "5%",
-                          fontSize: "17px",
-                        }}
-                      >
-                        {feedback.id}
-                      </td>
-                      <td style={{ width: "15%" }}>{feedback.value}</td>
-                      <td style={{ width: "15%" }}>{feedback.name}</td>
-                      <td style={{ width: "15%" }}>{feedback.createdBy}</td>
-                      <td>{convertPrice(feedback.price)}</td>
-                      <td></td>
-                      <td></td>
-                      <td style={{ width: "17%" }}>
-                        <button
-                          style={{ marginRight: "20px" }}
-                          class="btn btn-default btn-rm"
-                          onClick={() => this.delete(index, feedback.id)}
+              <tbody>
+                <tr>
+                  <th>ID</th>
+                  <th>Mã khóa học</th>
+                  <th>Tên khóa học</th>
+                  <th>Người tạo</th>
+                  <th>Giá</th>
+                  <th>Số lượng đăng kí</th>
+                  <th>Số lượng đăng kí mới</th>
+                  <th></th>
+                </tr>
+                {this.state.data
+                  .filter(
+                    (o, index) =>
+                      this.state.page * this.state.size <= index &&
+                      index < (this.state.page + 1) * this.state.size
+                  )
+                  .map((feedback, index) => {
+                    return (
+                      <tr key={feedback.id} style={{ fontSize: "17px" }}>
+                        <td
+                          style={{
+                            width: "5%",
+                            fontSize: "17px",
+                          }}
                         >
-                          <FontAwesomeIcon icon={faTrashAlt} className="icon" />
-                        </button>
-                        <button
-                          class="btn btn-default btn-ud"
-                          onClick={() => this.changeModel(feedback, index)}
-                        >
-                          <FontAwesomeIcon icon={faEdit} className="icon" />
-                        </button>
-                        <button
-                          class="btn btn-default btn-dt"
-                          onClick={() => this.detail(feedback.id)}
-                        >
-                          <FontAwesomeIcon icon={faEye} className="icon" />
-                        </button>
-                      </td>
-                    </tr>
-                  );
-              })}
+                          {feedback.id}
+                        </td>
+                        <td style={{ width: "15%" }}>{feedback.value}</td>
+                        <td style={{ width: "15%" }}>{feedback.name}</td>
+                        <td style={{ width: "15%" }}>{feedback.createdBy}</td>
+                        <td>{convertPrice(feedback.price)}</td>
+                        <td></td>
+                        <td></td>
+                        <td style={{ width: "17%" }}>
+                          <button
+                            style={{ marginRight: "20px" }}
+                            className="btn btn-default btn-rm"
+                            onClick={() => this.delete(index, feedback.id)}
+                          >
+                            <FontAwesomeIcon
+                              icon={faTrashAlt}
+                              className="icon"
+                            />
+                          </button>
+                          <button
+                            className="btn btn-default btn-ud"
+                            onClick={() => this.changeModel(feedback, index)}
+                          >
+                            <FontAwesomeIcon icon={faEdit} className="icon" />
+                          </button>
+                          <button
+                            className="btn btn-default btn-dt"
+                            onClick={() => this.detail(feedback.id)}
+                          >
+                            <FontAwesomeIcon icon={faEye} className="icon" />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
             </table>
           </div>
-          <ul class="pagination" id="pageTag1">
+          <ul className="pagination" id="pageTag1">
             {listPage}
           </ul>
           {this.state.showModal ? (
             <div className="modal" style={{ display: "flex" }}>
-              <div class="modal__overlay"></div>
-              <div class="modal__body">
+              <div className="modal__overlay"></div>
+              <div className="modal__body">
                 <CourseForm
                   param={this.state.param}
                   eventBack={() => this.changeModel()}

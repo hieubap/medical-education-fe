@@ -1,21 +1,11 @@
 import React, { Component } from "react";
-import UniqueId from "react-html-id";
 import {
   api_class,
   url_course_subject,
   token,
-  api_subject,
-  url_class,
 } from "./API.js";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import "./../CSS/manageAdmin.css";
-import "./../CSS/base.css";
-import "./../CSS/grid.css";
-import "./../CSS/responsive.css";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 class ClassDetail extends Component {
   constructor(props) {

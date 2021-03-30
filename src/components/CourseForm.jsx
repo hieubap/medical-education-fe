@@ -1,13 +1,7 @@
 import React, { Component } from "react";
-import UniqueId from "react-html-id";
-import { api_course, api_course_delete, api_course_update, token } from "./API.js";
-import { ToastContainer, toast } from "react-toastify";
+import { api_course,  api_course_update, token } from "./API.js";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-import "./../CSS/manageAdmin.css";
-import "./../CSS/base.css";
-import "./../CSS/grid.css";
-import "./../CSS/responsive.css";
 
 class CourseForm extends Component {
   constructor(props) {
@@ -34,7 +28,7 @@ class CourseForm extends Component {
     e.preventDefault();
     var bodyRequest = JSON.stringify(this.state.props.param);
     console.log(bodyRequest);
-    this.state.loading = true;
+    this.setState({...this.state,loading : true});
     fetch(api_course, {
       method: "post",
       headers: {
@@ -57,8 +51,7 @@ class CourseForm extends Component {
     e.preventDefault();
     console.log(this.state.props.param);
     var bodyRequest = JSON.stringify(this.state.props.param);
-    // this.props.eventChange();
-    this.state.loading = true;
+    this.setState({...this.state,loading : true});
     fetch(api_course_update + this.state.props.param.id, {
       method: "put",
       headers: {

@@ -1,11 +1,14 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { convertPrice } from "./common.js";
-import {url_student} from "./API"
+import { url_student } from "./API";
 
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
-import { faEdit, faEye, faFontAwesomeLogoFull, faLock, faTrashAlt, faUserLock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faEye,
+  faLock,
+} from "@fortawesome/free-solid-svg-icons";
 
 class Student extends Component {
   constructor(props) {
@@ -50,7 +53,7 @@ class Student extends Component {
   };
 
   delete = (index, id) => {
-    const newState = Object.assign({}, this.state);
+    var newState = Object.assign({}, this.state);
     newState.data = newState.data.splice(index, 1);
     this.setState(newState);
   };
@@ -59,10 +62,10 @@ class Student extends Component {
     var listPage = [];
     for (let i = 0; i < 5; i++) {
       listPage.push(
-        <li>
-          <a href="#" onClick={() => this.setPage(i)}>
+        <li key={i}>
+          <button onClick={() => this.setPage(i)}>
             {i + 1}
-          </a>
+          </button>
         </li>
       );
     }
@@ -90,11 +93,13 @@ class Student extends Component {
               <th>Trạng thái</th>
               <th></th>
             </tr>
-            {this.state.data.map((feedback, index) => {
-              if (
-                this.state.page * this.state.size <= index &&
-                index < (this.state.page + 1) * this.state.size
+            {this.state.data
+              .filter(
+                (o, index) =>
+                  this.state.page * this.state.size <= index &&
+                  index < (this.state.page + 1) * this.state.size
               )
+              .map((feedback, index) => {
                 return (
                   <tr style={{ fontSize: "17px" }}>
                     <td
@@ -112,7 +117,6 @@ class Student extends Component {
                       <button
                         style={{ marginRight: "20px" }}
                         class="btn btn-default btn-rm"
-                        onclick="deleteProduct(${product.id});"
                       >
                         <FontAwesomeIcon icon={faLock} className="icon" />
                       </button>
@@ -131,7 +135,7 @@ class Student extends Component {
                     </td>
                   </tr>
                 );
-            })}
+              })}
           </table>
         </div>
         <ul class="pagination" id="pageTag1">

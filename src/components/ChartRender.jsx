@@ -1,11 +1,5 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { Bar } from 'react-chartjs-2'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { convertPrice } from "./common.js";
-
-import "./../CSS/manageAdmin.css";
-import "./../CSS/main.css";
-import { faFontAwesomeLogoFull } from "@fortawesome/free-solid-svg-icons";
 
 class Notification extends Component {
   constructor(props) {

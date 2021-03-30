@@ -1,10 +1,7 @@
-import React, { Component, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { convertPrice } from "./common.js";
+import React, { Component } from "react";
 
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
-import { faFontAwesomeLogoFull } from "@fortawesome/free-solid-svg-icons";
 import { api_study_process } from "./API.js";
 
 class StudyProcess extends Component {
@@ -59,10 +56,10 @@ class StudyProcess extends Component {
     var listPage = [];
     for (let i = 0; i < 5; i++) {
       listPage.push(
-        <li>
-          <a href="#" onClick={() => this.setPage(i)}>
+        <li key={i}>
+          <button onClick={() => this.setPage(i)}>
             {i + 1}
-          </a>
+          </button>
         </li>
       );
     }
@@ -92,16 +89,17 @@ class StudyProcess extends Component {
               <th>Điểm cuối kì</th>
               <th>Trung bình</th>
               <th>Điểm</th>
-              
             </tr>
-            {this.state.data.map((feedback, index) => {
-              if (
-                this.state.page * this.state.size <= index &&
-                index < (this.state.page + 1) * this.state.size
+            {this.state.data
+              .filter(
+                (o, index) =>
+                  this.state.page * this.state.size <= index &&
+                  index < (this.state.page + 1) * this.state.size
               )
+              .map((feedback, index) => {
                 return (
                   <tr style={{ fontSize: "17px" }}>
-                    <td>{index+1}</td>
+                    <td>{index + 1}</td>
                     <td>{feedback.subject.code}</td>
                     <td>{feedback.subject.name}</td>
                     <td>{feedback.muster}</td>
@@ -109,11 +107,9 @@ class StudyProcess extends Component {
                     <td>{feedback.endPoint}</td>
                     <td>{feedback.total}</td>
                     <td>{feedback.time}</td>
-                    
-
                   </tr>
                 );
-            })}
+              })}
           </table>
         </div>
         <ul class="pagination" id="pageTag1">
