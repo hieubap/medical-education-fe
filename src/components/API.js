@@ -1,11 +1,13 @@
-const domain = "http://45.13.132.247:8082"
-const domainApi = "http://45.13.132.247:8082"
+const domain = "http://localhost:8082"
+const domainApi = "http://localhost:8082"
 
 export const token = "Bearer eyJhbGciOiJIUzM4NCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaWF0IjoxNjE2MDIxOTQ5LCJleHAiOjE2MTcyMTAwMDB9.F1WZAJc7dX_Gl46SslFlTCvmYW8iw_LF9aeiH9W2vsWCag8-kb75lfrUnhPdAX5z";
 
 export const api_course = domain + "/courses";
 export const api_course_update = domain + "/courses/";
 export const api_course_delete = domain + "/courses/";
+
+export const api_course_register = domain + "/course-register";
 
 export const api_subject = domain + "/subjects";
 export const api_subject_update = domain + "/subjects/";
@@ -28,7 +30,7 @@ export const url_class = domainApi + "/class?"
 export const url_class_update = domainApi + "/class/"
 export const url_class_delete = domainApi + "/class/"
 
-export const url_course_register = domainApi + "/course-register?"
+export const url_course_register = domainApi + "/course-register"
 export const url_register_course = domainApi + "/course-register/"
 
 export const url_student = domainApi + "/users?role=3"

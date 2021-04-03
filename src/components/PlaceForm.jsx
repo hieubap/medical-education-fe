@@ -7,7 +7,6 @@ class PlaceForm extends BaseFormComponent {
     super.afterInit();
     this.api_create = api_place;
     this.api_update = api_place + "/";
-    this.setState({isCreate:true,...this.state});
   }
 
   element() {
@@ -20,8 +19,8 @@ class PlaceForm extends BaseFormComponent {
               type="text"
               name="address"
               value={
-                this.state.props.param != null
-                  ? this.state.props.param.value
+                this.state.props.dataDetail != null
+                  ? this.state.props.dataDetail.value
                   : ""
               }
               onChange={this.change.bind(this)}

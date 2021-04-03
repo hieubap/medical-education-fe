@@ -6,31 +6,50 @@ import { token } from "./API";
 class BaseFormComponent extends Component {
   constructor(props) {
     super(props);
+
     this.api_create = null;
     this.api_update = null;
-
+    this.isCreate = false;
+    
     this.state = {
-      isCreate: false,
       props: props,
       loading: false,
     };
     
-    if (props.param == null) this.state.isCreate = true;
+    /**
+     * thêm mới nếu chỉ số bằng null
+     */
+    if (this.props.indexDetail === null) this.isCreate = true;
+    console.log(this.props.indexDetail === null);
+
+    console.log(this.props.dataDetail);
     this.afterInit();
   }
 
   afterInit(){}
 
+  setSelect(name,value){
+    console.log(this.state);
+    var newData = Object.assign({},this.state.props.dataDetail);
+    newData = {...newData,[name] :value};
+    console.log(newData);
+    this.setState({
+      ...this.state,
+      props:{...this.state.props,dataDetail:newData}
+    });
+    console.log(this.state.props);
+  }
+
   change = (e) => {
-    var newParam = Object.assign({}, this.state.props.param);
-    newParam = { ...newParam, [e.target.name]: e.target.value };
-    const newProps = { ...this.state.props, param: newParam };
+    var newDataDetail = Object.assign({}, this.state.props.dataDetail);
+    newDataDetail = { ...newDataDetail, [e.target.name]: e.target.value };
+    const newProps = { ...this.state.props, dataDetail: newDataDetail };
     this.setState({ ...this.state, props: newProps });
   };
 
   create = (e) => {
     e.preventDefault();
-    var bodyRequest = JSON.stringify({ ...this.state.props.param, id: null });
+    var bodyRequest = JSON.stringify({ ...this.state.props.dataDetail, id: null });
     this.setState({...this.state,loading:true});
     if (this.api_create != null)
       fetch(this.api_create, {
@@ -44,7 +63,7 @@ class BaseFormComponent extends Component {
         .then((res) => res.json())
         .then((json) => {
           if (json.code === 200) {
-            this.props.setData(json.data, -1);
+            this.props.updateDataRender(json.data, null);
             this.props.eventBack();
             toast.success("Create Successful");
           } else {
@@ -56,11 +75,11 @@ class BaseFormComponent extends Component {
 
   update = (e) => {
     e.preventDefault();
-    var bodyRequest = JSON.stringify(this.state.props.param);
+    var bodyRequest = JSON.stringify(this.state.props.dataDetail);
     this.setState({...this.state,loading:true});
     
     if (this.api_update != null)
-    fetch(this.api_update + this.state.props.param.id, {
+    fetch(this.api_update + this.state.props.dataDetail.id, {
       method: "put",
       headers: {
         "content-type": "application/json",
@@ -71,8 +90,7 @@ class BaseFormComponent extends Component {
       .then((res) => res.json())
       .then((json) => {
         if (json.code === 200) {
-          this.props.setData(json.data, this.props.index);
-          console.log(json);
+          this.props.updateDataRender(json.data, this.props.indexDetail);
           this.props.eventBack();
           toast.success("Update Successful");
         } else {
@@ -89,7 +107,7 @@ class BaseFormComponent extends Component {
         <div className="auth-form__container">
           <div className="auth-form__header">
             <div className="auth-form__heading">
-              {this.state.isCreate ? "Tạo mới" : "Cập nhật"}
+              {this.isCreate ? "Tạo mới" : "Cập nhật"}
             </div>
           </div>
           {this.element()}
@@ -108,10 +126,10 @@ class BaseFormComponent extends Component {
               id="update-btn"
               className="btn create_btn_cancel"
               onClick={(e) => {
-                this.state.isCreate ? this.create(e) : this.update(e);
+                this.isCreate ? this.create(e) : this.update(e);
               }}
             >
-              {this.state.isCreate ? "THÊM" : "CẬP NHẬT"}
+              {this.isCreate ? "THÊM" : "CẬP NHẬT"}
             </button>
           </div>
         </div>

@@ -20,15 +20,16 @@ class CourseDetail extends Component {
   }
 
   componentDidMount() {
-    fetch(api_course + "?id=" + this.props.id)
+    fetch(api_course + "/" + this.props.id)
       .then((res) => res.json())
       .then((json) => {
         if (json.code === 200) {
           console.log("call api course detail");
           this.setState({
             ...this.state,
-            data: json.data[0],
+            data: json.data,
           });
+          console.log(this.state.data);
         }
       });
     fetch(api_subject)
@@ -70,15 +71,12 @@ class CourseDetail extends Component {
       .then((json) => {
         if (json.code === 200) {
           toast.success("add subject success");
-          var subject = Object.assign([], this.state.data.subjects);
-          console.log(subject);
+          var subject = Object.assign([], this.state.data.listSubject);
           subject = [...subject, json.data.subject];
-
-          console.log(subject);
           this.setState({
             ...this.state,
             loading: false,
-            data: { ...this.state.data, subjects: subject },
+            data: { ...this.state.data, listSubject: subject },
           });
         } else {
           toast.error(json.message);
@@ -98,14 +96,14 @@ class CourseDetail extends Component {
       .then((json) => {
         if (json.code === 200) {
           toast.success("delete subject success");
-          var subject = Object.assign([], this.state.data.subjects);
+          var subject = Object.assign([], this.state.data.listSubject);
           console.log(subject);
           subject.splice(index, 1);
           console.log(subject);
           this.setState({
             ...this.state,
             loading: false,
-            data: { ...this.state.data, subjects: subject },
+            data: { ...this.state.data, listSubject: subject },
           });
         } else {
           toast.error(json.message);
@@ -114,14 +112,14 @@ class CourseDetail extends Component {
   };
 
   render() {
+    console.log('render');
     console.log(this.state.data);
     if (this.state.data == null || this.state.subjects == null)
-      return <div></div>;
+      return <div class="loader" id="loader"></div>;
     else
       return (
         <div className="container screen" style={{ fontSize: "17px" }}>
-          {this.state.loading && <div class="loader" id="loader"></div>}
-          <button class="dropbtn dropup" onClick={() => this.props.back()}>
+          <button class="default-btn" onClick={() => this.props.back()}>
             Trở lại
           </button>
 
@@ -142,7 +140,7 @@ class CourseDetail extends Component {
               return <option value={subject.id}>{subject.name}</option>;
             })}
           </select>
-          <button class="dropbtn dropup" onClick={() => this.add()}>
+          <button class="default-btn" onClick={() => this.add()}>
             Thêm Môn
           </button>
 
@@ -170,6 +168,7 @@ class CourseDetail extends Component {
             <div style={{ backgroundColor: "#ddd", width: "50%" }}>
               <div>Các môn trong chương trình:</div>
               <table>
+                <tbody>
                 <tr>
                   <th>stt</th>
                   <th>mã môn học</th>
@@ -177,7 +176,9 @@ class CourseDetail extends Component {
                   <th>Thời gian học</th>
                   <th></th>
                 </tr>
-                {this.state.data.subjects.map((subject, index) => {
+                {console.log(this.state.data!=undefined),
+                  console.log(this.state.data)}
+                {this.state.data.listSubject.map((subject, index) => {
                   return (
                     <tr>
                       <td>{index + 1}</td>
@@ -196,6 +197,7 @@ class CourseDetail extends Component {
                     </tr>
                   );
                 })}
+                </tbody>
               </table>
             </div>
           </div>

@@ -70,15 +70,6 @@ table {
     width: 100%;
 }
 
-td,
-th {
-    border: 1px solid #ccc;
-    text-align: left;
-    padding: 5px;
-    font-size: 15px;
-    font-weight: 1px;
-    font-family: Arial, Helvetica, sans-serif;
-}
 
 tr {
     background-color: #fafafa;
@@ -177,7 +168,7 @@ tr:nth-child(even) {
     text-align: center;
     height: 100%;
     width: 200px;
-    /* position: fixed; */
+    position: fixed;
     z-index: 1;
     overflow: auto
 }

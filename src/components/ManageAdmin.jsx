@@ -7,6 +7,7 @@ import "./../CSS/main.css";
 import "./../CSS/grid.css";
 import "./../CSS/responsive.css";
 import "./../CSS/management.css";
+import "./../components/CSS/baseComponent.css";
 
 import Menu from "./Menu.jsx";
 import ChartRender from "./ChartRender.jsx";

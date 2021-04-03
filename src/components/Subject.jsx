@@ -1,184 +1,74 @@
-import React, { Component } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { api_subject } from "./API";
 
 import "./../CSS/manageAdmin.css";
 import "./../CSS/main.css";
-import { faEdit, faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import SubjectForm from "./SubjectForm";
+import BaseComponent from "./BaseComponent";
 
-class Subject extends Component {
+class Subject extends BaseComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      loading: true,
-      page: 0,
-      size: 10,
-      sizePage: 0,
-      data: [],
-      showModal: false,
-      param: {},
-    };
+    this.api_get = api_subject;
+    this.api_delete = api_subject + "/";
+    this.nameComponent = "Quản lý môn học";
   }
 
-  componentDidMount() {
-    fetch(api_subject)
-      .then((res) => res.json())
-      .then((json) => {
-        const size = parseInt(json.totalElements / this.state.size) + 1;
-        console.log(json.data);
-        this.setState({
-          loading: false,
-          data: json.data,
-          detail: new Array(json.data.length).fill(true),
-          sizePage: size,
-        });
-      });
-
-    console.log("call api product");
-  }
-
-  changeModel = (dataSet, index) => {
-    var newState = Object.assign({}, this.state);
-    newState.showModal = !newState.showModal;
-    if (dataSet != null)
-      newState = { ...newState, param: dataSet, index: index };
-    else newState = { ...newState, param: dataSet, isCreate: true };
-
-    this.setState(newState);
-  };
-
-  setData = (data, index) => {
-    var newData = Object.assign([], this.state.data);
-
-    if (index === -1) {
-      console.log("***********");
-      console.log(newData.length);
-      newData = [data, ...newData];
-      console.log(data);
-      console.log(newData);
-    } else newData[index] = data;
-
-    const newState = { ...this.state, data: newData };
-    this.setState(newState);
-  };
-
-  setPage = (index) => {
-    const newState = Object.assign({}, this.state);
-    newState.page = index;
-    this.setState(newState);
-  };
-
-  read = (index, id) => {
-    const newState = Object.assign({}, this.state);
-    newState.data[index].isRead = 0;
-    this.setState(newState);
-  };
-
-  delete = (index, id) => {
-    const newState = Object.assign({}, this.state);
-    newState.data = newState.data.splice(index, 1);
-    this.setState(newState);
-  };
-
-  render() {
-    var listPage = [];
-    for (let i = 0; i < 5; i++) {
-      listPage.push(
-        <li key={i}>
-          <button onClick={() => this.setPage(i)}>
-            {i + 1}
-          </button>
-        </li>
-      );
-    }
-
+  headTable() {
     return (
-      <div
-        id="screen4"
-        className="container screen"
-        style={{ fontSize: "17px" }}
-      >
-        {this.state.loading && <div class="loader" id="loader"></div>}
-        <button class="dropbtn dropup" onClick={() => this.changeModel()}>
-          Thêm mới
-        </button>
-        <h2
-          className=" text-center head_tag"
-          data-wow-duration="1s"
-          data-wow-delay="0.1s"
+      <tr>
+        <th>ID</th>
+        <th>Mã môn học</th>
+        <th>Tên môn học</th>
+        <th>loại môn học</th>
+        <th></th>
+      </tr>
+    );
+  }
+
+  bodyTable(o, index) {
+    return (
+      <tr style={{ fontSize: "17px" }}>
+        <td
+          style={{
+            width: "5%",
+            fontSize: "17px",
+          }}
         >
-          Thông báo
-        </h2>
-        <div>
-          <table>
-            <tr>
-              <th>ID</th>
-              <th>Mã môn học</th>
-              <th>Tên môn học</th>
-              <th>loại môn học</th>
-              <th></th>
-            </tr>
-            {this.state.data
-              .filter(
-                (o, index) =>
-                  this.state.page * this.state.size <= index &&
-                  index < (this.state.page + 1) * this.state.size
-              )
-              .map((feedback, index) => {
-                return (
-                  <tr style={{ fontSize: "17px" }}>
-                    <td
-                      style={{
-                        width: "5%",
-                        fontSize: "17px",
-                      }}
-                      onClick={() => this.read(index, feedback.id)}
-                    >
-                      {feedback.id}
-                    </td>
-                    <td style={{ width: "15%" }}>{feedback.code}</td>
-                    <td>{feedback.name}</td>
-                    <td style={{ width: "15%" }}>{feedback.type}</td>
-                    <td style={{ width: "18%" }}>
-                      <button
-                        style={{ marginRight: "20px" }}
-                        class="btn btn-default btn-rm"
-                      >
-                        <FontAwesomeIcon icon={faTrashAlt} className="icon" />
-                      </button>
-                      <button
-                        class="btn btn-default btn-ud"
-                        onClick={() => this.changeModel(feedback)}
-                      >
-                        <FontAwesomeIcon icon={faEdit} className="icon" />
-                      </button>
-                      <button class="btn btn-default btn-dt">
-                        <FontAwesomeIcon icon={faEye} className="icon" />
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-          </table>
-        </div>
-        <ul class="pagination" id="pageTag1">
-          {listPage}
-        </ul>
-        {this.state.showModal ? (
-          <div className="modal" style={{ display: "flex" }}>
-            <div class="modal__overlay"></div>
-            <div class="modal__body">
-              <SubjectForm
-                param={this.state.param}
-                eventBack={() => this.changeModel()}
-                setData={this.setData}
-                index={this.state.index}
-              ></SubjectForm>
-            </div>
-          </div>
-        ) : null}
-      </div>
+          {o.id}
+        </td>
+        <td style={{ width: "15%" }}>{o.code}</td>
+        <td>{o.name}</td>
+        <td style={{ width: "15%" }}>{o.type}</td>
+        <td style={{ width: "18%" }}>
+          <button
+            style={{ marginRight: "20px" }}
+            class="btn btn-default btn-rm"
+            onClick={() => this.delete(o.id, index)}
+          >
+            <FontAwesomeIcon icon={faTrashAlt} className="icon" />
+          </button>
+          <button
+            class="btn btn-default btn-ud"
+            onClick={() => this.changeModel(o.id, index)}
+          >
+            <FontAwesomeIcon icon={faEdit} className="icon" />
+          </button>
+        </td>
+      </tr>
+    );
+  }
+
+  form() {
+    return (
+      <SubjectForm
+        dataDetail={this.state.dataDetail}
+        eventBack={this.changeModel}
+        updateDataRender={this.updateDataRender}
+        indexDetail={this.state.indexDetail}
+      ></SubjectForm>
     );
   }
 }

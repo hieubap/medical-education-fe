@@ -4,76 +4,44 @@ import {
   faCheckCircle,
   faEdit,
   faEye,
+  faTrashAlt,
   faWindowClose,
 } from "@fortawesome/free-solid-svg-icons";
-import ClassDetail from "./ClassDetail.jsx";
 import BaseComponent from "./BaseComponent";
+import ClassForm from "./ClassForm";
+import Head from "./Item/Head";
 
 class Class extends BaseComponent {
   afterInit() {
-    this.nameComponent = 'Quản lý lớp';
-    this.api_get = api_class;
+    this.nameComponent = "Quản lý lớp học";
+    this.api_get = api_class + "?size=10";
     this.api_delete = api_class + "/";
   }
-  // componentDidMount() {
-  //   fetch(url_class)
-  //     .then((res) => res.json())
-  //     .then((json) => {
-  //       const size = parseInt(json.totalElements / this.state.size) + 1;
-  //       console.log(json.data);
-  //       this.setState({
-  //         loading: false,
-  //         data: json.data,
-  //         isDetail: false,
-  //         sizePage: size,
-  //       });
-  //     });
 
-  //   console.log("call api product");
-  // }
-
-  // detail = (id) => {
-  //   var newState = Object.assign({}, this.state);
-  //   newState.isDetail = true;
-  //   newState.idDetail = id;
-  //   this.setState(newState);
-  // };
-
-  // setPage = (index) => {
-  //   const newState = Object.assign({}, this.state);
-  //   newState.page = index;
-  //   this.setState(newState);
-  // };
-
-  // read = (index, id) => {
-  //   const newState = Object.assign({}, this.state);
-  //   newState.data[index].isRead = 0;
-  //   this.setState(newState);
-  // };
-
-  // delete = (index, id) => {
-  //   const newState = Object.assign({}, this.state);
-  //   newState.data = newState.data.splice(index, 1);
-  //   this.setState(newState);
-  // };
-
-  // back = () => {
-  //   this.setState({ ...this.state, isDetail: false });
-  // };
-  render(){
-    return super.render();
-  }
+  setPage = (index) => {
+    this.setState({...this.state,loading:true});
+    fetch(this.api_get + "page=" + this.state.page)
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({
+          ...this.state,
+          loading: false,
+          dataRender: json.data,
+          page: index,
+        });
+      });
+  };
 
   headTable() {
     return (
       <tr>
         <th>stt</th>
         <th>Mã lớp</th>
-        <th>Tên lớp</th>
-        <th>Khóa học</th>
+        <th>Tên Môn</th>
+        <th>Mã Môn</th>
         <th>Giáo viên</th>
-        <th>Băt đầu</th>
-        <th>Kết thúc</th>
+        <th>Thời gian</th>
+        <th>Địa điểm</th>
         <th>Số lượng đăng kí</th>
         <th>Trạng thái</th>
         <th></th>
@@ -81,144 +49,205 @@ class Class extends BaseComponent {
     );
   }
 
-  form(){
-    return (
-      <ClassDetail></ClassDetail>
-    )
-  }
-
   bodyTable(o, index) {
     return (
-      <tr style={{ fontSize: "17px" }}>
-        <td>{index+1}</td>
-        <td>{o.subject.code}</td>
-        <td style={{ width: "15%" }}>{o.subject.name}</td>
+      <tr key={o.id} style={{ fontSize: "14px" }}>
+        <td>{index + 1}</td>
+        <td>{o.code}</td>
         <td>{o.subject.name}</td>
-        <td>{o.teacher}</td>
-        <td>{o.start}</td>
-        <td>{o.end}</td>
-        <td>{o.numberRegister}</td>
+        <td>{o.subject.code}</td>
+        <td>{o.teacher.fullName}</td>
+        <td>{o.time}</td>
+        <td>{o.place.address}</td>
+        <td>
+          {o.numberRegister}/{o.limitRegister}
+        </td>
         <td>{o.status}</td>
-        <td style={{ width: "17%" }}>
+        <td>
+          <button class="but btn-yellow">
+            <FontAwesomeIcon icon={faCheckCircle} className="icon" />
+          </button>
           <button
-            style={{ marginRight: "20px" }}
-            class="btn btn-default btn-rm"
+            class="but btn-magenta"
+            onClick={() => this.delete(o.id, index)}
           >
             <FontAwesomeIcon icon={faWindowClose} className="icon" />
           </button>
-          <button
-            class="btn btn-default btn-ud"
-            // onClick={() => this.changeModel()}
-          >
+          <button class="but btn-blue" onClick={() => this.changeModel()}>
             <FontAwesomeIcon icon={faEdit} className="icon" />
           </button>
-          <button
-            class="btn btn-default btn-dt"
-            onClick={() => this.detail(o.id)}
-          >
-            <FontAwesomeIcon icon={faEye} className="icon" />
-          </button>
-          <button class="btn btn-default btn-ck">
-            <FontAwesomeIcon icon={faCheckCircle} className="icon" />
+          <button class="but btn-red" onClick={() => this.delete(o.id, index)}>
+            <FontAwesomeIcon icon={faTrashAlt} className="icon" />
           </button>
         </td>
       </tr>
     );
   }
+  form() {
+    return (
+      <ClassForm
+        dataDetail={this.state.dataDetail}
+        eventBack={() => this.changeModel()}
+        updateDataRender={this.updateDataRender}
+        indexDetail={this.state.indexDetail}
+      ></ClassForm>
+    );
+  }
+
+  beforeTable() {
+    return (
+      <>
+        <div style={{ display: "flex" }}>
+          <label
+            style={{ textAlign: "center", width: "8%", padding: "20px 0" }}
+          >
+            Khóa
+          </label>
+          <select
+            class="create_input select-type-product"
+            name="carlist"
+            form="carform"
+            style={{ width: "25%" }}
+            onchange={(e) => this.setSelectSubject(e.target.value)}
+          >
+            {this.state.subjects != null &&
+              this.state.subjects.map((subject, index) => {
+                return <option value={subject.id}>{subject.name}</option>;
+              })}
+          </select>
+          <label
+            style={{ textAlign: "center", width: "8%", padding: "20px 0" }}
+          >
+            Môn
+          </label>
+          <select
+            class="create_input select-type-product"
+            name="carlist"
+            form="carform"
+            style={{ width: "25%" }}
+            onchange={(e) => this.setSelectSubject(e.target.value)}
+          >
+            {this.state.subjects != null &&
+              this.state.subjects.map((subject, index) => {
+                return <option value={subject.id}>{subject.name}</option>;
+              })}
+          </select>
+          <label
+            style={{ textAlign: "center", width: "9%", padding: "20px 0" }}
+          >
+            Lớp
+          </label>
+          <select
+            class="create_input select-type-product"
+            name="carlist"
+            form="carform"
+            style={{ width: "25%" }}
+            onchange={(e) => this.setSelectSubject(e.target.value)}
+          >
+            {this.state.subjects != null &&
+              this.state.subjects.map((subject, index) => {
+                return <option value={subject.id}>{subject.name}</option>;
+              })}
+          </select>
+        </div>
+        <div style={{ display: "flex" }}>
+          <label
+            style={{ textAlign: "center", width: "8%", padding: "20px 0" }}
+          >
+            Mã Khóa
+          </label>
+          <input
+            class="create_input select-type-product"
+            style={{ width: "20%" }}
+            name="carlist"
+            form="carform"
+            type="text"
+            sty
+            onchange={(e) => this.setSelectSubject(e.target.value)}
+          ></input>
+          <label
+            style={{ textAlign: "center", width: "8%", padding: "20px 0" }}
+          >
+            Mã Môn
+          </label>
+          <input
+            class="create_input select-type-product"
+            style={{ width: "20%" }}
+            name="carlist"
+            form="carform"
+            type="text"
+            sty
+            onchange={(e) => this.setSelectSubject(e.target.value)}
+          ></input>
+          <label
+            style={{ textAlign: "center", width: "8%", padding: "20px 0" }}
+          >
+            Mã Lớp
+          </label>
+          <input
+            class="create_input select-type-product"
+            style={{ width: "20%" }}
+            name="carlist"
+            form="carform"
+            type="text"
+            sty
+            onchange={(e) => this.setSelectSubject(e.target.value)}
+          ></input>
+          <button
+            style={{ marginLeft: "5%" }}
+            className="default-btn"
+            onclick={() => this.add()}
+          >
+            Đăng ký
+          </button>
+        </div>
+      </>
+    );
+  }
+
   render() {
     var listPage = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < this.state.totalPage; i++) {
       listPage.push(
-        <li>
-          <a href="#" onClick={() => this.setPage(i)}>
-            {i + 1}
-          </a>
+        <li key={i}>
+          <button onClick={() => this.setPage(i)}>{i + 1}</button>
         </li>
       );
     }
 
-    if(this.state.isDetail){
-      return (
-        <ClassDetail id={this.state.idDetail} back={() => this.back()} ></ClassDetail>
-      );
-    }
-    else
     return (
-      <div
-        id="screen4"
-        className="container screen"
-        style={{ fontSize: "17px" }}
-      >
-        {/* {this.state.loading && <div class="loader" id="loader"></div>} */}
-        <h2
-          className=" text-center head_tag"
-          data-wow-duration="1s"
-          data-wow-delay="0.1s"
-        >
-          Lớp
-        </h2>
+      <div className="container screen" style={{ fontSize: "17px" }}>
+        {this.state.loading && <div className="loader" id="loader"></div>}
+        <Head title={this.nameComponent} changeModel={this.changeModel}></Head>
+        {this.beforeTable()}
         <div>
           <table>
-            <tr>
-              <th>ID</th>
-              <th>Tên lớp</th>
-              <th>Khóa học</th>
-              <th>Giáo viên</th>
-              <th>Băt đầu</th>
-              <th>Kết thúc</th>
-              <th>Số lượng đăng kí</th>
-              <th>Trạng thái</th>
-              <th></th>
-            </tr>
-            {this.state.data!=null && this.state.data.map((feedback, index) => {
-              if (
-                this.state.page * this.state.size <= index &&
-                index < (this.state.page + 1) * this.state.size
-              )
-                return (
-  <tr style={{ fontSize: "17px" }}>
-    <td>{feedback.id}</td>
-    <td style={{ width: "15%" }}>{feedback.subject.name}</td>
-    <td>{feedback.subject.name}</td>
-    <td>{feedback.teacher}</td>
-    <td>{feedback.start}</td>
-    <td>{feedback.end}</td>
-    <td>{feedback.numberRegister}</td>
-    <td>{feedback.status}</td>
-    <td style={{ width: "17%" }}>
-      <button
-        style={{ marginRight: "20px" }}
-        class="btn btn-default btn-rm"
-        onclick="deleteProduct(${product.id});"
-      >
-        <FontAwesomeIcon icon={faWindowClose} className="icon" />
-      </button>
-      <button
-        class="btn btn-default btn-ud"
-        // onClick={() => this.changeModel()}
-      >
-        <FontAwesomeIcon icon={faEdit} className="icon" />
-      </button>
-      <button
-        class="btn btn-default btn-dt"
-        onClick={() => this.detail(feedback.id)}
-      >
-        <FontAwesomeIcon icon={faEye} className="icon" />
-      </button>
-      <button
-        class="btn btn-default btn-ck"
-      >
-        <FontAwesomeIcon icon={faCheckCircle} className="icon" />
-      </button>
-    </td>
-  </tr>
-      );
-  })}
+            <tbody>
+              {this.headTable()}
+              {this.state.dataRender != null &&
+                this.state.dataRender
+                  .filter((o, index) => {
+                    return (
+                      this.state.page * this.state.size <= index &&
+                      index < (this.state.page + 1) * this.state.size
+                    );
+                  })
+                  .map((o, index) => {
+                    return this.bodyTable(
+                      o,
+                      index + this.state.page * this.state.size
+                    );
+                  })}
+            </tbody>
           </table>
         </div>
-        <ul class="pagination" id="pageTag1">
-          {listPage}
-        </ul>
+        <ul className="pagination">{listPage}</ul>
+        {this.state.showModal ? (
+          <div className="modal" style={{ display: "flex" }}>
+            <div className="modal__overlay"></div>
+            <div className="modal__body">{this.form()}</div>
+          </div>
+        ) : null}
       </div>
     );
   }
