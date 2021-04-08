@@ -1,0 +1,42 @@
+.a{
+    margin:5px;
+}
+.b{
+    margin-top:20px;
+}
+div>button{
+    margin-top:20px;
+}
+label{
+    font-size: 18px;
+}
+.background{
+    margin-top:-5%;
+    padding: 15% 35% 11% 35%;
+    background-image: linear-gradient(to right,#ef456b,#425af0);
+    // height: 700px;
+}
+.bor{
+    // margin: 0% 20% 0 20%;
+    padding: 5% 10% 0 10%;
+    height: 400px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+}
+input{
+    width: 90%;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #aaa;
+    font-size: 18px;
+    padding-left: 30px;
+}
+input:focus{
+    border-color: none;
+    width: 89%;
+    height: 34px;
+    color:#555;
+    border: 2px solid var(--blue);
+    outline: none;
+}
