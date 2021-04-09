@@ -39,15 +39,15 @@ class Notification extends BaseComponent {
         <td>{o.createAt}</td>
         <td>{o.content}</td>
         <td style={{width:"6%"}}>
-          <button class="but btn-green">
-            <FontAwesomeIcon icon={faEye} className="icon" />
-          </button>
-          <button
-            class="but btn-red"
+          <div class="i">
+            <FontAwesomeIcon icon={faEye} className="icon-green" />
+          </div>
+          <div
+            class="i"
             onClick={() => this.delete(index, 1)}
           >
-            <FontAwesomeIcon icon={faTrashAlt} className="icon" />
-          </button>
+            <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
+          </div>
         </td>
       </tr>
     );

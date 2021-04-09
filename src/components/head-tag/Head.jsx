@@ -4,7 +4,7 @@ import './style.scss';
 class Head extends Component {
   render() {
     return (
-      <div>
+      <div className="head-tag">
         {this.props.changeModel != null && (
           <button class="default-btn" onClick={() => this.props.changeModel()}>
             Thêm mới

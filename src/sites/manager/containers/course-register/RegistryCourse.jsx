@@ -78,12 +78,12 @@ class RegistryCourse extends BaseComponent {
                     <td>{o.course.code}</td>
                     <td>{o.course.name}</td>
                     <td>
-                      <button className="but btn-red">
+                      <div className="i">
                         <FontAwesomeIcon
                           icon={faWindowClose}
-                          className="icon"
+                          className="icon-red"
                         />
-                      </button>
+                      </div>
                     </td>
                   </tr>
                 );

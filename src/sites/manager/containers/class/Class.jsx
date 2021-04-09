@@ -65,21 +65,21 @@ class Class extends BaseComponent {
         </td>
         <td>{o.status}</td>
         <td>
-          <button class="but btn-yellow">
-            <FontAwesomeIcon icon={faCheckCircle} className="icon" />
-          </button>
-          <button
-            class="but btn-magenta"
+          <div class="i">
+            <FontAwesomeIcon icon={faCheckCircle} className="icon-yellow" />
+          </div>
+          <div
+            class="i"
             onClick={() => this.delete(o.id, index)}
           >
-            <FontAwesomeIcon icon={faWindowClose} className="icon" />
-          </button>
-          <button class="but btn-blue" onClick={() => this.changeModel()}>
-            <FontAwesomeIcon icon={faEdit} className="icon" />
-          </button>
-          <button class="but btn-red" onClick={() => this.delete(o.id, index)}>
-            <FontAwesomeIcon icon={faTrashAlt} className="icon" />
-          </button>
+            <FontAwesomeIcon icon={faWindowClose} className="icon-mangeto" />
+          </div>
+          <div class="i" onClick={() => this.changeModel()}>
+            <FontAwesomeIcon icon={faEdit} className="icon-blue" />
+          </div>
+          <div class="i" onClick={() => this.delete(o.id, index)}>
+            <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
+          </div>
         </td>
       </tr>
     );

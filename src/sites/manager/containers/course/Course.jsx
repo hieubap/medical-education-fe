@@ -7,6 +7,7 @@ import BaseComponent from "@utils/BaseComponent";
 import CourseForm from "./CourseForm";
 import { api_course } from "@utils/API";
 import CourseDetail from "./CourseDetail";
+import { Tooltip } from "antd";
 
 class Course extends BaseComponent {
   constructor(props) {
@@ -14,7 +15,7 @@ class Course extends BaseComponent {
     this.api_get = api_course;
     this.api_update = api_course + "/";
     this.api_delete = api_course + "/";
-    this.nameComponent = 'Quản lý khóa học';
+    this.nameComponent = "Quản lý khóa học";
   }
 
   render() {
@@ -29,8 +30,7 @@ class Course extends BaseComponent {
 
     if (this.state.isDetail) {
       return <CourseDetail id={this.state.idDetail} back={() => this.back()} />;
-    } else
-    return super.render();
+    } else return super.render();
   }
   headTable() {
     return (
@@ -49,14 +49,7 @@ class Course extends BaseComponent {
   bodyTable(o, index) {
     return (
       <tr key={o.id} style={{ fontSize: "15px" }}>
-        <td
-          style={{
-            width: "5%",
-            fontSize: "17px",
-          }}
-        >
-          {o.id}
-        </td>
+        <td>{o.id}</td>
         <td>{o.code}</td>
         <td>{o.name}</td>
         <td>{o.createdBy}</td>
@@ -64,25 +57,17 @@ class Course extends BaseComponent {
         <td></td>
         <td></td>
         <td>
-          <button className="but btn-green" onClick={() => this.detail(o.id)}>
-            <FontAwesomeIcon icon={faEye} className="icon" />
-          </button>
-          <button
-            className="but btn-blue"
-            onClick={() =>
-              this.changeModel(o.id, index)
-            }
-          >
-            <FontAwesomeIcon icon={faEdit} className="icon" />
-          </button>
-          <button
-            className="but btn-red"
-            onClick={() =>
-              this.delete(o.id, index)
-            }
-          >
-            <FontAwesomeIcon icon={faTrashAlt} className="icon" />
-          </button>
+          <div className="i" onClick={() => this.detail(o.id)}>
+            <FontAwesomeIcon icon={faEye} className="icon-green" />
+          </div>
+          <div className="i" onClick={() => this.changeModel(o.id, index)}>
+            <Tooltip title="chỉnh sửa">
+              <FontAwesomeIcon icon={faEdit} className="icon-blue" />
+            </Tooltip>
+          </div>
+          <div className="i" onClick={() => this.delete(o.id, index)}>
+            <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
+          </div>
         </td>
       </tr>
     );

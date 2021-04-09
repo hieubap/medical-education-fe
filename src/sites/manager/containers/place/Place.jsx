@@ -33,16 +33,16 @@ class Place extends BaseComponent {
         <td>{o.address}</td>
         <td>{o.createAt}</td>
         <td>{o.updateAt}</td>
-        <td style={{ width: "10%" }}>
-          <button className="but btn-red" onClick={() => this.delete(o.id,index)}>
-            <FontAwesomeIcon icon={faTrashAlt} className="icon" />
-          </button>
-          <button
-            className="but btn-blue"
+        <td style={{ width: "7%" }}>
+          <div className="i" onClick={() => this.delete(o.id,index)}>
+            <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
+          </div>
+          <div
+            className="i"
             onClick={() => this.changeModel(o.id, index)}
           >
-            <FontAwesomeIcon icon={faEdit} className="icon" />
-          </button>
+            <FontAwesomeIcon icon={faEdit} className="icon-blue" />
+          </div>
         </td>
       </tr>
     );

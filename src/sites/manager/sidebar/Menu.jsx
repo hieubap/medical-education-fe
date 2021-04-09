@@ -7,7 +7,8 @@ import "@src/CSS/responsive.css";
 import "@src/CSS/management.css";
 import "@components/CSS/baseComponent.css";
 import { Link } from "react-router-dom";
-import { support } from "jquery";
+import { faDatabase, faTools } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Menu extends Component {
   constructor(props) {
@@ -17,87 +18,99 @@ class Menu extends Component {
         {
           path: "/manager/dashboard",
           class: "bar",
-          name: "Thông báo"
+          name: "Thông báo",
         },
         {
           path: "/manager/courses",
           class: "bar",
-          name: "Quản lý khóa học"
+          name: "Quản lý khóa học",
         },
         {
           path: "/manager/subject",
           class: "bar",
-          name: "Quản lý môn học"
+          name: "Quản lý môn học",
         },
         {
           path: "/manager/class",
           class: "bar",
-          name: "Quản lý lớp"
+          name: "Quản lý lớp",
         },
         {
           path: "/manager/place",
           class: "bar",
-          name: "Quản lý địa điểm"
+          name: "Quản lý địa điểm",
         },
         {
           path: "/manager/student",
           class: "bar",
-          name: "Quản lý học viên"
+          name: "Quản lý học viên",
         },
         {
           path: "/manager/course-register",
           class: "bar",
-          name: "Đăng ký khóa học"
+          name: "Đăng ký khóa học",
         },
         {
           path: "/manager/class-register",
           class: "bar",
-          name: "Đăng ký lớp"
+          name: "Đăng ký lớp",
         },
         {
           path: "/manager/schedule",
           class: "bar",
-          name: "Lịch"
+          name: "Lịch",
         },
         {
           path: "/manager/result",
           class: "bar",
-          name: "Kết quả"
+          name: "Kết quả",
         },
         {
           path: "/manager/users",
           class: "bar",
-          name: "Quản lý tài khoản"
+          name: "Quản lý tài khoản",
         },
         {
           path: "/manager/feedback",
           class: "bar",
-          name: "Phản hồi"
+          name: "Phản hồi",
         },
         {
           path: "/manager/notification",
           class: "bar",
-          name: "Thông báo"
+          name: "Thông báo",
         },
       ],
     };
   }
-  setActive(path){
+  setActive(path) {
     const newState = this.state.attibute.map((obj) => {
-      if(obj.path === path)
-      obj.class = "bar active"
-      else
-      obj.class = "bar"
-    })
+      if (obj.path === path) obj.class = "bar active";
+      else obj.class = "bar";
+    });
     this.setState(newState);
   }
   render() {
     return (
       <div className="menu">
-        <div className="head-menu">Menu</div>
+        <img
+          src={"http://localhost:8082/images/Logo.png"}
+          style={{ width: "150%", marginTop: "20px", marginLeft: "-25%" }}
+        />
         {this.state.attibute.map((atb, index) => (
-          <Link to={atb.path} className={atb.class} onClick={() => this.setActive(atb.path)}>
-            {atb.name}
+          <Link
+            to={atb.path}
+            className={atb.class}
+            onClick={() => this.setActive(atb.path)}
+            style={{ display: "flex" }}
+          >
+            <div>
+              <FontAwesomeIcon
+                className="icon"
+                icon={faDatabase}
+              ></FontAwesomeIcon>
+            </div>
+            <div style={{marginLeft:"7px"}}>{atb.name}</div>
           </Link>
         ))}
       </div>

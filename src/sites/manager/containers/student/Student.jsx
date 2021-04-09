@@ -4,11 +4,8 @@ import { url_student } from "@utils/API";
 
 import "@src/CSS/manageAdmin.css";
 import "@src/CSS/main.css";
-import {
-  faEdit,
-  faEye,
-  faLock,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faEye, faLock } from "@fortawesome/free-solid-svg-icons";
+import { Tooltip } from "antd";
 
 class Student extends Component {
   constructor(props) {
@@ -63,9 +60,7 @@ class Student extends Component {
     for (let i = 0; i < 5; i++) {
       listPage.push(
         <li key={i}>
-          <button onClick={() => this.setPage(i)}>
-            {i + 1}
-          </button>
+          <button onClick={() => this.setPage(i)}>{i + 1}</button>
         </li>
       );
     }
@@ -110,23 +105,23 @@ class Student extends Component {
                     <td style={{ width: "15%" }}>{feedback.fullName}</td>
                     <td style={{ width: "15%" }}>{feedback.status}</td>
                     <td style={{ width: "5%" }}>
-                      <button
-                        class="but btn-red"
-                      >
-                        <FontAwesomeIcon icon={faLock} className="icon" />
-                      </button>
-                      <button
-                        class="but btn-blue"
-                        onClick={() => this.changeModel()}
-                      >
-                        <FontAwesomeIcon icon={faEdit} className="icon" />
-                      </button>
-                      <button
-                        class="but btn-green"
+                      <div
+                        class="i"
                         onClick={() => this.setDetail(feedback.id)}
                       >
-                        <FontAwesomeIcon icon={faEye} className="icon" />
-                      </button>
+                        <Tooltip title="xem chi tiết">
+                          <FontAwesomeIcon
+                            icon={faEye}
+                            className="icon-green"
+                          />
+                        </Tooltip>
+                      </div>
+                      <div class="i" onClick={() => this.changeModel()}>
+                        <FontAwesomeIcon icon={faEdit} className="icon-blue" />
+                      </div>
+                      <div class="i">
+                        <FontAwesomeIcon icon={faLock} className="icon-red" />
+                      </div>
                     </td>
                   </tr>
                 );

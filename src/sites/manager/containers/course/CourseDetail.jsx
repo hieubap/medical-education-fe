@@ -192,16 +192,16 @@ class CourseDetail extends Component {
                         <td>{subject.name}</td>
                         <td>{subject.id}</td>
                         <td>
-                          <button
+                          <div
                             style={{ marginRight: "20px" }}
-                            class="but btn-red"
+                            class="i"
                             onClick={() => this.remove(subject.id, index)}
                           >
                             <FontAwesomeIcon
                               icon={faTrashAlt}
-                              className="icon"
+                              className="icon-red"
                             />
-                          </button>
+                          </div>
                         </td>
                       </tr>
                     );

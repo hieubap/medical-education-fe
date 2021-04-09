@@ -7,7 +7,7 @@ import {
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { api_user } from "@utils/API.js";
-import './style.scss';
+import "./style.scss";
 class User extends Component {
   constructor(props) {
     super(props);
@@ -80,8 +80,8 @@ class User extends Component {
           <div>
             <table>
               <tr>
-                <th style={{width:"2%",padding:'0'}}>stt</th>
-                <th style={{width:"3%",padding:'0'}}>ID</th>
+                <th style={{ width: "2%", padding: "0" }}>stt</th>
+                <th style={{ width: "3%", padding: "0" }}>ID</th>
                 <th>Tên</th>
                 <th>Username</th>
                 <th>Trạng thái</th>
@@ -118,25 +118,33 @@ class User extends Component {
                       <td>{feedback.createAt}</td>
                       <td>{feedback.updateAt}</td>
                       <td style={{ width: "12%" }}>
-                        
-                      <button
-                          class="but btn-green"
+                        <div
+                          class="i"
                           onClick={() => this.setDetail(feedback.id)}
                         >
-                          <FontAwesomeIcon icon={faEye} className="icon" />
-                        </button>
-                        <button class="but btn-mangeto">
-                          <FontAwesomeIcon icon={faLock} className="icon" />
-                        </button>
-                        <button
-                          class="but btn-blue"
-                          onClick={() => this.changeModel()}
-                        >
-                          <FontAwesomeIcon icon={faEdit} className="icon" />
-                        </button>
-                        <button class="but btn-red">
-                          <FontAwesomeIcon icon={faTrashAlt} className="icon" />
-                        </button>
+                          <FontAwesomeIcon
+                            icon={faEye}
+                            className="icon-green"
+                          />
+                        </div>
+                        <div class="i">
+                          <FontAwesomeIcon
+                            icon={faLock}
+                            className="icon-mangeto"
+                          />
+                        </div>
+                        <div class="i" onClick={() => this.changeModel()}>
+                          <FontAwesomeIcon
+                            icon={faEdit}
+                            className="icon-blue"
+                          />
+                        </div>
+                        <div class="i">
+                          <FontAwesomeIcon
+                            icon={faTrashAlt}
+                            className="icon-red"
+                          />
+                        </div>
                       </td>
                     </tr>
                   );

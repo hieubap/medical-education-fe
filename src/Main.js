@@ -87,6 +87,8 @@ function Main() {
     type: constants.action.action_user_login,
     value: dataCache.read('','access'),
   });
+  document.title = "Quản lý giáo dục y tế";
+  
 
   return (
     <BrowserRouter>

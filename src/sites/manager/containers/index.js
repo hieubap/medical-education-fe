@@ -11,6 +11,7 @@ import Menu from "../sidebar/Menu";
 import { useSelector } from "react-redux";
 import Loading from "@components/loading";
 import Login from "./account";
+import Head from "../../../components/head";
 
 function Load() {
   return <Loading></Loading>;
@@ -122,6 +123,7 @@ function Index(props) {
           <div>
             <Menu></Menu>
             <div className="container">
+            <Head title="tiêu đề"></Head>
               {routes.map((route, key) => {
                 if (route.component) {
                   console.log(route.path);

@@ -98,12 +98,12 @@ class RegisterClass extends BaseComponent {
           <td>{o.createAt}</td>
           <td>{o.status}</td>
           <td>
-            <button
-              className="but btn-red"
+            <div
+              className="i"
               onClick={() => this.delete(o.id,index)}
             >
-              <FontAwesomeIcon icon={faWindowClose} className="icon" />
-            </button>
+              <FontAwesomeIcon icon={faWindowClose} className="icon-red" />
+            </div>
           </td>
         </tr>
       );

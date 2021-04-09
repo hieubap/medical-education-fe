@@ -204,12 +204,12 @@ class FeedBack extends Component {
                     <td style={{ width: "15%" }}>{feedback.createdBy}</td>
                     <td>{feedback.content}</td>
                     <td style={{ width: "2%" }}>
-                      <button
-                        className="but btn-red"
+                      <div
+                        className="i"
                         onClick={() => this.delete(index, feedback.id)}
                       >
-                        <FontAwesomeIcon icon={faWindowClose} className="icon" />
-                      </button>
+                        <FontAwesomeIcon icon={faWindowClose} className="icon-red" />
+                      </div>
                     </td>
                   </tr>
                 );
