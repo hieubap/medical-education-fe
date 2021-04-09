@@ -26,6 +26,7 @@ function Index(props) {
         loader: () => import("@manager/containers/dashboard/ChartRender"),
         loading: Load,
       }),
+      content:"Thống kê"
     },
     {
       path: ["/manager/courses"],
