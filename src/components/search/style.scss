@@ -8,7 +8,19 @@
 //   border-radius: 2px;
 //   tab-size: 2;
 // }
-.search-btn {
-  width: 120px;
+.search{
+
+}
+.search>input {
+  width: 400px;
   height: 40px;
+  outline: none;
+  margin-bottom:20px;
+}
+.search>button {
+  height: 40px;
+  outline: none;
+  margin-bottom:20px;
+  float: none;
+  padding: 15px;
 }

@@ -10,7 +10,7 @@ class Search extends Component {
   }
   render() {
     return (
-      <div style={{ display: "flex" }}>
+      <div className="search">
         <input
           name="carlist"
           form="carform"
@@ -23,8 +23,7 @@ class Search extends Component {
         ></input>
 
         <button
-          style={{ marginLeft: "8%" }}
-          className="default-btn search-btn"
+          className="default-btn"
           onClick={() => this.props.search(this.state.name)}
         >
           Tìm kiếm
