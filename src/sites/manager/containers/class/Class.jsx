@@ -94,17 +94,12 @@ class Class extends BaseComponent {
 
   beforeTable() {
     return (
-      <>
-        <div style={{ display: "flex" }}>
-          <label
-            style={{ textAlign: "center", width: "8%", padding: "20px 0" }}
-          >
-            Khóa
-          </label>
+      <div className="search-class">
+        <div>
+          <label>Khóa</label>
           <select
             name="carlist"
             form="carform"
-            style={{ width: "25%" }}
             onchange={(e) => this.setSelectSubject(e.target.value)}
           >
             {this.state.subjects != null &&
@@ -112,15 +107,10 @@ class Class extends BaseComponent {
                 return <option value={subject.id}>{subject.name}</option>;
               })}
           </select>
-          <label
-            style={{ textAlign: "center", width: "8%", padding: "20px 0" }}
-          >
-            Môn
-          </label>
+          <label>Môn</label>
           <select
             name="carlist"
             form="carform"
-            style={{ width: "25%" }}
             onchange={(e) => this.setSelectSubject(e.target.value)}
           >
             {this.state.subjects != null &&
@@ -128,15 +118,10 @@ class Class extends BaseComponent {
                 return <option value={subject.id}>{subject.name}</option>;
               })}
           </select>
-          <label
-            style={{ textAlign: "center", width: "9%", padding: "20px 0" }}
-          >
-            Lớp
-          </label>
+          <label>Lớp</label>
           <select
             name="carlist"
             form="carform"
-            style={{ width: "25%" }}
             onchange={(e) => this.setSelectSubject(e.target.value)}
           >
             {this.state.subjects != null &&
@@ -145,55 +130,31 @@ class Class extends BaseComponent {
               })}
           </select>
         </div>
-        <div style={{ display: "flex" }}>
-          <label
-            style={{ textAlign: "center", width: "15%", padding: "20px 0" }}
-          >
-            Mã Khóa
-          </label>
+        <div>
+          <label>Mã Khóa</label>
           <input
-            style={{ width: "15%" }}
             name="carlist"
             form="carform"
             type="text"
             sty
             onchange={(e) => this.setSelectSubject(e.target.value)}
           ></input>
-          <label
-            style={{ textAlign: "center", width: "15%", padding: "20px 0" }}
-          >
-            Mã Môn
-          </label>
+          <label>Mã Môn</label>
           <input
-            style={{ width: "15%" }}
             name="carlist"
             form="carform"
             type="text"
-            sty
             onchange={(e) => this.setSelectSubject(e.target.value)}
           ></input>
-          <label
-            style={{ textAlign: "center", width: "15%", padding: "20px 0" }}
-          >
-            Mã Lớp
-          </label>
+          <label>Mã Lớp</label>
           <input
-            style={{ width: "15%" }}
             name="carlist"
             form="carform"
             type="text"
-            sty
             onchange={(e) => this.setSelectSubject(e.target.value)}
           ></input>
-          <button
-            style={{ marginLeft: "5%" }}
-            className="default-btn"
-            onclick={() => this.add()}
-          >
-            Đăng ký
-          </button>
         </div>
-      </>
+      </div>
     );
   }
 

@@ -8,3 +8,21 @@
 //     border-radius: 2px;
 //     tab-size: 2;
 //   }
+.search-class{
+    padding-left: 0.5%;
+}
+.search-class>div{
+    display: flex;
+}
+.search-class>div>label{
+    margin-left: 25px;
+    min-width: 80px;
+}
+.search-class>div>input,
+.search-class>div>select{
+    height: 30px;
+    min-width: 250px;
+    outline: none;
+    margin-left: 0.5%;
+    margin-bottom: 20px;
+}
