@@ -251,19 +251,3 @@
     display: flex;
     flex-direction: row;
 }
-
-#item1 {
-    margin-left: 10%;
-    flex-basis: 20%;
-    height: auto;
-}
-
-#item2 {
-    flex-basis: 40%;
-    height: auto;
-}
-
-#item4 {
-    flex-basis: 20%;
-    height: auto;
-}

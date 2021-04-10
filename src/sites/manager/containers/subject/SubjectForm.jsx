@@ -1,11 +1,6 @@
 import React from "react";
 import { api_subject } from "@utils/API.js";
 import "react-toastify/dist/ReactToastify.css";
-
-import "@src/CSS/manageAdmin.css";
-import "@src/CSS/base.css";
-import "@src/CSS/grid.css";
-import "@src/CSS/responsive.css";
 import { BaseFormComponent, connect } from "@utils/BaseFormComponent";
 
 class SubjectForm extends BaseFormComponent {

@@ -1,9 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { api_subject } from "@utils/API";
-
-import "@src/CSS/manageAdmin.css";
-import "@src/CSS/main.css";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import SubjectForm from "./SubjectForm";
 import {BaseComponent,connect} from "@utils/BaseComponent";

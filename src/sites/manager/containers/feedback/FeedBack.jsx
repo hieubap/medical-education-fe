@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "@src/CSS/manageAdmin.css";
-import "@src/CSS/main.css";
-import Head from "../../../../components/head-tag/Head";
+import Head from "@components/head-tag/Head";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
 class FeedBack extends Component {

@@ -1,11 +1,4 @@
 import React, { Component } from "react";
-
-import "@src/CSS/base.css";
-import "@src/CSS/main.css";
-import "@src/CSS/grid.css";
-import "@src/CSS/responsive.css";
-import "@src/CSS/management.css";
-import "@components/CSS/baseComponent.css";
 import { Link } from "react-router-dom";
 import { faDatabase, faTools } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

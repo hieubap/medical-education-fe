@@ -5,6 +5,12 @@ import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
 import "@components/CSS/baseComponent.css";
 import { connect as reduxConnect } from "react-redux";
+
+import '@src/CSS/base.css';
+// import '@src/CSS/responsive.css';
+// import '@src/CSS/manageAdmin.css';
+
+
 export class BaseComponent extends Component {
   constructor(props) {
     super(props);

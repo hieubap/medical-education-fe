@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-
-import "@src/CSS/manageAdmin.css";
-import "@src/CSS/main.css";
 import { api_class_register } from "@utils/API.js";
 import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";

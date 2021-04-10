@@ -1,3 +1,15 @@
+* {
+  box-sizing: inherit;
+}
+
+a {
+  text-decoration: none;
+}
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
 .app {
   background-color: #f5f5f5;
   width: 100%;
@@ -253,6 +265,11 @@
   background-color: #bc34fa;
 }
 
+table {
+  font-family: sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
 td,
 th {
     border: 1px solid #ccc;
