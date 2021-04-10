@@ -2,15 +2,36 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { api_course_register } from "@utils/API.js";
-import {BaseComponent,connect} from "@utils/BaseComponent";
+import { BaseComponent, connect } from "@utils/BaseComponent";
 import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
-
+import './../class-register/style.scss';
 class RegistryCourse extends BaseComponent {
   constructor(props) {
     super(props);
     this.state = { ...this.state, codeCourse: "" };
     this.api_get = api_course_register + "?studentId=" + "1";
+  }
+
+  registerCourse(){
+    
+  }
+
+  beforeTable() {
+    return (
+      <div className="registry">
+        <label>Mã Khóa</label>
+        <input
+          name="codeCourse"
+          form="carform"
+          type="text"
+          onChange={(e) => this.setSelect(e.target.name, e.target.value)}
+        ></input>
+        <button className="default-btn" onClick={() => this.registerCourse()}>
+          Đăng ký
+        </button>
+      </div>
+    );
   }
 
   render() {
@@ -27,29 +48,7 @@ class RegistryCourse extends BaseComponent {
       <>
         {this.state.loading && <Loading></Loading>}
         <Head title="Đăng kí khóa học"></Head>
-        <div className="content">
-          <label
-            style={{ textAlign: "center", width: "8%", padding: "20px 5px" }}
-          >
-            Mã Khóa
-          </label>
-          <input
-            class="create_input select-type-product"
-            style={{ width: "20%" }}
-            name="codeCourse"
-            form="carform"
-            type="text"
-            sty
-            onChange={(e) => this.setSelect(e.target.name, e.target.value)}
-          ></input>
-          <button
-            style={{ marginLeft: "3%" }}
-            className="default-btn"
-            onClick={() => this.registerCourse()}
-          >
-            Đăng ký
-          </button>
-        </div>
+        {this.beforeTable()}
         <div>
           <table>
             <tr>

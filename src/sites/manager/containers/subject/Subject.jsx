@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { api_subject } from "@utils/API";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import SubjectForm from "./SubjectForm";
-import {BaseComponent,connect} from "@utils/BaseComponent";
+import { BaseComponent, connect } from "@utils/BaseComponent";
 
 class Subject extends BaseComponent {
   constructor(props) {
@@ -29,28 +29,15 @@ class Subject extends BaseComponent {
   bodyTable(o, index) {
     return (
       <tr style={{ fontSize: "17px" }}>
-        <td
-          style={{
-            width: "5%",
-            fontSize: "17px",
-          }}
-        >
-          {o.id}
-        </td>
+        <td>{o.id}</td>
         <td style={{ width: "15%" }}>{o.code}</td>
         <td>{o.name}</td>
         <td style={{ width: "15%" }}>{o.type}</td>
         <td style={{ width: "7%" }}>
-          <div
-            class="i"
-            onClick={() => this.changeModel(o.id, index)}
-          >
+          <div class="i" onClick={() => this.changeModel(o.id, index)}>
             <FontAwesomeIcon icon={faEdit} className="icon-blue" />
           </div>
-          <div
-            class="i"
-            onClick={() => this.delete(o.id, index)}
-          >
+          <div class="i" onClick={() => this.delete(o.id, index)}>
             <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
           </div>
         </td>

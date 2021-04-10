@@ -1,11 +1,11 @@
 import { faTrashAlt, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "react-toastify";
-import { api_class, api_class_register, api_subject } from "@utils/API";
+import { api_class_register } from "@utils/API";
 import { BaseComponent, connect } from "@utils/BaseComponent";
 import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
-
+import "./style.scss";
 class RegisterClass extends BaseComponent {
   afterInit() {
     this.nameComponent = "Đăng kí Lớp học";
@@ -61,7 +61,7 @@ class RegisterClass extends BaseComponent {
             });
             toast.success("Thêm thành công");
           } else {
-            toast.warn(json.message);
+            toast.error(json.message);
           }
         });
     }
@@ -109,26 +109,17 @@ class RegisterClass extends BaseComponent {
   beforeTable() {
     return (
       <>
-        <div style={{ display: "flex" }}>
-          <label
-            style={{ textAlign: "center", width: "8%", padding: "20px 0" }}
-          >
-            Mã Lớp
-          </label>
+        <div className="registry">
+          <div>
+            <label>Mã Lớp</label>
+          </div>
           <input
-            class="create_input select-type-product"
-            style={{ width: "20%" }}
             name="codeClass"
             form="carform"
             type="text"
-            sty
             onChange={(e) => this.setSelect(e.target.name, e.target.value)}
           ></input>
-          <button
-            style={{ marginLeft: "3%" }}
-            className="default-btn"
-            onClick={() => this.addClass()}
-          >
+          <button className="default-btn" onClick={() => this.addClass()}>
             Đăng ký
           </button>
         </div>

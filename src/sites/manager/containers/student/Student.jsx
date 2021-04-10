@@ -78,14 +78,7 @@ class Student extends BaseComponent {
   bodyTable(obj, index) {
     return (
       <tr style={{ fontSize: "17px" }}>
-        <td
-          style={{
-            width: "5%",
-            fontSize: "17px",
-          }}
-        >
-          {obj.id}
-        </td>
+        <td style={{ width: "5%" }}>{obj.id}</td>
         <td style={{ width: "15%" }}>{obj.value}</td>
         <td style={{ width: "15%" }}>{obj.fullName}</td>
         <td style={{ width: "15%" }}>{obj.status}</td>
