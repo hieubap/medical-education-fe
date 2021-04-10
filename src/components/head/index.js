@@ -1,36 +1,71 @@
-import { faDatabase } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChalkboardTeacher,
+  faDatabase,
+  faUserCog,
+  faUserGraduate,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Component } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import logo from "@src/resourses/Logo.png";
+import constants from "@src/resourses/const";
 
 const Head = (props) => {
+  let i = faUserGraduate;
+  switch (props.role) {
+    case constants.role.admin:
+      i = faUserCog;
+      break;
+    case constants.role.teacher:
+      i = faChalkboardTeacher;
+      break;
+  }
   const userApp = useSelector((state) => state.userApp);
-  console.log(userApp);
+  const [click, setClick] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    setClick(!click);
+  };
+
+  const handleLogout = () => {
+    dispatch({
+      type: constants.action.action_user_logout,
+      value: {},
+    });
+    localStorage.removeItem("_access");
+    window.location.href = "/login";
+    console.log("logout");
+  };
+
+  const handleProfile = () => {};
 
   return (
     <div className="head-body">
       <div className="head-icon" style={{ flexBasis: "5%" }}>
-        <FontAwesomeIcon
-          icon={faDatabase}
-          className="head-icon"
-        ></FontAwesomeIcon>
+        <FontAwesomeIcon icon={i} className="head-icon"></FontAwesomeIcon>
       </div>
 
       <div className="h" style={{ flexBasis: "80%" }}>
-        <h2
-          //   className="text-center head_tag"
-          data-wow-duration="1s"
-          data-wow-delay="0.1s"
-        >
+        <h2 data-wow-duration="1s" data-wow-delay="0.1s">
           {props.title}
         </h2>
       </div>
-      <div className="name" style={{ flexBasis: "10%" }}>{userApp.currentUser.full_name}</div>
-      <div className="tab" style={{ flexBasis: "5%" }}>
-        <img
-          src={"http://localhost:8082/images/Logo.png"}
-          style={{ width: "70px" }}
-        ></img>
+      <div style={{ flexBasis: "15%" }}>
+        <div style={{ display: "flex" }}>
+          <div className="name-user" style={{ flexBasis: "75%" }}>
+            <span>{userApp.currentUser.full_name}</span>
+          </div>
+          <div className="avatar" style={{}} onClick={() => handleClick()}>
+            <img src={logo} style={{ width: "70px" }}></img>
+          </div>
+        </div>
+        <div className="t" style={{ display: click ? "block" : "none" }}>
+          <ul>
+            <li onClick={() => handleProfile()}>hồ sơ</li>
+            <li onClick={() => handleLogout()}>đăng xuất</li>
+          </ul>
+        </div>
       </div>
     </div>
   );

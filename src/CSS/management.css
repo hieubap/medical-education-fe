@@ -82,11 +82,11 @@ tr:nth-child(even) {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.btn {
+/* .btn {
     margin-right: 5px;
     padding: 16px;
     width: 40px;
-}
+} */
 
 .btn-blue {
     background-color: royalblue;

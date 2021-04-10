@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import constants from "@src/resourses/const";
 import dataCache from "@components/data-cache-provider";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignInAlt, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -46,7 +48,15 @@ function Login() {
           dataCache.save("", "access", json.data);
 
           setTimeout(() => {
-            window.location.href = "/manager";
+            switch (json.data.role) {
+              case constants.role.admin:
+                window.location.href = "/manager";
+                return;
+              case constants.role.teacher:
+                window.location.href = "/teacher";
+                return;
+            }
+            window.location.href = "/student";
           }, 500);
         } else {
           toast.error(json.message);
@@ -61,7 +71,7 @@ function Login() {
 
   return (
     <div className="background">
-      <div className="bor">
+      <div className="login">
         <h1>Đăng nhập</h1>
         <div className="a">
           <label>Tên đăng nhập</label>
@@ -90,17 +100,19 @@ function Login() {
         <div className="b">
           <button
             type="submit"
-            className="default-btn b"
-            onClick={(e) => handleRegister(e)}
+            className="default-btn sub"
+            onClick={(e) => handleLogin(e)}
           >
-            Đăng Ký
+            <FontAwesomeIcon icon={faSignInAlt}></FontAwesomeIcon>
+            <span>Đăng nhập</span>
           </button>
           <button
             type="submit"
-            className="default-btn b"
-            onClick={(e) => handleLogin(e)}
+            className="default-btn"
+            onClick={(e) => handleRegister(e)}
           >
-            Đăng nhập
+            <FontAwesomeIcon icon={faSyncAlt}></FontAwesomeIcon>
+            <span>Đăng ký</span>
           </button>
         </div>
       </div>

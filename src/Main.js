@@ -18,7 +18,7 @@ const routes = [
   {
     path: "/",
     component: Loadable({
-      loader: () => import("@manager/containers"),
+      loader: () => import("@manager/containers/account"),
       loading: Loading,
     }),
   },
@@ -39,28 +39,28 @@ const routes = [
   {
     path: "/teacher",
     component: Loadable({
-      loader: () => import("@manager/containers"),
+      loader: () => import("@teacher/containers"),
       loading: Loading,
     }),
   },
   {
     path: "/teacher/:function",
     component: Loadable({
-      loader: () => import("@manager/containers"),
+      loader: () => import("@teacher/containers"),
       loading: Loading,
     }),
   },
   {
-    path: "/user",
+    path: "/student",
     component: Loadable({
-      loader: () => import("@manager/containers"),
+      loader: () => import("@student/containers"),
       loading: Loading,
     }),
   },
   {
-    path: "/user/:function",
+    path: "/student/:function",
     component: Loadable({
-      loader: () => import("@manager/containers"),
+      loader: () => import("@student/containers"),
       loading: Loading,
     }),
   },

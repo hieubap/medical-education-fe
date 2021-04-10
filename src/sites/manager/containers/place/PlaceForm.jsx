@@ -1,6 +1,6 @@
 import { api_place } from "@utils/API.js";
 import "react-toastify/dist/ReactToastify.css";
-import BaseFormComponent from "@utils/BaseFormComponent";
+import {BaseFormComponent,connect} from "@utils/BaseFormComponent";
 
 class PlaceForm extends BaseFormComponent {
   afterInit() {
@@ -32,4 +32,4 @@ class PlaceForm extends BaseFormComponent {
   }
 }
 
-export default PlaceForm;
+export default connect(PlaceForm);

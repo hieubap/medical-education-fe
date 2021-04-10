@@ -7,11 +7,11 @@ import {
 } from "react-router-dom";
 import Loadable from "react-loadable";
 import RouterWithPaths from "@components/RouterWithPaths";
-import Menu from "../sidebar/Menu";
+import Menu from "@teacher/sidebar/Menu";
 import { useSelector } from "react-redux";
 import Loading from "@components/loading";
-import Login from "./account";
-import Head from "../../../components/head";
+import Login from "@manager/containers/account";
+import Head from "@components/head";
 import constants from "@src/resourses/const";
 
 function Load() {
@@ -22,7 +22,7 @@ function Index(props) {
   const userApp = useSelector((state) => state.userApp);
   const routes = [
     {
-      path: ["/manager/dashboard"],
+      path: ["/teacher/dashboard"],
       component: Loadable({
         loader: () => import("@manager/containers/dashboard/ChartRender"),
         loading: Load,
@@ -30,86 +30,42 @@ function Index(props) {
       content:"Thống kê"
     },
     {
-      path: ["/manager/courses"],
+      path: ["/teacher/courses"],
       component: Loadable({
         loader: () => import("@manager/containers/course/Course"),
         loading: Load,
       }),
     },
     {
-      path: ["/manager/subject"],
+      path: ["/teacher/subject"],
       component: Loadable({
         loader: () => import("@manager/containers/subject/Subject"),
         loading: Load,
       }),
     },
     {
-      path: ["/manager/class"],
+      path: ["/teacher/class"],
       component: Loadable({
         loader: () => import("@manager/containers/class/Class"),
         loading: Load,
       }),
     },
     {
-      path: ["/manager/place"],
-      component: Loadable({
-        loader: () => import("@manager/containers/place/Place"),
-        loading: Load,
-      }),
-    },
-    {
-      path: ["/manager/student"],
-      component: Loadable({
-        loader: () => import("@manager/containers/student/Student"),
-        loading: Load,
-      }),
-    },
-    {
-      path: ["/manager/course-register"],
-      component: Loadable({
-        loader: () =>
-          import("@manager/containers/course-register/RegistryCourse"),
-        loading: Load,
-      }),
-    },
-    {
-      path: ["/manager/class-register"],
-      component: Loadable({
-        loader: () =>
-          import("@manager/containers/class-register/RegisterClass"),
-        loading: Load,
-      }),
-    },
-    {
-      path: ["/manager/schedule"],
+      path: ["/teacher/schedule"],
       component: Loadable({
         loader: () => import("@manager/containers/schedule/Schedule"),
         loading: Load,
       }),
     },
     {
-      path: ["/manager/result"],
-      component: Loadable({
-        loader: () => import("@manager/containers/result/StudyProcess"),
-        loading: Load,
-      }),
-    },
-    {
-      path: ["/manager/users"],
-      component: Loadable({
-        loader: () => import("@manager/containers/users/User"),
-        loading: Load,
-      }),
-    },
-    {
-      path: ["/manager/notification"],
+      path: ["/teacher/notification"],
       component: Loadable({
         loader: () => import("@manager/containers/notification/Notification"),
         loading: Load,
       }),
     },
     {
-      path: ["/manager/feedback"],
+      path: ["/teacher/feedback"],
       component: Loadable({
         loader: () => import("@manager/containers/feedback/FeedBack"),
         loading: Load,
@@ -124,7 +80,7 @@ function Index(props) {
           <div>
             <Menu></Menu>
             <div className="container">
-            <Head title="Quản trị hệ thống" role={constants.role.admin}></Head>
+            <Head title="Giảng viên" role={constants.role.teacher}></Head>
               {routes.map((route, key) => {
                 if (route.component) {
                   return (

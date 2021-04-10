@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import constants from "@src/resourses/const";
 import dataCache from "@components/data-cache-provider";
+import { faSignInAlt, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -69,9 +71,9 @@ function Register() {
 
   return (
     <div className="background">
-      <div className="bor">
-        <h1>Đăng Ký</h1>
-        <div className="a">
+      <div className="login">
+        <h1>Đăng nhập</h1>
+        <div>
           <label>Tên đăng nhập</label>
         </div>
         <div>
@@ -107,20 +109,23 @@ function Register() {
             onChange={(e) => handleChange(e.target.name, e.target.value)}
           ></input>
         </div>
+        
         <div className="b">
           <button
             type="submit"
-            className="default-btn b"
+            className="default-btn sub"
             onClick={(e) => handleRegister(e)}
           >
-            Đăng Ký
+            <FontAwesomeIcon icon={faSignInAlt}></FontAwesomeIcon>
+            <span>Đăng ký</span>
           </button>
           <button
             type="submit"
-            className="default-btn b"
+            className="default-btn"
             onClick={(e) => handleLogin(e)}
           >
-            Đăng nhập
+            <FontAwesomeIcon icon={faSyncAlt}></FontAwesomeIcon>
+            <span>Đăng nhập</span>
           </button>
         </div>
       </div>

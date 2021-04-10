@@ -6,8 +6,9 @@ import "@src/CSS/manageAdmin.css";
 import "@src/CSS/main.css";
 import { faEdit, faEye, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Tooltip } from "antd";
+import { connect, BaseComponent } from "@utils/BaseComponent";
 
-class Student extends Component {
+class Student extends BaseComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,26 +17,34 @@ class Student extends Component {
       size: 10,
       sizePage: 0,
       data: [],
+      token: this.props.userApp.token
     };
+
+    this.api_get = url_student;
   }
 
-  componentDidMount() {
-    fetch(url_student)
-      .then((res) => res.json())
-      .then((json) => {
-        const size = parseInt(json.totalElements / this.state.size) + 1;
-        console.log(json.data);
-        this.setState({
-          ...this.state,
-          loading: false,
-          data: json.data,
-          detail: new Array(json.data.length).fill(true),
-          sizePage: size,
-        });
-      });
+  // componentDidMount() {
+  //   fetch(url_student,{
+  //     headers:{
+  //       "content-type": "application/json",
+  //       Authorization: this.state.token,
+  //     }
+  //   })
+  //     .then((res) => res.json())
+  //     .then((json) => {
+  //       const size = parseInt(json.totalElements / this.state.size) + 1;
+  //       console.log(json.data);
+  //       this.setState({
+  //         ...this.state,
+  //         loading: false,
+  //         data: json.data,
+  //         detail: new Array(json.data.length).fill(true),
+  //         sizePage: size,
+  //       });
+  //     });
 
-    console.log("call api product");
-  }
+  //   console.log("call api product");
+  // }
 
   setPage = (index) => {
     const newState = Object.assign({}, this.state);
@@ -136,4 +145,4 @@ class Student extends Component {
   }
 }
 
-export default Student;
+export default connect(Student);

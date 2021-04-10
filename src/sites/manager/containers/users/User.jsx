@@ -8,36 +8,31 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { api_user } from "@utils/API.js";
 import "./style.scss";
-class User extends Component {
+import { BaseComponent, connect } from "@utils/BaseComponent";
+class User extends BaseComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      loading: true,
-      page: 0,
-      size: 10,
-      sizePage: 0,
-      data: [],
-    };
+    this.api_get = api_user;
     console.log("init ...");
   }
 
-  componentDidMount() {
-    fetch(api_user)
-      .then((res) => res.json())
-      .then((json) => {
-        const size = parseInt(json.totalElements / this.state.size) + 1;
-        console.log(json.data);
-        this.setState({
-          ...this.state,
-          loading: false,
-          data: json.data,
-          detail: new Array(json.data.length).fill(true),
-          sizePage: size,
-        });
-      });
+  // componentDidMount() {
+  //   fetch(api_user)
+  //     .then((res) => res.json())
+  //     .then((json) => {
+  //       const size = parseInt(json.totalElements / this.state.size) + 1;
+  //       console.log(json.data);
+  //       this.setState({
+  //         ...this.state,
+  //         loading: false,
+  //         data: json.data,
+  //         detail: new Array(json.data.length).fill(true),
+  //         sizePage: size,
+  //       });
+  //     });
 
-    console.log("call api product");
-  }
+  //   console.log("call api product");
+  // }
 
   setPage = (index) => {
     const newState = Object.assign({}, this.state);
@@ -57,107 +52,162 @@ class User extends Component {
     this.setState(newState);
   };
 
-  render() {
-    var listPage = [];
-    for (let i = 0; i < 5; i++) {
-      listPage.push(
-        <li key={i}>
-          <button onClick={() => this.setPage(i)}>{i + 1}</button>
-        </li>
-      );
-    }
+  headTable() {
     return (
-      <>
-        <div>
-          {/* {this.state.loading && <div class="loader" id="loader"></div>} */}
-          <h2
-            className=" text-center head_tag"
-            data-wow-duration="1s"
-            data-wow-delay="0.1s"
-          >
-            Quản lý tài khoản
-          </h2>
-          <div>
-            <table>
-              <tr>
-                <th style={{ width: "2%", padding: "0" }}>stt</th>
-                <th style={{ width: "3%", padding: "0" }}>ID</th>
-                <th>Tên</th>
-                <th>Username</th>
-                <th>Trạng thái</th>
-                <th>Vai trò</th>
-                <th>Giới tính</th>
-                <th>Tuổi</th>
-                <th>Địa chỉ</th>
-                <th>SĐT</th>
-                <th>email</th>
-                <th>Ngày tạo</th>
-                <th>Ngày cập nhật</th>
-                <th></th>
-              </tr>
-              {this.state.data
-                .filter(
-                  (o, index) =>
-                    this.state.page * this.state.size <= index &&
-                    index < (this.state.page + 1) * this.state.size
-                )
-                .map((feedback, index) => {
-                  return (
-                    <tr>
-                      <td>{index + 1}</td>
-                      <td>{feedback.id}</td>
-                      <td>{feedback.fullName}</td>
-                      <td>{feedback.username}</td>
-                      <td>{feedback.status}</td>
-                      <td>{feedback.role}</td>
-                      <td>{feedback.gender}</td>
-                      <td>{feedback.age}</td>
-                      <td>{feedback.address}</td>
-                      <td>{feedback.phoneNumber}</td>
-                      <td>{feedback.email}</td>
-                      <td>{feedback.createAt}</td>
-                      <td>{feedback.updateAt}</td>
-                      <td style={{ width: "12%" }}>
-                        <div
-                          class="i"
-                          onClick={() => this.setDetail(feedback.id)}
-                        >
-                          <FontAwesomeIcon
-                            icon={faEye}
-                            className="icon-green"
-                          />
-                        </div>
-                        <div class="i">
-                          <FontAwesomeIcon
-                            icon={faLock}
-                            className="icon-mangeto"
-                          />
-                        </div>
-                        <div class="i" onClick={() => this.changeModel()}>
-                          <FontAwesomeIcon
-                            icon={faEdit}
-                            className="icon-blue"
-                          />
-                        </div>
-                        <div class="i">
-                          <FontAwesomeIcon
-                            icon={faTrashAlt}
-                            className="icon-red"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </table>
-          </div>
-          <ul class="pagination" id="pageTag1">
-            {listPage}
-          </ul>
-        </div>
-      </>
+      <tr>
+        <th style={{ width: "2%", padding: "0" }}>stt</th>
+        <th style={{ width: "3%", padding: "0" }}>ID</th>
+        <th>Tên</th>
+        <th>Username</th>
+        <th>Trạng thái</th>
+        <th>Vai trò</th>
+        <th>Giới tính</th>
+        <th>Tuổi</th>
+        <th>Địa chỉ</th>
+        <th>SĐT</th>
+        <th>email</th>
+        <th>Ngày tạo</th>
+        <th>Ngày cập nhật</th>
+        <th></th>
+      </tr>
     );
   }
+
+  bodyTable(o, index) {
+    return (
+      <tr>
+        <td>{index + 1}</td>
+        <td>{o.id}</td>
+        <td>{o.fullName}</td>
+        <td>{o.username}</td>
+        <td>{o.status}</td>
+        <td>{o.role}</td>
+        <td>{o.gender}</td>
+        <td>{o.age}</td>
+        <td>{o.address}</td>
+        <td>{o.phoneNumber}</td>
+        <td>{o.email}</td>
+        <td>{o.createAt}</td>
+        <td>{o.updateAt}</td>
+        <td style={{ width: "12%" }}>
+          <div class="i" onClick={() => this.setDetail(o.id)}>
+            <FontAwesomeIcon icon={faEye} className="icon-green" />
+          </div>
+          <div class="i">
+            <FontAwesomeIcon icon={faLock} className="icon-mangeto" />
+          </div>
+          <div class="i" onClick={() => this.changeModel()}>
+            <FontAwesomeIcon icon={faEdit} className="icon-blue" />
+          </div>
+          <div class="i">
+            <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
+          </div>
+        </td>
+      </tr>
+    );
+  }
+
+  // render() {
+  //   var listPage = [];
+  //   for (let i = 0; i < 5; i++) {
+  //     listPage.push(
+  //       <li key={i}>
+  //         <button onClick={() => this.setPage(i)}>{i + 1}</button>
+  //       </li>
+  //     );
+  //   }
+  //   return (
+  //     <>
+  //       <div>
+  //         {/* {this.state.loading && <div class="loader" id="loader"></div>} */}
+  //         <h2
+  //           className=" text-center head_tag"
+  //           data-wow-duration="1s"
+  //           data-wow-delay="0.1s"
+  //         >
+  //           Quản lý tài khoản
+  //         </h2>
+  //         <div>
+  //           <table>
+  //             <tr>
+  //               <th style={{ width: "2%", padding: "0" }}>stt</th>
+  //               <th style={{ width: "3%", padding: "0" }}>ID</th>
+  //               <th>Tên</th>
+  //               <th>Username</th>
+  //               <th>Trạng thái</th>
+  //               <th>Vai trò</th>
+  //               <th>Giới tính</th>
+  //               <th>Tuổi</th>
+  //               <th>Địa chỉ</th>
+  //               <th>SĐT</th>
+  //               <th>email</th>
+  //               <th>Ngày tạo</th>
+  //               <th>Ngày cập nhật</th>
+  //               <th></th>
+  //             </tr>
+  //             {this.state.data
+  //               .filter(
+  //                 (o, index) =>
+  //                   this.state.page * this.state.size <= index &&
+  //                   index < (this.state.page + 1) * this.state.size
+  //               )
+  //               .map((feedback, index) => {
+  //                 return (
+  //                   <tr>
+  //                     <td>{index + 1}</td>
+  //                     <td>{feedback.id}</td>
+  //                     <td>{feedback.fullName}</td>
+  //                     <td>{feedback.username}</td>
+  //                     <td>{feedback.status}</td>
+  //                     <td>{feedback.role}</td>
+  //                     <td>{feedback.gender}</td>
+  //                     <td>{feedback.age}</td>
+  //                     <td>{feedback.address}</td>
+  //                     <td>{feedback.phoneNumber}</td>
+  //                     <td>{feedback.email}</td>
+  //                     <td>{feedback.createAt}</td>
+  //                     <td>{feedback.updateAt}</td>
+  //                     <td style={{ width: "12%" }}>
+  //                       <div
+  //                         class="i"
+  //                         onClick={() => this.setDetail(feedback.id)}
+  //                       >
+  //                         <FontAwesomeIcon
+  //                           icon={faEye}
+  //                           className="icon-green"
+  //                         />
+  //                       </div>
+  //                       <div class="i">
+  //                         <FontAwesomeIcon
+  //                           icon={faLock}
+  //                           className="icon-mangeto"
+  //                         />
+  //                       </div>
+  //                       <div class="i" onClick={() => this.changeModel()}>
+  //                         <FontAwesomeIcon
+  //                           icon={faEdit}
+  //                           className="icon-blue"
+  //                         />
+  //                       </div>
+  //                       <div class="i">
+  //                         <FontAwesomeIcon
+  //                           icon={faTrashAlt}
+  //                           className="icon-red"
+  //                         />
+  //                       </div>
+  //                     </td>
+  //                   </tr>
+  //                 );
+  //               })}
+  //           </table>
+  //         </div>
+  //         <ul class="pagination" id="pageTag1">
+  //           {listPage}
+  //         </ul>
+  //       </div>
+  //     </>
+  //   );
+  // }
 }
 
-export default User;
+export default connect(User);

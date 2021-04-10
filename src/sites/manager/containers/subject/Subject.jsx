@@ -6,7 +6,7 @@ import "@src/CSS/manageAdmin.css";
 import "@src/CSS/main.css";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import SubjectForm from "./SubjectForm";
-import BaseComponent from "@utils/BaseComponent";
+import {BaseComponent,connect} from "@utils/BaseComponent";
 
 class Subject extends BaseComponent {
   constructor(props) {
@@ -14,6 +14,7 @@ class Subject extends BaseComponent {
     this.api_get = api_subject;
     this.api_delete = api_subject + "/";
     this.nameComponent = "Quản lý môn học";
+    console.log(props);
   }
 
   headTable() {
@@ -72,4 +73,4 @@ class Subject extends BaseComponent {
   }
 }
 
-export default Subject;
+export default connect(Subject);

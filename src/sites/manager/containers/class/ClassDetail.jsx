@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import {
-  api_class,
-  url_course_subject,
-  token,
-} from "@utils/API.js";
+import { api_class, url_course_subject, token } from "@utils/API.js";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { connect } from "@utils/BaseComponent";
 
 class ClassDetail extends Component {
   constructor(props) {
@@ -13,12 +10,16 @@ class ClassDetail extends Component {
     this.state = {
       loading: false,
       subjectId: 3,
+      token: this.props.userApp.token
     };
     console.log(this.state);
   }
 
   componentDidMount() {
-    fetch(api_class + "?id=" + this.props.id)
+    fetch(api_class + "?id=" + this.props.id, {
+      "content-type": "application/json",
+      Authorization: this.state.token,
+    })
       .then((res) => res.json())
       .then((json) => {
         if (json.code === 200) {
@@ -43,7 +44,7 @@ class ClassDetail extends Component {
       method: "post",
       headers: {
         "content-type": "application/json",
-        Authorization: token,
+          "Authorization": this.state.token,
       },
       body: JSON.stringify({
         courseId: this.state.data.id,
@@ -99,8 +100,7 @@ class ClassDetail extends Component {
 
   render() {
     console.log(this.state.data);
-    if (this.state.data == null)
-      return <div></div>;
+    if (this.state.data == null) return <div></div>;
     else
       return (
         <div>
@@ -168,4 +168,4 @@ class ClassDetail extends Component {
   }
 }
 
-export default ClassDetail;
+export default connect(ClassDetail);

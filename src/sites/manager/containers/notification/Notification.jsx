@@ -1,10 +1,11 @@
 import { faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { url_notification, url_notification_read, token } from "@utils/API";
-import BaseComponent from "@utils/BaseComponent";
+import { url_notification, url_notification_read } from "@utils/API";
+import {BaseComponent,connect} from "@utils/BaseComponent";
 
 class Notification extends BaseComponent {
-  afterInit() {
+  constructor(props){
+    super(props)
     this.nameComponent = "Thông Báo";
     this.api_get = url_notification;
   }
@@ -13,7 +14,7 @@ class Notification extends BaseComponent {
     fetch(url_notification_read + id, {
       method: "put",
       headers: {
-        Authorization: token,
+        // Authorization: token,
       },
     });
     const newState = Object.assign({}, this.state);
@@ -58,4 +59,4 @@ class Notification extends BaseComponent {
   }
 }
 
-export default Notification;
+export default connect(Notification);

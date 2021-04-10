@@ -3,11 +3,13 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { convertPrice } from "@components/common";
 import { faEdit, faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import BaseComponent from "@utils/BaseComponent";
+// import BaseComponent from "@utils/BaseComponent";
 import CourseForm from "./CourseForm";
 import { api_course } from "@utils/API";
 import CourseDetail from "./CourseDetail";
 import { Tooltip } from "antd";
+import { connect,BaseComponent } from "../../../../utils/BaseComponent";
+// import { connect } from "react-redux";
 
 class Course extends BaseComponent {
   constructor(props) {
@@ -84,4 +86,5 @@ class Course extends BaseComponent {
   }
 }
 
-export default Course;
+export default connect(Course);
+// export default Course;

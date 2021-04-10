@@ -10,9 +10,8 @@ class Head extends Component {
             Thêm mới
           </button>
         )}
-
         <h2
-          className="text-center head_tag"
+          className="text-center"
           data-wow-duration="1s"
           data-wow-delay="0.1s"
         >

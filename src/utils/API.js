@@ -1,7 +1,16 @@
-const domain = "http://45.13.132.247:8082"
-const domainApi = "http://45.13.132.247:8082"
+const local = true;
 
-export const token = "Bearer eyJhbGciOiJIUzM4NCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaWF0IjoxNjE2MDIxOTQ5LCJleHAiOjE2MTcyMTAwMDB9.F1WZAJc7dX_Gl46SslFlTCvmYW8iw_LF9aeiH9W2vsWCag8-kb75lfrUnhPdAX5z";
+let domain = "";
+let domainApi = "";
+
+if(!local){
+    domain = "http://45.13.132.247:8082";
+    domainApi = "http://45.13.132.247:8082";
+}
+else{
+    domain = "http://localhost:8082";
+    domainApi = "http://localhost:8082";
+}
 
 export const api_login = domainApi + "/users/login";
 export const api_register = domainApi + "/users/register";

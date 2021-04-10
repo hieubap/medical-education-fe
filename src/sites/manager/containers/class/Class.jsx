@@ -3,24 +3,24 @@ import { api_class } from "@utils/API";
 import {
   faCheckCircle,
   faEdit,
-  faEye,
   faTrashAlt,
   faWindowClose,
 } from "@fortawesome/free-solid-svg-icons";
 import ClassForm from "./ClassForm";
 import Head from "@components/head-tag/Head";
-import BaseComponent from "@utils/BaseComponent";
-import './style.scss';
+import { BaseComponent, connect } from "@utils/BaseComponent";
+import "./style.scss";
 
 class Class extends BaseComponent {
-  afterInit() {
+  constructor(props) {
+    super(props);
     this.nameComponent = "Quản lý lớp học";
     this.api_get = api_class + "?size=10";
     this.api_delete = api_class + "/";
   }
 
   setPage = (index) => {
-    this.setState({...this.state,loading:true});
+    this.setState({ ...this.state, loading: true });
     fetch(this.api_get + "page=" + this.state.page)
       .then((res) => res.json())
       .then((json) => {
@@ -68,10 +68,7 @@ class Class extends BaseComponent {
           <div class="i">
             <FontAwesomeIcon icon={faCheckCircle} className="icon-yellow" />
           </div>
-          <div
-            class="i"
-            onClick={() => this.delete(o.id, index)}
-          >
+          <div class="i" onClick={() => this.delete(o.id, index)}>
             <FontAwesomeIcon icon={faWindowClose} className="icon-mangeto" />
           </div>
           <div class="i" onClick={() => this.changeModel()}>
@@ -189,7 +186,7 @@ class Class extends BaseComponent {
             onchange={(e) => this.setSelectSubject(e.target.value)}
           ></input>
           <button
-            style={{ marginLeft: "5%"}}
+            style={{ marginLeft: "5%" }}
             className="default-btn"
             onclick={() => this.add()}
           >
@@ -215,7 +212,7 @@ class Class extends BaseComponent {
         {this.state.loading && <div className="loader" id="loader"></div>}
         <Head title={this.nameComponent} changeModel={this.changeModel}></Head>
         <div className="content">
-        {this.beforeTable()}
+          {this.beforeTable()}
           <table>
             <tbody>
               {this.headTable()}
@@ -248,4 +245,4 @@ class Class extends BaseComponent {
   }
 }
 
-export default Class;
+export default connect(Class);

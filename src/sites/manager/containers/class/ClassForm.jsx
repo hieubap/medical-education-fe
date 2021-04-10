@@ -1,10 +1,5 @@
-import {
-  api_class,
-  api_place,
-  api_subject,
-  api_user,
-} from "@utils/API";
-import BaseFormComponent from "@utils/BaseFormComponent";
+import { api_class, api_place, api_subject, api_user } from "@utils/API";
+import { BaseFormComponent, connect } from "@utils/BaseFormComponent";
 import FormClass from "@components/form";
 
 class ClassForm extends BaseFormComponent {
@@ -15,7 +10,12 @@ class ClassForm extends BaseFormComponent {
   }
 
   componentDidMount() {
-    fetch(api_subject)
+    fetch(api_subject+"?size=1000", {
+      headers: {
+        "content-type": "application/json",
+        Authorization: this.token,
+      },
+    })
       .then((res) => res.json())
       .then((json) => {
         if (json.code === 200) {
@@ -26,7 +26,12 @@ class ClassForm extends BaseFormComponent {
           });
         }
       });
-    fetch(api_place)
+    fetch(api_place+"?size=1000", {
+      headers: {
+        "content-type": "application/json",
+        Authorization: this.token,
+      },
+    })
       .then((res) => res.json())
       .then((json) => {
         if (json.code === 200) {
@@ -37,7 +42,12 @@ class ClassForm extends BaseFormComponent {
           });
         }
       });
-    fetch(api_user + "?role=2")
+    fetch(api_user + "?role=2&size=1000", {
+      headers: {
+        "content-type": "application/json",
+        Authorization: this.token,
+      },
+    })
       .then((res) => res.json())
       .then((json) => {
         if (json.code === 200) {
@@ -57,12 +67,18 @@ class ClassForm extends BaseFormComponent {
       this.state.teachers == undefined
     )
       return "";
+
     return (
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div style={{ flexBasis: "100%" }}>
-          <div className="create_groups">
-            <label>Môn</label>
-            <select
+        <div className="group-label">
+          <label>Môn</label>
+          <label>Địa điểm</label>
+          <label>Giáo viên</label>
+          <label>Thời gian</label>
+          <label>Số lượng</label>
+        </div>
+        <div className="group-input">
+        <select
               class="create_input select-type-product"
               name="subjectId"
               form="carform"
@@ -72,7 +88,6 @@ class ClassForm extends BaseFormComponent {
                 return <option value={subject.id}>{subject.name}</option>;
               })}
             </select>
-            <label>Địa điểm</label>
             <select
               class="create_input select-type-product"
               name="placeId"
@@ -83,7 +98,6 @@ class ClassForm extends BaseFormComponent {
                 return <option value={place.id}>{place.address}</option>;
               })}
             </select>
-            <label>Giáo viên</label>
             <select
               class="create_input select-type-product"
               name="teacherId"
@@ -94,7 +108,6 @@ class ClassForm extends BaseFormComponent {
                 return <option value={teacher.id}>{teacher.fullName}</option>;
               })}
             </select>
-            <label>Thời gian</label>
             <select
               class="create_input select-type-product"
               name="time"
@@ -107,7 +120,6 @@ class ClassForm extends BaseFormComponent {
               <option value="13:00 - 15:00">13:00 - 15:00</option>
               <option value="15:00 - 17:00">13:00 - 15:00</option>
             </select>
-            <label>Số lượng đăng kí</label>
             <input
               type="number"
               name="limitRegister"
@@ -118,16 +130,15 @@ class ClassForm extends BaseFormComponent {
               }
               onChange={this.change.bind(this)}
             />
-          </div>
         </div>
       </div>
     );
   }
-  render(){
-    return(
-      <FormClass></FormClass>
-    )
-  }
+  // render(){
+  //   return(
+  //     <FormClass></FormClass>
+  //   )
+  // }
 }
 
-export default ClassForm;
+export default connect(ClassForm);

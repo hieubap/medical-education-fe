@@ -3,10 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { api_place } from "@utils/API";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import PlaceForm from "./PlaceForm";
-import BaseComponent from "@utils/BaseComponent";
+import {BaseComponent,connect} from "@utils/BaseComponent";
 
 class Place extends BaseComponent {
-  afterInit() {
+  constructor(props) {
+    super(props);
     this.nameComponent = "Quản Lý Địa Điểm";
     this.api_get = api_place;
     this.api_delete = api_place + "/";
@@ -60,4 +61,4 @@ class Place extends BaseComponent {
   }
 }
 
-export default Place;
+export default connect(Place);

@@ -9,7 +9,7 @@ class FeedBack extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
+      loading: false,
       page: 0,
       size: 10,
       sizePage: 0,

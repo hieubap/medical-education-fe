@@ -17,67 +17,52 @@ class Menu extends Component {
     this.state = {
       attibute: [
         {
-          path: "/manager/dashboard",
+          path: "/student/dashboard",
           class: "bar",
-          name: "Thông báo",
+          name: "Home",
         },
         {
-          path: "/manager/courses",
+          path: "/student/courses",
           class: "bar",
-          name: "Quản lý khóa học",
+          name: "Khóa học",
         },
         {
-          path: "/manager/subject",
+          path: "/student/subject",
           class: "bar",
-          name: "Quản lý môn học",
+          name: "Môn học",
         },
         {
-          path: "/manager/class",
+          path: "/student/class",
           class: "bar",
-          name: "Quản lý lớp",
+          name: "Lớp",
         },
         {
-          path: "/manager/place",
-          class: "bar",
-          name: "Quản lý địa điểm",
-        },
-        {
-          path: "/manager/student",
-          class: "bar",
-          name: "Quản lý học viên",
-        },
-        {
-          path: "/manager/course-register",
+          path: "/student/course-register",
           class: "bar",
           name: "Đăng ký khóa học",
         },
         {
-          path: "/manager/class-register",
+          path: "/student/class-register",
           class: "bar",
           name: "Đăng ký lớp",
         },
         {
-          path: "/manager/schedule",
+          path: "/student/schedule",
           class: "bar",
           name: "Lịch",
         },
         {
-          path: "/manager/result",
+          path: "/student/result",
           class: "bar",
           name: "Kết quả",
         },
         {
-          path: "/manager/users",
-          class: "bar",
-          name: "Quản lý tài khoản",
-        },
-        {
-          path: "/manager/feedback",
+          path: "/student/feedback",
           class: "bar",
           name: "Phản hồi",
         },
         {
-          path: "/manager/notification",
+          path: "/student/notification",
           class: "bar",
           name: "Thông báo",
         },

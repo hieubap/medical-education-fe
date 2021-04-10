@@ -1,10 +1,11 @@
 :root {
     --blue-1:#0d2745;
     --blue-2:#1b75bb;
+    --blue2:#1b75bb;
     --blue-3:#d7eaf6;
     --blue-4:#90c5ee;
     --text-color:#82899a;
-
+    
     --red: #be4942;
     --blue: #2e91ae;
     --yellow: #f19a1e;
@@ -52,7 +53,7 @@
 
 /* Button Style */
 
-.btn {
+/* .btn {
     height: 20px;
     border: none;
     border-radius: 2px;
@@ -64,7 +65,7 @@
     align-items: center;
     text-decoration: none;
     line-height: 2rem;
-}
+} */
 
 .btn.btn--size-s {
     height: 32px;

@@ -2,26 +2,27 @@ import React, { Component } from "react";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import {
-  url_course_subject,
-  token,
-  api_subject,
-  api_course_delete,
-} from "@utils/API.js";
+import { url_course_subject, api_subject } from "@utils/API.js";
 import { api_course } from "../../../../utils/API";
-
+import { connect } from "../../../../utils/BaseComponent";
 class CourseDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: false,
       subjectId: 3,
+      token: this.props.userApp.token,
     };
     console.log(this.state);
   }
 
   componentDidMount() {
-    fetch(api_course + "/" + this.props.id)
+    fetch(api_course + "/" + this.props.id,{
+      headers:{
+        "content-type": "application/json",
+        Authorization: this.state.token,
+      }
+    })
       .then((res) => res.json())
       .then((json) => {
         if (json.code === 200) {
@@ -33,7 +34,12 @@ class CourseDetail extends Component {
           console.log(this.state.data);
         }
       });
-    fetch(api_subject)
+    fetch(api_subject, {
+      headers:{
+        "content-type": "application/json",
+        Authorization: this.state.token,
+      }
+    })
       .then((res) => res.json())
       .then((json) => {
         if (json.code === 200) {
@@ -61,7 +67,7 @@ class CourseDetail extends Component {
       method: "post",
       headers: {
         "content-type": "application/json",
-        Authorization: token,
+        // Authorization: token,
       },
       body: JSON.stringify({
         courseId: this.state.data.id,
@@ -92,7 +98,7 @@ class CourseDetail extends Component {
         method: "delete",
         headers: {
           "content-type": "application/json",
-          Authorization: token,
+          // Authorization: token,
         },
       }
     )
@@ -215,4 +221,4 @@ class CourseDetail extends Component {
   }
 }
 
-export default CourseDetail;
+export default connect(CourseDetail);

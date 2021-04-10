@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { api_course_register } from "@utils/API.js";
-import BaseComponent from "@utils/BaseComponent";
+import {BaseComponent,connect} from "@utils/BaseComponent";
 import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
 
@@ -98,4 +98,4 @@ class RegistryCourse extends BaseComponent {
   }
 }
 
-export default RegistryCourse;
+export default connect(RegistryCourse);

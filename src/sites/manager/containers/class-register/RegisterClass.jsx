@@ -2,16 +2,16 @@ import { faTrashAlt, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "react-toastify";
 import { api_class, api_class_register, api_subject } from "@utils/API";
-import BaseComponent from "@utils/BaseComponent";
+import { BaseComponent, connect } from "@utils/BaseComponent";
 import Head from "@components/head-tag/Head";
-import Loading from '@components/loading';
+import Loading from "@components/loading";
 
 class RegisterClass extends BaseComponent {
   afterInit() {
     this.nameComponent = "Đăng kí Lớp học";
     this.api_get = api_class_register + "?studentId=" + "1";
     this.api_post = api_class_register;
-    this.api_delete = api_class_register+'/';
+    this.api_delete = api_class_register + "/";
     this.state = {
       ...this.state,
       dataDetail: { ...this.state.dataDetail, codeClass: null },
@@ -98,10 +98,7 @@ class RegisterClass extends BaseComponent {
           <td>{o.createAt}</td>
           <td>{o.status}</td>
           <td>
-            <div
-              className="i"
-              onClick={() => this.delete(o.id,index)}
-            >
+            <div className="i" onClick={() => this.delete(o.id, index)}>
               <FontAwesomeIcon icon={faWindowClose} className="icon-red" />
             </div>
           </td>
@@ -187,4 +184,4 @@ class RegisterClass extends BaseComponent {
   }
 }
 
-export default RegisterClass;
+export default connect(RegisterClass);

@@ -1,22 +1,11 @@
 import React, { Component } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import {
-  faCheckCircle,
-  faEdit,
-  faEye,
-  faLock,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import Search from "@components/search/Search";
 import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
-import { token } from "@utils/API";
-
 import "@components/CSS/baseComponent.css";
-
-class BaseComponent extends Component {
+import { connect as reduxConnect } from "react-redux";
+export class BaseComponent extends Component {
   constructor(props) {
     super(props);
     this.nameComponent = "Base Component Build";
@@ -39,26 +28,45 @@ class BaseComponent extends Component {
       page: 0,
       size: 10,
       totalPage: 0,
+      token: this.props.userApp.token,
     };
+    console.log(this.state.token);
     this.afterInit();
   }
 
   afterInit() {}
 
   componentDidMount() {
+    console.log(this.state.token);
     if (this.api_get != null)
-      fetch(this.api_get)
+      fetch(this.api_get, {
+        headers: {
+          "content-type": "application/json",
+          "Authorization": this.state.token,
+        },
+      })
         .then((res) => res.json())
         .then((json) => {
-          const size = parseInt(json.totalElements / this.state.size) + 1;
-          console.log(json.data);
-          this.setState({
-            ...this.state,
-            loading: false,
-            dataRender: json.data,
-            totalPage: size,
-          });
-          this.afterDidMount();
+          if (json.code === 200) {
+            const size = parseInt(json.totalElements / this.state.size) + 1;
+            this.setState({
+              ...this.state,
+              loading: false,
+              dataRender: json.data,
+              totalPage: size,
+            });
+            this.afterDidMount();
+          } else if (json.code === 401) {
+            // this.setState({
+            //   loading: false
+            // });
+            // window.location.href = "/login";
+          } else {
+            // this.setState({
+            //   loading: false
+            // });
+            toast.error(json.message);
+          }
         });
     this.moreApi();
   }
@@ -188,7 +196,10 @@ class BaseComponent extends Component {
   }
 
   search = (name) => {
-    fetch(this.api_get + "?name=" + name)
+    fetch(this.api_get + "?name=" + name, {
+      "content-type": "application/json",
+      Authorization: this.state.token,
+    })
       .then((res) => res.json())
       .then((json) => {
         const size = parseInt(json.totalElements / this.state.size) + 1;
@@ -214,7 +225,7 @@ class BaseComponent extends Component {
         method: "delete",
         headers: {
           "content-type": "application/json",
-          Authorization: token,
+          Authorization: this.state.token,
         },
       })
         .then((res) => res.json())
@@ -232,5 +243,12 @@ class BaseComponent extends Component {
         });
   };
 }
+export function connect(Component) {
+  return reduxConnect((state) => {
+    return {
+      userApp: state.userApp,
+    };
+  })(Component);
+}
 
-export default BaseComponent;
+export default connect(BaseComponent);
