@@ -43,3 +43,60 @@
     margin-left: 5px;
 }
   
+
+.change-pass-content{
+  width:40%;
+  margin-left: 30%;
+  margin-top: 10%;
+  height:100%
+}
+.change-pass-content>.content{
+  padding:20px;
+}
+
+.change-pass>h2{
+  font-size: 17px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+.change-pass>.d1{
+  display: flex;
+  flex-direction: row;
+}
+
+.change-pass>.d1>.d11{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+.change-pass>.d1>.d11>span{
+  height: 30px;
+  margin-bottom: 5px;
+  padding-top: 5px;
+  padding-left: 20px;
+  font-size: 15px;
+}
+.change-pass>.d1>.d12{
+  width: 60%;
+}
+.change-pass>.d1>.d12>input{
+  width: 80%;
+  height: 30px;
+  margin-bottom: 5px;
+  outline: none;
+  padding-left: 15px;
+  font-size: 15px;
+}
+.change-pass>.d2{
+  height: 50px;
+}
+.change-pass>.d2>.default-btn{
+  margin-top: 20px;
+  margin-right: 50px;
+  height: 30px;
+  font-size: 15px;
+}
+.change-pass>.d2>.default-btn>span{
+  margin-left: 5px;
+}

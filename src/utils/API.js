@@ -1,4 +1,4 @@
-const local = false;
+const local = true;
 
 let domain = "";
 let domainApi = "";
@@ -14,6 +14,7 @@ else{
 
 export const api_login = domainApi + "/users/login";
 export const api_register = domainApi + "/users/register";
+export const api_change_password = domainApi + "/users/change-password";
 
 export const api_course = domain + "/courses";
 export const api_course_update = domain + "/courses/";

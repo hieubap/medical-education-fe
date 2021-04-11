@@ -115,6 +115,21 @@ function Index(props) {
         loading: Load,
       }),
     },
+    {
+      path: ["/manager/profile"],
+      component: Loadable({
+        loader: () => import("@manager/containers/profile"),
+        loading: Load,
+      }),
+    },
+    {
+      path: ["/manager/change-password"],
+      component: Loadable({
+        loader: () => import("@manager/containers/account/change-password"),
+        loading: Load,
+      }),
+    },
+
   ];
 
   return (

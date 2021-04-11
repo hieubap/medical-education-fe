@@ -1,0 +1,72 @@
+.profile-content{
+    width: 70%;
+    margin-left: 15%;
+}
+.profile{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 5%;
+}
+.profile-content>.content>h2{
+    font-size: 18px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+
+.profile>.a,
+.profile>.b,
+.profile>.c,
+.profile>.d
+{
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile>.a{
+    width: 50%;
+    border-right: 1px solid #ccc;
+    padding-right: 50px;
+    align-items: center;
+    padding-top: 50px;
+}
+.profile>.c{
+    width: 15%;
+}
+.profile>div>span{
+    margin-top: 20px;
+    padding-left: 20px;
+    height:30px;
+}
+.avatar + div{
+    display: flex;
+    flex-direction: row;
+}
+.a>div{
+    padding-top: 30px;
+    width: 100%;
+}
+.a>.avatar{
+    width: 50%;
+    height: 50%;
+    
+    border: 1px solid #aaa;
+}
+.a>div>.aa,
+.a>div>.ab{
+    display: flex;
+    flex-direction: column;
+}
+.a>div>.aa{
+    width: 50%;
+}
+.a>div>.ab{
+    width: 50%;
+}
+
+.a>div>.aa>span,
+.a>div>.ab>span{
+    width: 100%;
+    margin-bottom: 20px;
+}

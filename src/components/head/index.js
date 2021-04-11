@@ -28,6 +28,10 @@ const Head = (props) => {
     setClick(!click);
   };
 
+  const handleChangePassword = () => {
+    window.location.href = "/manager/change-password";
+  };
+
   const handleLogout = () => {
     dispatch({
       type: constants.action.action_user_logout,
@@ -38,7 +42,9 @@ const Head = (props) => {
     console.log("logout");
   };
 
-  const handleProfile = () => {};
+  const handleProfile = () => {
+    window.location.href = "/manager/profile";
+  };
 
   return (
     <div className="head-body">
@@ -63,6 +69,7 @@ const Head = (props) => {
         <div className="t" style={{ display: click ? "block" : "none" }}>
           <ul>
             <li onClick={() => handleProfile()}>hồ sơ</li>
+            <li onClick={() => handleChangePassword()}>đổi mật khẩu</li>
             <li onClick={() => handleLogout()}>đăng xuất</li>
           </ul>
         </div>
