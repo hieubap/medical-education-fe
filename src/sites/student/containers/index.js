@@ -51,18 +51,18 @@ function Index(props) {
       }),
     },
     {
-      path: ["/student/course-register"],
+      path: ["/student/register-course"],
       component: Loadable({
         loader: () =>
-          import("@manager/containers/course-register/RegistryCourse"),
+          import("@manager/containers/register-course/RegistryCourse"),
         loading: Load,
       }),
     },
     {
-      path: ["/student/class-register"],
+      path: ["/student/register-class"],
       component: Loadable({
         loader: () =>
-          import("@manager/containers/class-register/RegisterClass"),
+          import("@manager/containers/register-class/RegisterClass"),
         loading: Load,
       }),
     },

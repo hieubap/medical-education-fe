@@ -5,16 +5,47 @@ import { api_course_register } from "@utils/API.js";
 import { BaseComponent, connect } from "@utils/BaseComponent";
 import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
-import './../class-register/style.scss';
+import "../register-class/style.scss";
+import { toast } from "react-toastify";
 class RegistryCourse extends BaseComponent {
   constructor(props) {
     super(props);
     this.state = { ...this.state, codeCourse: "" };
-    this.api_get = api_course_register + "?studentId=" + "1";
+    this.api_get = api_course_register;
+    this.api_create = api_course_register;
   }
 
-  registerCourse(){
-    
+  registerCourse() {
+    if (this.state.dataDetail.code === null)
+      toast.warning("Mã khóa không để trống");
+    else {
+      var bodyRequest = JSON.stringify(this.state.dataDetail);
+      fetch(this.api_create, {
+        method: "post",
+        headers: {
+          "content-type": "application/json",
+          Authorization: this.state.token,
+        },
+        body: bodyRequest,
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.code === 200) {
+            this.setState({
+              ...this.state,
+              loading: false,
+              dataRender: [
+                { ...json.data, status: "Mới thêm" },
+                ...this.state.dataRender,
+              ],
+            });
+            toast.success("Đăng ký thành công");
+          } else {
+            toast.error(json.message);
+          }
+          this.setState({ ...this.state, loading: false });
+        });
+    }
   }
 
   beforeTable() {
@@ -22,10 +53,10 @@ class RegistryCourse extends BaseComponent {
       <div className="registry">
         <label>Mã Khóa</label>
         <input
-          name="codeCourse"
+          name="code"
           form="carform"
           type="text"
-          onChange={(e) => this.setSelect(e.target.name, e.target.value)}
+          onChange={(e) => this.changeData(e)}
         ></input>
         <button className="default-btn" onClick={() => this.registerCourse()}>
           Đăng ký

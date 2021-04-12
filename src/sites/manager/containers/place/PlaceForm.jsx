@@ -21,8 +21,8 @@ class PlaceForm extends BaseFormComponent {
             type="text"
             name="address"
             value={
-              this.state.props.dataDetail != null
-                ? this.state.props.dataDetail.address
+              this.state.dataDetail != null
+                ? this.state.dataDetail.address
                 : ""
             }
             onChange={this.change.bind(this)}

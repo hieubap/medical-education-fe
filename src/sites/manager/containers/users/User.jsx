@@ -54,7 +54,7 @@ class User extends BaseComponent {
 
   headTable() {
     return (
-      <tr>
+      <>
         <th style={{ width: "2%", padding: "0" }}>stt</th>
         <th style={{ width: "3%", padding: "0" }}>ID</th>
         <th>Tên</th>
@@ -68,14 +68,13 @@ class User extends BaseComponent {
         <th>email</th>
         <th>Ngày tạo</th>
         <th>Ngày cập nhật</th>
-        <th></th>
-      </tr>
+      </>
     );
   }
 
   bodyTable(o, index) {
     return (
-      <tr>
+      <>
         <td>{index + 1}</td>
         <td>{o.id}</td>
         <td>{o.fullName}</td>
@@ -89,125 +88,28 @@ class User extends BaseComponent {
         <td>{o.email}</td>
         <td>{o.createAt}</td>
         <td>{o.updateAt}</td>
-        <td style={{ width: "12%" }}>
-          <div class="i" onClick={() => this.setDetail(o.id)}>
-            <FontAwesomeIcon icon={faEye} className="icon-green" />
-          </div>
-          <div class="i">
-            <FontAwesomeIcon icon={faLock} className="icon-mangeto" />
-          </div>
-          <div class="i" onClick={() => this.changeModel()}>
-            <FontAwesomeIcon icon={faEdit} className="icon-blue" />
-          </div>
-          <div class="i">
-            <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
-          </div>
-        </td>
-      </tr>
+      </>
     );
   }
 
-  // render() {
-  //   var listPage = [];
-  //   for (let i = 0; i < 5; i++) {
-  //     listPage.push(
-  //       <li key={i}>
-  //         <button onClick={() => this.setPage(i)}>{i + 1}</button>
-  //       </li>
-  //     );
-  //   }
-  //   return (
-  //     <>
-  //       <div>
-  //         {/* {this.state.loading && <div class="loader" id="loader"></div>} */}
-  //         <h2
-  //           className=" text-center head_tag"
-  //           data-wow-duration="1s"
-  //           data-wow-delay="0.1s"
-  //         >
-  //           Quản lý tài khoản
-  //         </h2>
-  //         <div>
-  //           <table>
-  //             <tr>
-  //               <th style={{ width: "2%", padding: "0" }}>stt</th>
-  //               <th style={{ width: "3%", padding: "0" }}>ID</th>
-  //               <th>Tên</th>
-  //               <th>Username</th>
-  //               <th>Trạng thái</th>
-  //               <th>Vai trò</th>
-  //               <th>Giới tính</th>
-  //               <th>Tuổi</th>
-  //               <th>Địa chỉ</th>
-  //               <th>SĐT</th>
-  //               <th>email</th>
-  //               <th>Ngày tạo</th>
-  //               <th>Ngày cập nhật</th>
-  //               <th></th>
-  //             </tr>
-  //             {this.state.data
-  //               .filter(
-  //                 (o, index) =>
-  //                   this.state.page * this.state.size <= index &&
-  //                   index < (this.state.page + 1) * this.state.size
-  //               )
-  //               .map((feedback, index) => {
-  //                 return (
-  //                   <tr>
-  //                     <td>{index + 1}</td>
-  //                     <td>{feedback.id}</td>
-  //                     <td>{feedback.fullName}</td>
-  //                     <td>{feedback.username}</td>
-  //                     <td>{feedback.status}</td>
-  //                     <td>{feedback.role}</td>
-  //                     <td>{feedback.gender}</td>
-  //                     <td>{feedback.age}</td>
-  //                     <td>{feedback.address}</td>
-  //                     <td>{feedback.phoneNumber}</td>
-  //                     <td>{feedback.email}</td>
-  //                     <td>{feedback.createAt}</td>
-  //                     <td>{feedback.updateAt}</td>
-  //                     <td style={{ width: "12%" }}>
-  //                       <div
-  //                         class="i"
-  //                         onClick={() => this.setDetail(feedback.id)}
-  //                       >
-  //                         <FontAwesomeIcon
-  //                           icon={faEye}
-  //                           className="icon-green"
-  //                         />
-  //                       </div>
-  //                       <div class="i">
-  //                         <FontAwesomeIcon
-  //                           icon={faLock}
-  //                           className="icon-mangeto"
-  //                         />
-  //                       </div>
-  //                       <div class="i" onClick={() => this.changeModel()}>
-  //                         <FontAwesomeIcon
-  //                           icon={faEdit}
-  //                           className="icon-blue"
-  //                         />
-  //                       </div>
-  //                       <div class="i">
-  //                         <FontAwesomeIcon
-  //                           icon={faTrashAlt}
-  //                           className="icon-red"
-  //                         />
-  //                       </div>
-  //                     </td>
-  //                   </tr>
-  //                 );
-  //               })}
-  //           </table>
-  //         </div>
-  //         <ul class="pagination" id="pageTag1">
-  //           {listPage}
-  //         </ul>
-  //       </div>
-  //     </>
-  //   );
-  // }
+  action(o, index) {
+    return (
+      <td style={{ width: "10%" }}>
+        <div class="i" onClick={() => this.setDetail(o.id)}>
+          <FontAwesomeIcon icon={faEye} className="icon-green" />
+        </div>
+        <div class="i">
+          <FontAwesomeIcon icon={faLock} className="icon-mangeto" />
+        </div>
+        <div class="i" onClick={() => this.changeModel()}>
+          <FontAwesomeIcon icon={faEdit} className="icon-blue" />
+        </div>
+        <div class="i">
+          <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
+        </div>
+      </td>
+    );
+  }
 }
 
 export default connect(User);

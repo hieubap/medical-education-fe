@@ -83,6 +83,7 @@ export class BaseComponent extends Component {
   }
   afterDidMount() {}
   moreApi() {}
+  mapDTOAfterFetch(list){}
 
   /**
    * chuyển trang
@@ -131,17 +132,26 @@ export class BaseComponent extends Component {
     this.setState(newState);
   };
 
-  setSelect(name, value) {
-    console.log(this.state);
-    var newData = Object.assign({}, this.state.dataDetail);
-    newData = { ...newData, [name]: value };
-    console.log(newData);
-    this.setState({
-      ...this.state,
-      dataDetail: newData,
-    });
-    console.log(this.state);
-  }
+  changeData = (e) => {
+    var newDataDetail = Object.assign({}, this.state.dataDetail);
+    newDataDetail = { ...newDataDetail, [e.target.name]: e.target.value };
+    console.log(e.target.name);
+    console.log(e.target.value);
+    
+    this.setState({...this.state,dataDetail:newDataDetail});
+  };
+
+  // setSelect(name, value) {
+  //   console.log(this.state);
+  //   var newData = Object.assign({}, this.state.dataDetail);
+  //   newData = { ...newData, [name]: value };
+  //   console.log(newData);
+  //   this.setState({
+  //     ...this.state,
+  //     dataDetail: newData,
+  //   });
+  //   console.log(this.state);
+  // }
 
   /**
    * trở lại khi đang xem chi tiết
@@ -190,7 +200,7 @@ export class BaseComponent extends Component {
                     })
                     .map((o, index) => {
                       return (
-                        <tr>
+                        <tr key={o.id}>
                           {this.bodyTable(
                             o,
                             index + this.state.page * this.state.size

@@ -7,7 +7,7 @@ class ClassForm extends BaseFormComponent {
     super(props);
     this.api_create = api_class;
     this.api_update = api_class + "/";
-    console.log(this.state.props);
+    console.log(this.state);
   }
 
   componentDidMount() {
@@ -83,8 +83,8 @@ class ClassForm extends BaseFormComponent {
             class="create_input select-type-product"
             name="subjectId"
             form="carform"
-            value={this.state.props.dataDetail.subjectId}
-            onChange={(e) => this.setSelect(e.target.name, e.target.value)}
+            value={this.state.dataDetail.subjectId}
+            onChange={(e) => this.change(e)}
           >
             {this.state.subjects.map((subject, index) => {
               return <option value={subject.id}>{subject.name}</option>;
@@ -94,8 +94,8 @@ class ClassForm extends BaseFormComponent {
             class="create_input select-type-product"
             name="placeId"
             form="carform"
-            value={this.state.props.dataDetail.placeId}
-            onChange={(e) => this.setSelect(e.target.name, e.target.value)}
+            value={this.state.dataDetail.placeId}
+            onChange={(e) => this.change(e)}
           >
             {this.state.places.map((place, index) => {
               return <option value={place.id}>{place.address}</option>;
@@ -105,8 +105,8 @@ class ClassForm extends BaseFormComponent {
             class="create_input select-type-product"
             name="teacherId"
             form="carform"
-            value={this.state.props.dataDetail.teacherId}
-            onChange={(e) => this.setSelect(e.target.name, e.target.value)}
+            value={this.state.dataDetail.teacherId}
+            onChange={(e) => this.change(e)}
           >
             {this.state.teachers.map((teacher, index) => {
               return <option value={teacher.id}>{teacher.fullName}</option>;
@@ -116,8 +116,8 @@ class ClassForm extends BaseFormComponent {
             class="create_input select-type-product"
             name="time"
             form="carform"
-            value={this.state.props.dataDetail.time}
-            onChange={(e) => this.setSelect(e.target.name, e.target.value)}
+            value={this.state.dataDetail.time}
+            onChange={(e) => this.change(e)}
           >
             <option value="6:00 - 8:00">6:00 - 8:00</option>
             <option value="8:00 - 10:00">8:00 - 10:00</option>
@@ -129,8 +129,8 @@ class ClassForm extends BaseFormComponent {
             type="number"
             name="limitRegister"
             value={
-              this.state.props.dataDetail != null
-                ? this.state.props.dataDetail.limitRegister
+              this.state.dataDetail != null
+                ? this.state.dataDetail.limitRegister
                 : ""
             }
             onChange={this.change.bind(this)}

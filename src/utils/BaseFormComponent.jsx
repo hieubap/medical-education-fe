@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./style.scss";
-import {connect as reduxConnect} from 'react-redux';
+import { connect as reduxConnect } from "react-redux";
 export class BaseFormComponent extends Component {
   constructor(props) {
     super(props);
@@ -13,12 +13,13 @@ export class BaseFormComponent extends Component {
     this.title = "nội dung";
     this.token = props.userApp.token;
     this.newDataDetail = {};
-    if(props.dataDetail != null ){
+    if (props.dataDetail != null) {
       this.newDataDetail = props.dataDetail;
     }
     this.state = {
-      props: {...props,dataDetail:this.newDataDetail},
+      props: props,
       loading: false,
+      dataDetail: this.newDataDetail,
     };
 
     /**
@@ -33,28 +34,28 @@ export class BaseFormComponent extends Component {
 
   afterInit() {}
 
-  setSelect(name, value) {
-    console.log(this.state);
-    var newData = Object.assign({}, this.state.props.dataDetail);
-    newData = { ...newData, [name]: value };
-    console.log(newData);
-    this.setState({
-      props: { ...this.state.props, dataDetail: newData },
-    });
-    console.log(this.state.props);
-  }
+  // setSelect(name, value) {
+  //   console.log(this.state);
+  //   var newData = Object.assign({}, this.state.dataDetail);
+  //   newData = { ...newData, [name]: value };
+  //   console.log(newData);
+  //   this.setState({ ...this.state, dataDetail: newData });
+  //   console.log(this.state.props);
+  // }
 
   change = (e) => {
-    var newDataDetail = Object.assign({}, this.state.props.dataDetail);
+    var newDataDetail = Object.assign({}, this.state.dataDetail);
     newDataDetail = { ...newDataDetail, [e.target.name]: e.target.value };
-    const newProps = { ...this.state.props, dataDetail: newDataDetail };
-    this.setState({ ...this.state, props: newProps });
+    console.log(e.target.name);
+    console.log(e.target.value);
+    
+    this.setState({...this.state,dataDetail:newDataDetail});
   };
 
   create = (e) => {
     e.preventDefault();
     var bodyRequest = JSON.stringify({
-      ...this.state.props.dataDetail,
+      ...this.state.dataDetail,
       id: null,
     });
     this.setState({ ...this.state, loading: true });
@@ -63,7 +64,7 @@ export class BaseFormComponent extends Component {
         method: "post",
         headers: {
           "content-type": "application/json",
-          "Authorization": this.token,
+          Authorization: this.token,
         },
         body: bodyRequest,
       })
@@ -82,15 +83,15 @@ export class BaseFormComponent extends Component {
 
   update = (e) => {
     e.preventDefault();
-    var bodyRequest = JSON.stringify(this.state.props.dataDetail);
+    var bodyRequest = JSON.stringify(this.state.dataDetail);
     this.setState({ ...this.state, loading: true });
 
     if (this.api_update != null)
-      fetch(this.api_update + this.state.props.dataDetail.id, {
+      fetch(this.api_update + this.state.dataDetail.id, {
         method: "put",
         headers: {
           "content-type": "application/json",
-          "Authorization": this.token,
+          Authorization: this.token,
         },
         body: bodyRequest,
       })
@@ -111,7 +112,9 @@ export class BaseFormComponent extends Component {
     return (
       <div className="f">
         {this.state.loading && <div className="loader" id="loader"></div>}
-        <div className="h">{this.isCreate ? "Tạo mới "+ this.title : "Cập nhật "+this.title}</div>
+        <div className="h">
+          {this.isCreate ? "Tạo mới " + this.title : "Cập nhật " + this.title}
+        </div>
         <br></br>
         {this.element()}
         <div className="btn">
@@ -136,14 +139,12 @@ export class BaseFormComponent extends Component {
   }
 }
 
-export function connect(Component){
-  return reduxConnect(
-    (state)=>{
-      return{
-        userApp: state.userApp
-      }
-    }
-  )(Component);
+export function connect(Component) {
+  return reduxConnect((state) => {
+    return {
+      userApp: state.userApp,
+    };
+  })(Component);
 }
 
 export default connect(BaseFormComponent);

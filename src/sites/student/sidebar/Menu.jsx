@@ -30,12 +30,12 @@ class Menu extends Component {
           name: "Lớp",
         },
         {
-          path: "/student/course-register",
+          path: "/student/register-course",
           class: "bar",
           name: "Đăng ký khóa học",
         },
         {
-          path: "/student/class-register",
+          path: "/student/register-class",
           class: "bar",
           name: "Đăng ký lớp",
         },

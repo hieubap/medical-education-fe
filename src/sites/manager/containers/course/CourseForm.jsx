@@ -21,18 +21,18 @@ class CourseForm extends BaseFormComponent {
             name="name"
             type="text"
             value={
-              this.state.props.dataDetail != null
-                ? this.state.props.dataDetail.name
+              this.state.dataDetail != null
+                ? this.state.dataDetail.name
                 : ""
             }
-            onChange={this.change.bind(this)}
+            onChange={(e) => this.change(e)}
           />
           <input
             name="price"
             type="number"
             value={
-              this.state.props.dataDetail != null
-                ? this.state.props.dataDetail.price
+              this.state.dataDetail != null
+                ? this.state.dataDetail.price
                 : ""
             }
             onChange={this.change.bind(this)}

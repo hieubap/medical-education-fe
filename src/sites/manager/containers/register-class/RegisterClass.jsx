@@ -119,7 +119,7 @@ class RegisterClass extends BaseComponent {
             name="codeClass"
             form="carform"
             type="text"
-            onChange={(e) => this.setSelect(e.target.name, e.target.value)}
+            onChange={(e) => this.changeData(e)}
           ></input>
           <button className="default-btn" onClick={() => this.addClass()}>
             Đăng ký

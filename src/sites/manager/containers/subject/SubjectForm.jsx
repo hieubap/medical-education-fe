@@ -23,8 +23,8 @@ class SubjectForm extends BaseFormComponent {
             name="name"
             type="text"
             value={
-              this.state.props.dataDetail != null
-                ? this.state.props.dataDetail.name
+              this.state.dataDetail != null
+                ? this.state.dataDetail.name
                 : ""
             }
             onChange={this.change.bind(this)}
@@ -33,8 +33,8 @@ class SubjectForm extends BaseFormComponent {
             name="type"
             type="text"
             value={
-              this.state.props.dataDetail != null
-                ? this.state.props.dataDetail.type
+              this.state.dataDetail != null
+                ? this.state.dataDetail.type
                 : ""
             }
             onChange={this.change.bind(this)}

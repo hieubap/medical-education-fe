@@ -40,12 +40,12 @@ class Menu extends Component {
           name: "Quản lý học viên",
         },
         {
-          path: "/manager/course-register",
+          path: "/manager/register-course",
           class: "bar",
           name: "Đăng ký khóa học",
         },
         {
-          path: "/manager/class-register",
+          path: "/manager/register-class",
           class: "bar",
           name: "Đăng ký lớp",
         },
