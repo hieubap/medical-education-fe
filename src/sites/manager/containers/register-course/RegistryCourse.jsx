@@ -13,6 +13,7 @@ class RegistryCourse extends BaseComponent {
     this.state = { ...this.state, codeCourse: "" };
     this.api_get = api_course_register;
     this.api_create = api_course_register;
+    this.nameComponent = "Đăng ký khóa học";
   }
 
   registerCourse() {
@@ -65,67 +66,99 @@ class RegistryCourse extends BaseComponent {
     );
   }
 
-  render() {
-    var listPage = [];
-    for (let i = 0; i < 5; i++) {
-      listPage.push(
-        <li key={i}>
-          <button onClick={() => this.setPage(i)}>{i + 1}</button>
-        </li>
-      );
-    }
-
+  headTable() {
     return (
       <>
-        {this.state.loading && <Loading></Loading>}
-        <Head title="Đăng kí khóa học"></Head>
-        {this.beforeTable()}
-        <div>
-          <table>
-            <tr>
-              <th>stt</th>
-              <th>Ngày đăng kí</th>
-              <th>Ngày cập nhật</th>
-              <th>Tên sinh viên</th>
-              <th>Mã Khóa học</th>
-              <th>Khóa đăng kí</th>
-              <th></th>
-            </tr>
-            {this.state.dataRender != null &&
-              this.state.dataRender.map((o, index) => {
-                if (
-                  this.state.page * this.state.size <= index &&
-                  index < (this.state.page + 1) * this.state.size
-                ) {
-                  console.log(o);
-                }
-                return (
-                  <tr style={{ fontSize: "17px" }}>
-                    <td>{index + 1}</td>
-                    <td>{o.createAt}</td>
-                    <td>{o.updateAt}</td>
-                    <td>{o.student.fullName}</td>
-                    <td>{o.course.code}</td>
-                    <td>{o.course.name}</td>
-                    <td>
-                      <div className="i">
-                        <FontAwesomeIcon
-                          icon={faWindowClose}
-                          className="icon-red"
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-          </table>
-        </div>
-        <ul className="pagination" id="pageTag1">
-          {listPage}
-        </ul>
+        <th>stt</th>
+        <th>Ngày đăng kí</th>
+        <th>Ngày cập nhật</th>
+        <th>Tên sinh viên</th>
+        <th>Mã Khóa học</th>
+        <th>Khóa đăng kí</th>
+        <th></th>
       </>
     );
   }
+
+  bodyTable(o, index) {
+    return (
+      <>
+        <td>{index + 1}</td>
+        <td>{o.createAt}</td>
+        <td>{o.updateAt}</td>
+        <td>{o.student.fullName}</td>
+        <td>{o.course.code}</td>
+        <td>{o.course.name}</td>
+        <td>
+          <div className="i">
+            <FontAwesomeIcon icon={faWindowClose} className="icon-red" />
+          </div>
+        </td>
+      </>
+    );
+  }
+
+  // render() {
+  //   var listPage = [];
+  //   for (let i = 0; i < 5; i++) {
+  //     listPage.push(
+  //       <li key={i}>
+  //         <button onClick={() => this.setPage(i)}>{i + 1}</button>
+  //       </li>
+  //     );
+  //   }
+
+  //   return (
+  //     <>
+  //       {this.state.loading && <Loading></Loading>}
+  //       <Head title="Đăng kí khóa học"></Head>
+  //       {this.beforeTable()}
+  //       <div>
+  //         <table>
+  //           <tr>
+  //             <th>stt</th>
+  //             <th>Ngày đăng kí</th>
+  //             <th>Ngày cập nhật</th>
+  //             <th>Tên sinh viên</th>
+  //             <th>Mã Khóa học</th>
+  //             <th>Khóa đăng kí</th>
+  //             <th></th>
+  //           </tr>
+  //           {this.state.dataRender != null &&
+  //             this.state.dataRender.map((o, index) => {
+  //               if (
+  //                 this.state.page * this.state.size <= index &&
+  //                 index < (this.state.page + 1) * this.state.size
+  //               ) {
+  //                 console.log(o);
+  //               }
+  //               return (
+  //                 <tr style={{ fontSize: "17px" }}>
+  //                   <td>{index + 1}</td>
+  //                   <td>{o.createAt}</td>
+  //                   <td>{o.updateAt}</td>
+  //                   <td>{o.student.fullName}</td>
+  //                   <td>{o.course.code}</td>
+  //                   <td>{o.course.name}</td>
+  //                   <td>
+  //                     <div className="i">
+  //                       <FontAwesomeIcon
+  //                         icon={faWindowClose}
+  //                         className="icon-red"
+  //                       />
+  //                     </div>
+  //                   </td>
+  //                 </tr>
+  //               );
+  //             })}
+  //         </table>
+  //       </div>
+  //       <ul className="pagination" id="pageTag1">
+  //         {listPage}
+  //       </ul>
+  //     </>
+  //   );
+  // }
 }
 
 export default connect(RegistryCourse);

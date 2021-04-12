@@ -13,6 +13,7 @@ class User extends BaseComponent {
   constructor(props) {
     super(props);
     this.api_get = api_user;
+    this.nameComponent = "Quản lý tài khoản";
     console.log("init ...");
   }
 

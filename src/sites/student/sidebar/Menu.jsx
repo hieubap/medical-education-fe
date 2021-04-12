@@ -52,7 +52,7 @@ class Menu extends Component {
         {
           path: "/student/feedback",
           class: "bar",
-          name: "Phản hồi",
+          name: "Hỏi đáp",
         },
         {
           path: "/student/notification",

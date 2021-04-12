@@ -173,7 +173,7 @@ class FeedBack extends Component {
     return (
       <>
         {this.state.loading && <div class="loader" id="loader"></div>}
-        <Head title="Phản hồi"></Head>
+        <Head title="Hỏi đáp"></Head>
         <div>
           <table>
             <tr>

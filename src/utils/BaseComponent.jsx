@@ -21,6 +21,7 @@ export class BaseComponent extends Component {
     this.api_update = null;
     this.api_delete = null;
     this.has_action = false;
+    this.role = this.props.userApp.currentUser.authorities[0];
     if (
       this.props.userApp.currentUser.authorities[0] === constant.role.admin
     )

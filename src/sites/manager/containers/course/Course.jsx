@@ -9,7 +9,7 @@ import { api_course } from "@utils/API";
 import CourseDetail from "./CourseDetail";
 import { Tooltip } from "antd";
 import { connect, BaseComponent } from "@utils/BaseComponent";
-// import { connect } from "react-redux";
+import constant from "@src/resourses/const";
 
 class Course extends BaseComponent {
   constructor(props) {
@@ -17,6 +17,7 @@ class Course extends BaseComponent {
     this.api_get = api_course;
     this.api_update = api_course + "/";
     this.api_delete = api_course + "/";
+    this.has_action = true;
     this.nameComponent = "Quản lý khóa học";
   }
 
@@ -61,6 +62,15 @@ class Course extends BaseComponent {
     );
   }
   action(o, index) {
+    if (this.role != constant.role.admin) {
+      return (
+        <td>
+          <div className="i" onClick={() => this.detail(o.id)}>
+            <FontAwesomeIcon icon={faEye} className="icon-green" />
+          </div>
+        </td>
+      );
+    }
     return (
       <td>
         <div className="i" onClick={() => this.detail(o.id)}>

@@ -144,7 +144,7 @@ class RegisterClass extends BaseComponent {
         {this.state.loading && <Loading></Loading>}
         <Head title={this.nameComponent}></Head>
         {this.beforeTable()}
-        <div>
+        <div className="content">
           <table>
             <tbody>
               {this.headTable()}
@@ -164,8 +164,8 @@ class RegisterClass extends BaseComponent {
                   })}
             </tbody>
           </table>
+          <ul className="pagination">{listPage}</ul>
         </div>
-        <ul className="pagination">{listPage}</ul>
         {this.state.showModal ? (
           <div className="modal" style={{ display: "flex" }}>
             <div className="modal__overlay"></div>
