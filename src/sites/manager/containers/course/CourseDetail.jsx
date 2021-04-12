@@ -140,6 +140,7 @@ class CourseDetail extends Component {
           >
             Khóa học \ {this.state.data.name}
           </h2>
+          
           <select
             class="create_input select-type-product"
             name="carlist"
