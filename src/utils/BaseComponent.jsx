@@ -22,8 +22,7 @@ export class BaseComponent extends Component {
     this.api_delete = null;
     this.has_action = false;
     if (
-      this.props.userApp.currentUser.authorities[0] ===
-      "ROLE_" + constant.role.admin
+      this.props.userApp.currentUser.authorities[0] === constant.role.admin
     )
       this.has_action = true;
 

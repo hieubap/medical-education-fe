@@ -5,8 +5,8 @@ module.exports = {
     action_user_user_email: "ACTION_USER_USER_EMAIL",
   },
   role: {
-    admin: "ADMIN",
-    teacher: "TEACHER",
-    student: "USER",
+    admin: "ROLE_ADMIN",
+    teacher: "ROLE_TEACHER",
+    student: "ROLE_STUDENT",
   },
 };
