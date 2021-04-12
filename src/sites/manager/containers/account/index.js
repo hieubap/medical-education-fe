@@ -81,6 +81,7 @@ function Login() {
             name="username"
             type="text"
             value={username}
+            autoComplete="off"
             placeholder="Tên đăng nhập"
             onChange={(e) => handleChange(e.target.name, e.target.value)}
           ></input>

@@ -12,9 +12,12 @@ export class BaseFormComponent extends Component {
     this.isCreate = false;
     this.title = "nội dung";
     this.token = props.userApp.token;
-
+    this.newDataDetail = {};
+    if(props.dataDetail != null ){
+      this.newDataDetail = props.dataDetail;
+    }
     this.state = {
-      props: props,
+      props: {...props,dataDetail:this.newDataDetail},
       loading: false,
     };
 

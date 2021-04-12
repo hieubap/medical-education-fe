@@ -1,5 +1,5 @@
 export function convertPrice(money) {
-  return new Intl.NumberFormat("de-DE").format(money) + " đ";
+  return new Intl.NumberFormat("de-DE").format(money) + "";
 }
 export function withSuffix(num, digits) {
     var si = [
