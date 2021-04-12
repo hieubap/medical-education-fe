@@ -5,6 +5,7 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { url_course_subject, api_subject } from "@utils/API.js";
 import { api_course } from "../../../../utils/API";
 import { connect } from "../../../../utils/BaseComponent";
+import './style.scss';
 class CourseDetail extends Component {
   constructor(props) {
     super(props);
@@ -128,19 +129,18 @@ class CourseDetail extends Component {
       return <div class="loader" id="loader"></div>;
     else
       return (
-        <div>
+        <div className="content detail-course">
           <button class="default-btn" onClick={() => this.props.back()}>
             Trở lại
           </button>
 
           <h2
-            className=" text-center head_tag"
             data-wow-duration="1s"
             data-wow-delay="0.1s"
           >
             Khóa học \ {this.state.data.name}
           </h2>
-          
+
           <select
             class="create_input select-type-product"
             name="carlist"
@@ -155,8 +155,8 @@ class CourseDetail extends Component {
             Thêm Môn
           </button>
 
-          <div style={{ width: "100%", display: "inline-flex" }}>
-            <div style={{ backgroundColor: "#ddd", width: "50%" }}>
+          <div>
+            <div>
               <table>
                 <tr>
                   <td>Mã khóa học</td>
@@ -176,7 +176,7 @@ class CourseDetail extends Component {
                 </tr>
               </table>
             </div>
-            <div style={{ backgroundColor: "#ddd", width: "50%" }}>
+            <div>
               <div>Các môn trong chương trình:</div>
               <table>
                 <tbody>
