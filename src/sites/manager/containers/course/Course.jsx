@@ -8,7 +8,7 @@ import CourseForm from "./CourseForm";
 import { api_course } from "@utils/API";
 import CourseDetail from "./CourseDetail";
 import { Tooltip } from "antd";
-import { connect,BaseComponent } from "../../../../utils/BaseComponent";
+import { connect, BaseComponent } from "@utils/BaseComponent";
 // import { connect } from "react-redux";
 
 class Course extends BaseComponent {
@@ -36,7 +36,7 @@ class Course extends BaseComponent {
   }
   headTable() {
     return (
-      <tr>
+      <>
         <th>ID</th>
         <th>Mã khóa học</th>
         <th>Tên khóa học</th>
@@ -44,13 +44,12 @@ class Course extends BaseComponent {
         <th>Giá</th>
         <th>Số lượng đăng kí</th>
         <th>Số lượng đăng kí mới</th>
-        <th></th>
-      </tr>
+      </>
     );
   }
   bodyTable(o, index) {
     return (
-      <tr key={o.id} style={{ fontSize: "15px" }}>
+      <>
         <td>{o.id}</td>
         <td>{o.code}</td>
         <td>{o.name}</td>
@@ -58,20 +57,24 @@ class Course extends BaseComponent {
         <td>{convertPrice(o.price)}</td>
         <td></td>
         <td></td>
-        <td>
-          <div className="i" onClick={() => this.detail(o.id)}>
-            <FontAwesomeIcon icon={faEye} className="icon-green" />
-          </div>
-          <div className="i" onClick={() => this.changeModel(o.id, index)}>
-            <Tooltip title="chỉnh sửa">
-              <FontAwesomeIcon icon={faEdit} className="icon-blue" />
-            </Tooltip>
-          </div>
-          <div className="i" onClick={() => this.delete(o.id, index)}>
-            <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
-          </div>
-        </td>
-      </tr>
+      </>
+    );
+  }
+  action(o, index) {
+    return (
+      <td>
+        <div className="i" onClick={() => this.detail(o.id)}>
+          <FontAwesomeIcon icon={faEye} className="icon-green" />
+        </div>
+        <div className="i" onClick={() => this.changeModel(o.id, index)}>
+          <Tooltip title="chỉnh sửa">
+            <FontAwesomeIcon icon={faEdit} className="icon-blue" />
+          </Tooltip>
+        </div>
+        <div className="i" onClick={() => this.delete(o.id, index)}>
+          <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
+        </div>
+      </td>
     );
   }
   form() {

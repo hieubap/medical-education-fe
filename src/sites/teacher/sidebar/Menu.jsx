@@ -12,7 +12,7 @@ class Menu extends Component {
         {
           path: "/teacher/dashboard",
           class: "bar",
-          name: "Thông báo",
+          name: "Home",
         },
         {
           path: "/teacher/courses",

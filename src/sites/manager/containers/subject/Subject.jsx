@@ -16,32 +16,36 @@ class Subject extends BaseComponent {
 
   headTable() {
     return (
-      <tr>
+      <>
         <th>ID</th>
         <th>Mã môn học</th>
         <th>Tên môn học</th>
         <th>loại môn học</th>
-        <th></th>
-      </tr>
+      </>
     );
   }
 
   bodyTable(o, index) {
     return (
-      <tr style={{ fontSize: "17px" }}>
+      <>
         <td>{o.id}</td>
         <td style={{ width: "15%" }}>{o.code}</td>
         <td>{o.name}</td>
         <td style={{ width: "15%" }}>{o.type}</td>
-        <td style={{ width: "7%" }}>
-          <div class="i" onClick={() => this.changeModel(o.id, index)}>
-            <FontAwesomeIcon icon={faEdit} className="icon-blue" />
-          </div>
-          <div class="i" onClick={() => this.delete(o.id, index)}>
-            <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
-          </div>
-        </td>
-      </tr>
+      </>
+    );
+  }
+
+  action(o, index) {
+    return (
+      <td style={{ width: "7%" }}>
+        <div class="i" onClick={() => this.changeModel(o.id, index)}>
+          <FontAwesomeIcon icon={faEdit} className="icon-blue" />
+        </div>
+        <div class="i" onClick={() => this.delete(o.id, index)}>
+          <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
+        </div>
+      </td>
     );
   }
 

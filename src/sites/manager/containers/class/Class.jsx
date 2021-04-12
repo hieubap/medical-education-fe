@@ -35,7 +35,7 @@ class Class extends BaseComponent {
 
   headTable() {
     return (
-      <tr>
+      <>
         <th>stt</th>
         <th>Mã lớp</th>
         <th>Tên Môn</th>
@@ -45,14 +45,13 @@ class Class extends BaseComponent {
         <th>Địa điểm</th>
         <th>Số lượng đăng kí</th>
         <th>Trạng thái</th>
-        <th></th>
-      </tr>
+      </>
     );
   }
 
   bodyTable(o, index) {
     return (
-      <tr key={o.id} style={{ fontSize: "14px" }}>
+      <>
         <td>{index + 1}</td>
         <td>{o.code}</td>
         <td>{o.subject.name}</td>
@@ -64,21 +63,25 @@ class Class extends BaseComponent {
           {o.numberRegister}/{o.limitRegister}
         </td>
         <td>{o.status}</td>
-        <td>
-          <div class="i">
-            <FontAwesomeIcon icon={faCheckCircle} className="icon-yellow" />
-          </div>
-          <div class="i" onClick={() => this.delete(o.id, index)}>
-            <FontAwesomeIcon icon={faWindowClose} className="icon-mangeto" />
-          </div>
-          <div class="i" onClick={() => this.changeModel()}>
-            <FontAwesomeIcon icon={faEdit} className="icon-blue" />
-          </div>
-          <div class="i" onClick={() => this.delete(o.id, index)}>
-            <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
-          </div>
-        </td>
-      </tr>
+      </>
+    );
+  }
+  action(o, index) {
+    return (
+      <td>
+        <div class="i">
+          <FontAwesomeIcon icon={faCheckCircle} className="icon-yellow" />
+        </div>
+        <div class="i" onClick={() => this.delete(o.id, index)}>
+          <FontAwesomeIcon icon={faWindowClose} className="icon-mangeto" />
+        </div>
+        <div class="i" onClick={() => this.changeModel(o.id, index)}>
+          <FontAwesomeIcon icon={faEdit} className="icon-blue" />
+        </div>
+        <div class="i" onClick={() => this.delete(o.id, index)}>
+          <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
+        </div>
+      </td>
     );
   }
   form() {
@@ -158,52 +161,52 @@ class Class extends BaseComponent {
     );
   }
 
-  render() {
-    var listPage = [];
-    for (let i = 0; i < this.state.totalPage; i++) {
-      listPage.push(
-        <li key={i}>
-          <button onClick={() => this.setPage(i)}>{i + 1}</button>
-        </li>
-      );
-    }
+  // render() {
+  //   var listPage = [];
+  //   for (let i = 0; i < this.state.totalPage; i++) {
+  //     listPage.push(
+  //       <li key={i}>
+  //         <button onClick={() => this.setPage(i)}>{i + 1}</button>
+  //       </li>
+  //     );
+  //   }
 
-    return (
-      <>
-        {this.state.loading && <div className="loader" id="loader"></div>}
-        <Head title={this.nameComponent} changeModel={this.changeModel}></Head>
-        <div className="content">
-          {this.beforeTable()}
-          <table>
-            <tbody>
-              {this.headTable()}
-              {this.state.dataRender != null &&
-                this.state.dataRender
-                  .filter((o, index) => {
-                    return (
-                      this.state.page * this.state.size <= index &&
-                      index < (this.state.page + 1) * this.state.size
-                    );
-                  })
-                  .map((o, index) => {
-                    return this.bodyTable(
-                      o,
-                      index + this.state.page * this.state.size
-                    );
-                  })}
-            </tbody>
-          </table>
-        </div>
-        <ul className="pagination">{listPage}</ul>
-        {this.state.showModal ? (
-          <div className="modal" style={{ display: "flex" }}>
-            <div className="modal__overlay"></div>
-            <div className="modal__body">{this.form()}</div>
-          </div>
-        ) : null}
-      </>
-    );
-  }
+    // return (
+    //   <>
+    //     {this.state.loading && <div className="loader" id="loader"></div>}
+    //     <Head title={this.nameComponent} changeModel={this.changeModel}></Head>
+    //     <div className="content">
+    //       {this.beforeTable()}
+    //       <table>
+    //         <tbody>
+    //           {this.headTable()}
+    //           {this.state.dataRender != null &&
+    //             this.state.dataRender
+    //               .filter((o, index) => {
+    //                 return (
+    //                   this.state.page * this.state.size <= index &&
+    //                   index < (this.state.page + 1) * this.state.size
+    //                 );
+    //               })
+    //               .map((o, index) => {
+    //                 return this.bodyTable(
+    //                   o,
+    //                   index + this.state.page * this.state.size
+    //                 );
+    //               })}
+    //         </tbody>
+    //       </table>
+    //     </div>
+    //     <ul className="pagination">{listPage}</ul>
+    //     {this.state.showModal ? (
+    //       <div className="modal" style={{ display: "flex" }}>
+    //         <div className="modal__overlay"></div>
+    //         <div className="modal__body">{this.form()}</div>
+    //       </div>
+    //     ) : null}
+    //   </>
+    // );
+  // }
 }
 
 export default connect(Class);

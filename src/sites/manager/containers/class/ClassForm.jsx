@@ -7,10 +7,11 @@ class ClassForm extends BaseFormComponent {
     super(props);
     this.api_create = api_class;
     this.api_update = api_class + "/";
+    console.log(this.state.props);
   }
 
   componentDidMount() {
-    fetch(api_subject+"?size=1000", {
+    fetch(api_subject + "?size=1000", {
       headers: {
         "content-type": "application/json",
         Authorization: this.token,
@@ -26,7 +27,7 @@ class ClassForm extends BaseFormComponent {
           });
         }
       });
-    fetch(api_place+"?size=1000", {
+    fetch(api_place + "?size=1000", {
       headers: {
         "content-type": "application/json",
         Authorization: this.token,
@@ -78,58 +79,62 @@ class ClassForm extends BaseFormComponent {
           <label>Số lượng</label>
         </div>
         <div className="group-input">
-        <select
-              class="create_input select-type-product"
-              name="subjectId"
-              form="carform"
-              onChange={(e) => this.setSelect(e.target.name, e.target.value)}
-            >
-              {this.state.subjects.map((subject, index) => {
-                return <option value={subject.id}>{subject.name}</option>;
-              })}
-            </select>
-            <select
-              class="create_input select-type-product"
-              name="placeId"
-              form="carform"
-              onChange={(e) => this.setSelect(e.target.name, e.target.value)}
-            >
-              {this.state.places.map((place, index) => {
-                return <option value={place.id}>{place.address}</option>;
-              })}
-            </select>
-            <select
-              class="create_input select-type-product"
-              name="teacherId"
-              form="carform"
-              onChange={(e) => this.setSelect(e.target.name, e.target.value)}
-            >
-              {this.state.teachers.map((teacher, index) => {
-                return <option value={teacher.id}>{teacher.fullName}</option>;
-              })}
-            </select>
-            <select
-              class="create_input select-type-product"
-              name="time"
-              form="carform"
-              onChange={(e) => this.setSelect(e.target.name, e.target.value)}
-            >
-              <option value="6:00 - 8:00">6:00 - 8:00</option>
-              <option value="8:00 - 10:00">8:00 - 10:00</option>
-              <option value="10:00 - 12:00">13:00 - 15:00</option>
-              <option value="13:00 - 15:00">13:00 - 15:00</option>
-              <option value="15:00 - 17:00">13:00 - 15:00</option>
-            </select>
-            <input
-              type="number"
-              name="limitRegister"
-              value={
-                this.state.props.dataDetail != null
-                  ? this.state.props.dataDetail.value
-                  : ""
-              }
-              onChange={this.change.bind(this)}
-            />
+          <select
+            class="create_input select-type-product"
+            name="subjectId"
+            form="carform"
+            value={this.state.props.dataDetail.subjectId}
+            onChange={(e) => this.setSelect(e.target.name, e.target.value)}
+          >
+            {this.state.subjects.map((subject, index) => {
+              return <option value={subject.id}>{subject.name}</option>;
+            })}
+          </select>
+          <select
+            class="create_input select-type-product"
+            name="placeId"
+            form="carform"
+            value={this.state.props.dataDetail.placeId}
+            onChange={(e) => this.setSelect(e.target.name, e.target.value)}
+          >
+            {this.state.places.map((place, index) => {
+              return <option value={place.id}>{place.address}</option>;
+            })}
+          </select>
+          <select
+            class="create_input select-type-product"
+            name="teacherId"
+            form="carform"
+            value={this.state.props.dataDetail.teacherId}
+            onChange={(e) => this.setSelect(e.target.name, e.target.value)}
+          >
+            {this.state.teachers.map((teacher, index) => {
+              return <option value={teacher.id}>{teacher.fullName}</option>;
+            })}
+          </select>
+          <select
+            class="create_input select-type-product"
+            name="time"
+            form="carform"
+            value={this.state.props.dataDetail.time}
+            onChange={(e) => this.setSelect(e.target.name, e.target.value)}
+          >
+            <option value="6:00 - 8:00">6:00 - 8:00</option>
+            <option value="8:00 - 10:00">8:00 - 10:00</option>
+            <option value="10:00 - 12:00">13:00 - 15:00</option>
+            <option value="13:00 - 15:00">13:00 - 15:00</option>
+            <option value="15:00 - 17:00">13:00 - 15:00</option>
+          </select>
+          <input
+            type="number"
+            name="limitRegister"
+            value={
+              this.state.props.dataDetail != null
+                ? this.state.props.dataDetail.limitRegister
+                : ""
+            }
+            onChange={this.change.bind(this)}
+          />
         </div>
       </div>
     );

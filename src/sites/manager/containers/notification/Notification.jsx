@@ -24,22 +24,28 @@ class Notification extends BaseComponent {
 
   headTable() {
     return (
-      <tr>
+      <>
         <th style={{width:"3%",padding:"0"}}>stt</th>
         <th style={{width:"17%",padding:"0"}}>Thời gian</th>
         <th>Nội dung</th>
-        <th></th>
-      </tr>
+      </>
     );
   }
 
   bodyTable(o, index) {
     return (
-      <tr key={o.id}>
+      <>
         <td>{index + 1}</td>
         <td>{o.createAt}</td>
         <td>{o.content}</td>
-        <td style={{width:"6%"}}>
+        
+      </>
+    );
+  }
+
+  action(o,index){
+    return(
+      <td style={{width:"6%"}}>
           <div class="i">
             <FontAwesomeIcon icon={faEye} className="icon-green" />
           </div>
@@ -50,8 +56,7 @@ class Notification extends BaseComponent {
             <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
           </div>
         </td>
-      </tr>
-    );
+    )
   }
 
   render(){

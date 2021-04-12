@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { api_place } from "@utils/API";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import PlaceForm from "./PlaceForm";
-import {BaseComponent,connect} from "@utils/BaseComponent";
+import { BaseComponent, connect } from "@utils/BaseComponent";
 
 class Place extends BaseComponent {
   constructor(props) {
@@ -15,37 +15,36 @@ class Place extends BaseComponent {
 
   headTable() {
     return (
-      <tr>
+      <>
         <th>stt</th>
         <th>địa điểm</th>
         <th>Ngày tạo</th>
         <th>Ngày sửa</th>
-        <th></th>
-      </tr>
+      </>
     );
   }
 
   bodyTable(o, index) {
     return (
-      <tr key={o.id} style={{ fontSize: "17px" }}>
-        <td>
-          {index + 1}
-        </td>
+      <>
+        <td>{index + 1}</td>
         <td>{o.address}</td>
         <td>{o.createAt}</td>
         <td>{o.updateAt}</td>
-        <td style={{ width: "7%" }}>
-          <div className="i" onClick={() => this.delete(o.id,index)}>
-            <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
-          </div>
-          <div
-            className="i"
-            onClick={() => this.changeModel(o.id, index)}
-          >
-            <FontAwesomeIcon icon={faEdit} className="icon-blue" />
-          </div>
-        </td>
-      </tr>
+      </>
+    );
+  }
+
+  action(o, index) {
+    return (
+      <td style={{ width: "7%" }}>
+        <div className="i" onClick={() => this.delete(o.id, index)}>
+          <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
+        </div>
+        <div className="i" onClick={() => this.changeModel(o.id, index)}>
+          <FontAwesomeIcon icon={faEdit} className="icon-blue" />
+        </div>
+      </td>
     );
   }
 

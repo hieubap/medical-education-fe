@@ -36,7 +36,6 @@ export class BaseFormComponent extends Component {
     newData = { ...newData, [name]: value };
     console.log(newData);
     this.setState({
-      ...this.state,
       props: { ...this.state.props, dataDetail: newData },
     });
     console.log(this.state.props);

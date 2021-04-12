@@ -5,11 +5,11 @@ import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
 import "@components/CSS/baseComponent.css";
 import { connect as reduxConnect } from "react-redux";
+import constant from "@src/resourses/const";
+import "@src/CSS/base.css";
 
-import '@src/CSS/base.css';
 // import '@src/CSS/responsive.css';
 // import '@src/CSS/manageAdmin.css';
-
 
 export class BaseComponent extends Component {
   constructor(props) {
@@ -20,6 +20,12 @@ export class BaseComponent extends Component {
     this.api_post = null;
     this.api_update = null;
     this.api_delete = null;
+    this.has_action = false;
+    if (
+      this.props.userApp.currentUser.authorities[0] ===
+      "ROLE_" + constant.role.admin
+    )
+      this.has_action = true;
 
     this.state = {
       loading: true,
@@ -48,7 +54,7 @@ export class BaseComponent extends Component {
       fetch(this.api_get, {
         headers: {
           "content-type": "application/json",
-          "Authorization": this.state.token,
+          Authorization: this.state.token,
         },
       })
         .then((res) => res.json())
@@ -63,10 +69,10 @@ export class BaseComponent extends Component {
             });
             this.afterDidMount();
           } else if (json.code === 401) {
-            // this.setState({
-            //   loading: false
-            // });
-            // window.location.href = "/login";
+            this.setState({
+              loading: false,
+            });
+            window.location.href = "/login";
           } else {
             // this.setState({
             //   loading: false
@@ -167,11 +173,14 @@ export class BaseComponent extends Component {
         <Head title={this.nameComponent} changeModel={this.changeModel}></Head>
         <div className="content" style={{ fontSize: "15px" }}>
           {this.state.loading && <Loading></Loading>}
-          <Search search={this.search}></Search>
+          {this.beforeTable()}
           <div>
             <table>
               <tbody>
-                {this.headTable()}
+                <tr>
+                  {this.headTable()}
+                  {this.has_action ? <th></th> : null}
+                </tr>
                 {this.state.dataRender != null &&
                   this.state.dataRender
                     .filter((o, index) => {
@@ -181,9 +190,14 @@ export class BaseComponent extends Component {
                       );
                     })
                     .map((o, index) => {
-                      return this.bodyTable(
-                        o,
-                        index + this.state.page * this.state.size
+                      return (
+                        <tr>
+                          {this.bodyTable(
+                            o,
+                            index + this.state.page * this.state.size
+                          )}
+                          {this.has_action ? this.action(o, index) : null}
+                        </tr>
                       );
                     })}
               </tbody>
@@ -220,8 +234,14 @@ export class BaseComponent extends Component {
 
   form() {}
 
+  beforeTable(){
+    return(
+      <Search search={this.search}></Search>
+    )
+  }
   headTable() {}
   bodyTable(o, index) {}
+  action(o, index) {}
 
   delete = (id, index) => {
     console.log(index);

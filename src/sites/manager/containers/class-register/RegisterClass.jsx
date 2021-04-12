@@ -9,12 +9,13 @@ import "./style.scss";
 class RegisterClass extends BaseComponent {
   afterInit() {
     this.nameComponent = "Đăng kí Lớp học";
-    this.api_get = api_class_register + "?studentId=" + "1";
+    this.api_get = api_class_register;
     this.api_post = api_class_register;
     this.api_delete = api_class_register + "/";
     this.state = {
       ...this.state,
       dataDetail: { ...this.state.dataDetail, codeClass: null },
+      token: this.props.userApp.token
     };
   }
 
@@ -36,6 +37,7 @@ class RegisterClass extends BaseComponent {
         method: "post",
         headers: {
           "content-type": "application/json",
+          Authorization:this.state.token
         },
         body: JSON.stringify({
           codeClass: this.state.dataDetail.codeClass,
