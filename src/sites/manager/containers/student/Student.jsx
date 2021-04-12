@@ -65,19 +65,18 @@ class Student extends BaseComponent {
 
   headTable() {
     return (
-      <tr>
+      <>
         <th>ID</th>
         <th>Mã học viên</th>
         <th>Tên học viên</th>
         <th>Trạng thái</th>
-        <th></th>
-      </tr>
+      </>
     );
   }
 
   bodyTable(obj, index) {
     return (
-      <tr style={{ fontSize: "17px" }}>
+      <>
         <td style={{ width: "5%" }}>{obj.id}</td>
         <td style={{ width: "15%" }}>{obj.value}</td>
         <td style={{ width: "15%" }}>{obj.fullName}</td>
@@ -95,7 +94,7 @@ class Student extends BaseComponent {
             <FontAwesomeIcon icon={faLock} className="icon-red" />
           </div>
         </td>
-      </tr>
+      </>
     );
   }
   // render() {
