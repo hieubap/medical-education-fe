@@ -46,6 +46,10 @@ const Head = (props) => {
     window.location.href = "/manager/profile";
   };
 
+  const handleEditProfile = () => {
+    window.location.href = "/manager/edit-profile";
+  }
+
   return (
     <div className="head-body">
       <div className="head-icon" style={{ flexBasis: "5%" }}>
@@ -69,6 +73,7 @@ const Head = (props) => {
         <div className="t" style={{ display: click ? "block" : "none" }}>
           <ul>
             <li onClick={() => handleProfile()}>hồ sơ</li>
+            <li onClick={() => handleEditProfile()}>chỉnh sửa thông tin</li>
             <li onClick={() => handleChangePassword()}>đổi mật khẩu</li>
             <li onClick={() => handleLogout()}>đăng xuất</li>
           </ul>

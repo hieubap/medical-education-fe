@@ -34,10 +34,18 @@
 .profile>.c{
     width: 15%;
 }
-.profile>div>span{
+.profile>div>span,.profile>div>input{
     margin-top: 20px;
     padding-left: 20px;
     height:30px;
+}
+.profile>div>input{
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+.profile>div>input:focus{
+    border: 1px solid var(--blue-2);
 }
 .avatar + div{
     display: flex;

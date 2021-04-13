@@ -123,6 +123,13 @@ function Index(props) {
       }),
     },
     {
+      path: ["/manager/edit-profile"],
+      component: Loadable({
+        loader: () => import("@manager/containers/profile/edit"),
+        loading: Load,
+      }),
+    },
+    {
       path: ["/manager/change-password"],
       component: Loadable({
         loader: () => import("@manager/containers/account/change-password"),
