@@ -99,7 +99,7 @@ class Class extends BaseComponent {
     return (
       <div className="search-class">
         <div>
-          <label>Khóa</label>
+          {/* <label>Khóa</label>
           <select
             name="carlist"
             form="carform"
@@ -109,7 +109,7 @@ class Class extends BaseComponent {
               this.state.subjects.map((subject, index) => {
                 return <option value={subject.id}>{subject.name}</option>;
               })}
-          </select>
+          </select> */}
           <label>Môn</label>
           <select
             name="carlist"
@@ -134,14 +134,14 @@ class Class extends BaseComponent {
           </select>
         </div>
         <div>
-          <label>Mã Khóa</label>
+          {/* <label>Mã Khóa</label>
           <input
             name="carlist"
             form="carform"
             type="text"
             sty
             onchange={(e) => this.setSelectSubject(e.target.value)}
-          ></input>
+          ></input> */}
           <label>Mã Môn</label>
           <input
             name="carlist"
