@@ -53,7 +53,7 @@ function Index(props) {
     {
       path: ["/teacher/schedule"],
       component: Loadable({
-        loader: () => import("@manager/containers/schedule/Schedule"),
+        loader: () => import("@teacher/containers/schedule"),
         loading: Load,
       }),
     },

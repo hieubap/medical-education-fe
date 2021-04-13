@@ -75,7 +75,6 @@ class RegistryCourse extends BaseComponent {
         <th>Tên sinh viên</th>
         <th>Mã Khóa học</th>
         <th>Khóa đăng kí</th>
-        <th></th>
       </>
     );
   }

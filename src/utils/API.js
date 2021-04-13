@@ -1,4 +1,4 @@
-const local = false;
+const local = true;
 
 let domain = "";
 let domainApi = "";
@@ -46,7 +46,7 @@ export const url_class_delete = domainApi + "/class/"
 export const url_course_register = domainApi + "/course-register"
 export const url_register_course = domainApi + "/course-register/"
 
-export const url_student = domainApi + "/users?role=3"
+export const url_student = domainApi + "/users?role=STUDENT"
 
 export const url_course_subject = domainApi + "/course-subject"
 
