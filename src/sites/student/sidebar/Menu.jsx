@@ -20,11 +20,6 @@ class Menu extends Component {
           name: "Khóa học",
         },
         {
-          path: "/student/subject",
-          class: "bar",
-          name: "Môn học",
-        },
-        {
           path: "/student/class",
           class: "bar",
           name: "Lớp",
