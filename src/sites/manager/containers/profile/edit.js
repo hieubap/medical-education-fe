@@ -28,7 +28,7 @@ const Edit = (props) => {
       .then((json) => {
         if (json.code === 200) {
           setProfile(json.data);
-          toast.success("cập nhật thành công");
+          toast.success(json.message);
         } else {
           toast.error(json.message);
         }

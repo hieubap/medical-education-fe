@@ -18,6 +18,8 @@ export const api_change_password = domainApi + "/users/change-password";
 export const api_upload_image = domainApi + "/users/upload-avatar";
 export const api_images = domainApi + "/images/"
 export const api_change_info = domainApi + "/users/change-info"
+export const api_approve_change_info = domainApi + "/users/admin-approve-change-info/"
+
 
 export const api_course = domain + "/courses";
 export const api_course_update = domain + "/courses/";

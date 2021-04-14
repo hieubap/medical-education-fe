@@ -1,12 +1,14 @@
 import {
+  faCheckCircle,
   faEye,
   faLock,
-  faTrashAlt
+  faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { api_user } from "@utils/API.js";
-import { BaseComponent,connect } from "@utils/BaseComponent";
+import { api_user, api_approve_change_info } from "@utils/API.js";
+import { BaseComponent, connect } from "@utils/BaseComponent";
 import React from "react";
+import { toast } from "react-toastify";
 import "./style.scss";
 class User extends BaseComponent {
   constructor(props) {
@@ -52,6 +54,29 @@ class User extends BaseComponent {
     this.setState(newState);
   };
 
+  approve = (id) => {
+    fetch(api_approve_change_info + id, {
+      method: "put",
+      headers: {
+        "content-type": "application/json",
+        Authorization: this.state.token,
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.code === 200) {
+          toast.success("Xác nhận thành công");
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
+        } else if (json.code === 401) {
+          window.location.href = "/login";
+        } else {
+          toast.error(json.message);
+        }
+      });
+  };
+
   headTable() {
     return (
       <>
@@ -95,6 +120,11 @@ class User extends BaseComponent {
   action(o, index) {
     return (
       <td style={{ width: "10%" }}>
+        {o.idChange && (
+          <div class="i" onClick={() => this.approve(o.id)}>
+            <FontAwesomeIcon icon={faCheckCircle} className="icon-yellow" />
+          </div>
+        )}
         <div class="i" onClick={() => this.detail(o.id)}>
           <FontAwesomeIcon icon={faEye} className="icon-green" />
         </div>
