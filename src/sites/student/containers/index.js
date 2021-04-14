@@ -87,6 +87,27 @@ function Index(props) {
         loading: Load,
       }),
     },
+    {
+      path: ["/student/profile"],
+      component: Loadable({
+        loader: () => import("@manager/containers/profile"),
+        loading: Load,
+      }),
+    },
+    {
+      path: ["/student/edit-profile"],
+      component: Loadable({
+        loader: () => import("@manager/containers/profile/edit"),
+        loading: Load,
+      }),
+    },
+    {
+      path: ["/student/change-password"],
+      component: Loadable({
+        loader: () => import("@manager/containers/account/change-password"),
+        loading: Load,
+      }),
+    },
   ];
 
   return (

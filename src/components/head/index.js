@@ -30,7 +30,17 @@ const Head = (props) => {
   };
 
   const handleChangePassword = () => {
-    window.location.href = "/manager/change-password";
+    switch (props.role) {
+      case constants.role.admin:
+        window.location.href = "/manager/change-password";
+        break;
+      case constants.role.teacher:
+        window.location.href = "/teacher/change-password";
+        break;
+      default: {
+        window.location.href = "/student/change-password";
+      }
+    }
   };
 
   const handleLogout = () => {
@@ -44,11 +54,31 @@ const Head = (props) => {
   };
 
   const handleProfile = () => {
-    window.location.href = "/manager/profile";
+    switch (props.role) {
+      case constants.role.admin:
+        window.location.href = "/manager/profile";
+        break;
+      case constants.role.teacher:
+        window.location.href = "/teacher/profile";
+        break;
+      default: {
+        window.location.href = "/student/profile";
+      }
+    }
   };
 
   const handleEditProfile = () => {
-    window.location.href = "/manager/edit-profile";
+    switch (props.role) {
+      case constants.role.admin:
+        window.location.href = "/manager/edit-profile";
+        break;
+      case constants.role.teacher:
+        window.location.href = "/teacher/edit-profile";
+        break;
+      default: {
+        window.location.href = "/student/edit-profile";
+      }
+    }
   };
 
   return (
