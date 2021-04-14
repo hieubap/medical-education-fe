@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Head from "@components/head-tag/Head";
 import "./style.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faUserAlt, faUserAltSlash, faUserAstronaut, faUserCircle, faUserEdit, faUserNinja } from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
-import { api_user } from "../../../../utils/API";
+import { api_user, api_images } from "@utils/API";
 import { toast } from "react-toastify";
 
 const Profile = (props) => {
-  const nameComponent = "Hồ sơ";
   const [profile, setProfile] = useState({});
   const userApp = useSelector((state) => state.userApp);
 
   useEffect(() => {
-    let mounted = true;
-    console.log(userApp);
     fetch(api_user + "/" + userApp.currentUser.userId, {
       headers: {
         "content-type": "application/json",
@@ -28,8 +24,8 @@ const Profile = (props) => {
           toast.error(json.message);
         }
       });
-    return () => (mounted = false);
-  }, []);
+    return () => {};
+  }, [userApp]);
 
   return (
     <>
@@ -39,11 +35,19 @@ const Profile = (props) => {
           <div className="profile">
             <div className="a">
               <div className="avatar">
-                <div style={{padding:"20px 40px"}}>
-                  <FontAwesomeIcon
-                    icon={faUserCircle}
-                    style={{ fontSize: "100px", color: "var(--red)" }}
-                  ></FontAwesomeIcon>
+                <div>
+                  {profile.avatar != null ? (
+                    <img
+                      src={api_images + profile.avatar}
+                      width=""
+                      alt=""
+                    ></img>
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faUserCircle}
+                      style={{ fontSize: "100px", color: "var(--red)" }}
+                    ></FontAwesomeIcon>
+                  )}
                 </div>
               </div>
               <div>

@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import { faEdit,faEye,faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { url_student } from "@utils/API";
-import { faEdit, faEye, faLock } from "@fortawesome/free-solid-svg-icons";
+import { BaseComponent,connect } from "@utils/BaseComponent";
 import { Tooltip } from "antd";
-import { connect, BaseComponent } from "@utils/BaseComponent";
+import React from "react";
 
 class Student extends BaseComponent {
   constructor(props) {

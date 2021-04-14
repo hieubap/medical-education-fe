@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { faDatabase, faTools } from "@fortawesome/free-solid-svg-icons";
+import { faDatabase } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "@src/resourses/Logo.png";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Menu extends Component {
   constructor(props) {
@@ -61,6 +61,7 @@ class Menu extends Component {
     const newState = this.state.attibute.map((obj) => {
       if (obj.path === path) obj.class = "bar active";
       else obj.class = "bar";
+      return () => {};
     });
     this.setState(newState);
   }
@@ -70,10 +71,12 @@ class Menu extends Component {
         <img
           // src={"http://localhost:8082/images/Logo.png"}
           src={logo}
+          alt=""
           style={{ width: "150%", marginTop: "10px", marginLeft: "-25%" }}
         />
         {this.state.attibute.map((atb, index) => (
           <Link
+            key={index}
             to={atb.path}
             className={atb.class}
             onClick={() => this.setActive(atb.path)}
@@ -85,7 +88,7 @@ class Menu extends Component {
                 icon={faDatabase}
               ></FontAwesomeIcon>
             </div>
-            <div style={{marginLeft:"7px"}}>{atb.name}</div>
+            <div style={{ marginLeft: "7px" }}>{atb.name}</div>
           </Link>
         ))}
       </div>

@@ -3,7 +3,7 @@ import "./style.scss";
 import "@components/CSS/baseComponent.css";
 import { api_register } from "../../../../utils/API";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import constants from "@src/resourses/const";
 import dataCache from "@components/data-cache-provider";
 import { faSignInAlt, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
@@ -25,8 +25,7 @@ function Register() {
       setPassword2(value);
     }
   };
-  const userApp = useSelector((state) => state.userApp);
-
+  
   const handleLogin = (e) => {
     e.preventDefault();
     window.location.href = "/login";
@@ -34,7 +33,7 @@ function Register() {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    if (password != password2) {
+    if (password !== password2) {
         toast.warn("mật khẩu không đúng");
         return;
     }

@@ -12,7 +12,7 @@ const store = createStore(AppReducer,applyMiddleware(thunk));
 
 const Kernel = () => (
     <>
-        <ToastContainer position={toast.POSITION.BOTTOM_RIGHT} autoClose={3000}></ToastContainer>
+        <ToastContainer position={toast.POSITION.BOTTOM_RIGHT} autoClose={6000}></ToastContainer>
         <Provider store={store}>
             <Main />
         </Provider>

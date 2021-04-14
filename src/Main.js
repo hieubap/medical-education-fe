@@ -2,7 +2,6 @@ import React from "react";
 import Loadable from "react-loadable";
 import {
   BrowserRouter,
-  BrowserRouter as Router,
   Route,
   Switch,
 } from "react-router-dom";
@@ -18,7 +17,7 @@ const routes = [
   {
     path: "/",
     component: Loadable({
-      loader: () => import("@manager/containers/account"),
+      loader: () => import("@manager/containers/"),
       loading: Loading,
     }),
   },

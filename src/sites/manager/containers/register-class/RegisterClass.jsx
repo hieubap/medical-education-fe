@@ -1,10 +1,10 @@
-import { faTrashAlt, faWindowClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { toast } from "react-toastify";
-import { api_class_register } from "@utils/API";
-import { BaseComponent, connect } from "@utils/BaseComponent";
 import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { api_class_register } from "@utils/API";
+import { BaseComponent,connect } from "@utils/BaseComponent";
+import { toast } from "react-toastify";
 import "./style.scss";
 class RegisterClass extends BaseComponent {
   afterInit() {

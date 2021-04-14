@@ -3,17 +3,64 @@ import "./style.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
-import { api_user } from "@utils/API";
+import { api_user, api_upload_image, api_images } from "@utils/API";
 import { toast } from "react-toastify";
 
 const Edit = (props) => {
-  const nameComponent = "Chỉnh sửa thông tin";
   const [profile, setProfile] = useState({});
+  const [file, setFile] = useState(null);
   const userApp = useSelector((state) => state.userApp);
 
+  const handleSubmit = () => {
+    fetch(api_user + "/" + userApp.currentUser.userId, {
+      method: "put",
+      headers: {
+        "content-type": "multipart/form-data",
+        Authorization: userApp.token,
+      },
+      body: JSON.stringify(profile),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.code === 200) {
+          setProfile(json.data);
+          toast.success("cập nhật thành công");
+        } else {
+          toast.error(json.message);
+        }
+      });
+  };
+  const handleSubmitFile = (event) => {
+    const formData = new FormData();
+    formData.append("file", event.target.files[0]);
+    setFile(event.target.files[0]);
+
+    console.log(formData);
+    fetch(api_upload_image, {
+      method: "post",
+      headers: {
+        Authorization: userApp.token,
+      },
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.code === 200) {
+          console.log(file);
+          setProfile({ ...profile, avatar: file.name });
+          toast.success("cập nhật thành công");
+        } else {
+          toast.error(json.message);
+        }
+      });
+  };
+
   useEffect(() => {
-    let mounted = true;
-    console.log(userApp);
+    if (userApp === null) {
+      window.location.href = "/login";
+      return;
+    }
+
     fetch(api_user + "/" + userApp.currentUser.userId, {
       headers: {
         "content-type": "application/json",
@@ -22,13 +69,18 @@ const Edit = (props) => {
     })
       .then((res) => res.json())
       .then((json) => {
-        if (json.code === 200) setProfile(json.data);
-        else {
+        if (json.code === 200) {
+          setProfile(json.data);
+        } else {
           toast.error(json.message);
         }
+      })
+      .catch((err) => {
+        toast.error(err);
       });
-    return () => (mounted = false);
-  }, []);
+
+    return () => {};
+  }, [userApp]);
 
   return (
     <>
@@ -38,13 +90,32 @@ const Edit = (props) => {
           <div className="profile">
             <div className="a">
               <div className="avatar">
-                <div style={{ padding: "20px 40px" }}>
-                  <FontAwesomeIcon
-                    icon={faUserCircle}
-                    style={{ fontSize: "100px", color: "var(--red)" }}
-                  ></FontAwesomeIcon>
+                <div>
+                  {profile.avatar != null ? (
+                    <img
+                      src={api_images + profile.avatar}
+                      width=""
+                      alt=""
+                    ></img>
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faUserCircle}
+                      style={{ fontSize: "100px", color: "var(--red)" }}
+                    ></FontAwesomeIcon>
+                  )}
                 </div>
               </div>
+              <input value={file ? file.name : ""}></input>
+              <input
+                className="i_f"
+                name="file"
+                id="file"
+                type="file"
+                defaultValue=""
+                onChange={(event) => handleSubmitFile(event)}
+              ></input>
+              <label htmlFor="file">chọn ảnh</label>
+
               <div>
                 <div className="aa">
                   <span>Số khóa đã hoàn thành</span>
@@ -68,18 +139,54 @@ const Edit = (props) => {
               <span>Trạng thái</span>
             </div>
             <div className="d">
-              <input type="text"></input>
-              <input type="text"></input>
-              <input type="text"></input>
-              <input type="text"></input>
-              <input type="text"></input>
-              <input type="text"></input>
-              <input type="text"></input>
-              <input type="text"></input>
-              <input type="text"></input>
-              
+              <input
+                value={profile.fullName}
+                onChange={(e) =>
+                  setProfile({ ...profile, fullName: e.target.value })
+                }
+              ></input>
+              <input
+                value={profile.age}
+                onChange={(e) =>
+                  setProfile({ ...profile, age: e.target.value })
+                }
+              ></input>
+              <select
+                value={profile.gender}
+                onChange={(e) =>
+                  setProfile({ ...profile, gender: e.target.value })
+                }
+              >
+                <option value="NAM">nam</option>
+                <option value="NU">nữ</option>
+                <option>khác</option>
+              </select>
+              <input className="not" value={profile.fullName}></input>
+              <input
+                value={profile.address}
+                onChange={(e) =>
+                  setProfile({ ...profile, address: e.target.value })
+                }
+              ></input>
+              <input
+                value={profile.email}
+                onChange={(e) =>
+                  setProfile({ ...profile, email: e.target.value })
+                }
+              ></input>
+              <input
+                value={profile.phoneNumber}
+                onChange={(e) =>
+                  setProfile({ ...profile, phoneNumber: e.target.value })
+                }
+              ></input>
+              <input className="not" value={profile.username}></input>
+              <input className="not" value={profile.status}></input>
             </div>
           </div>
+          <button className="default-btn btn" onClick={() => handleSubmit()}>
+            Xác nhận
+          </button>
         </div>
       </div>
     </>

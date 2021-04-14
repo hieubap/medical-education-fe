@@ -3,7 +3,7 @@ import "./style.scss";
 import "@components/CSS/baseComponent.css";
 import { api_login } from "../../../../utils/API";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import constants from "@src/resourses/const";
 import dataCache from "@components/data-cache-provider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,11 +22,10 @@ function Login() {
       setPassword(value);
     }
   };
-  const userApp = useSelector((state) => state.userApp);
-
+  
   const handleLogin = (e) => {
     e.preventDefault();
-    var body = JSON.stringify({
+    const body = JSON.stringify({
       username: username,
       password: password,
     });
@@ -55,6 +54,7 @@ function Login() {
               case constants.role.teacher:
                 window.location.href = "/teacher";
                 return;
+                default:{}
             }
             window.location.href = "/student";
           }, 500);

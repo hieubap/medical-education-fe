@@ -1,7 +1,7 @@
-import React from "react";
 import { api_subject } from "@utils/API.js";
+import { BaseFormComponent,connect } from "@utils/BaseFormComponent";
+import React from "react";
 import "react-toastify/dist/ReactToastify.css";
-import { BaseFormComponent, connect } from "@utils/BaseFormComponent";
 
 class SubjectForm extends BaseFormComponent {
   constructor(props) {

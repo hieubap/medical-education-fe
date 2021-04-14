@@ -1,14 +1,13 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { api_class } from "@utils/API";
 import {
   faCheckCircle,
   faEdit,
   faTrashAlt,
-  faWindowClose,
+  faWindowClose
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { api_class } from "@utils/API";
+import { BaseComponent,connect } from "@utils/BaseComponent";
 import ClassForm from "./ClassForm";
-import Head from "@components/head-tag/Head";
-import { BaseComponent, connect } from "@utils/BaseComponent";
 import "./style.scss";
 
 class Class extends BaseComponent {
@@ -69,16 +68,16 @@ class Class extends BaseComponent {
   action(o, index) {
     return (
       <td>
-        <div class="i">
+        <div className="i">
           <FontAwesomeIcon icon={faCheckCircle} className="icon-yellow" />
         </div>
-        <div class="i" onClick={() => this.delete(o.id, index)}>
+        <div className="i" onClick={() => this.delete(o.id, index)}>
           <FontAwesomeIcon icon={faWindowClose} className="icon-mangeto" />
         </div>
-        <div class="i" onClick={() => this.changeModel(o.id, index)}>
+        <div className="i" onClick={() => this.changeModel(o.id, index)}>
           <FontAwesomeIcon icon={faEdit} className="icon-blue" />
         </div>
-        <div class="i" onClick={() => this.delete(o.id, index)}>
+        <div className="i" onClick={() => this.delete(o.id, index)}>
           <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
         </div>
       </td>
@@ -94,6 +93,9 @@ class Class extends BaseComponent {
       ></ClassForm>
     );
   }
+  setSelectSubject = (e) =>{
+    e.preventDefault();
+  }
 
   beforeTable() {
     return (
@@ -103,7 +105,7 @@ class Class extends BaseComponent {
           <select
             name="carlist"
             form="carform"
-            onchange={(e) => this.setSelectSubject(e.target.value)}
+            onChange={(e) => this.setSelectSubject(e.target.value)}
           >
             {this.state.subjects != null &&
               this.state.subjects.map((subject, index) => {
@@ -114,7 +116,7 @@ class Class extends BaseComponent {
           <select
             name="carlist"
             form="carform"
-            onchange={(e) => this.setSelectSubject(e.target.value)}
+            onChange={(e) => this.setSelectSubject(e)}
           >
             {this.state.subjects != null &&
               this.state.subjects.map((subject, index) => {
@@ -125,7 +127,7 @@ class Class extends BaseComponent {
           <select
             name="carlist"
             form="carform"
-            onchange={(e) => this.setSelectSubject(e.target.value)}
+            onChange={(e) => this.setSelectSubject(e)}
           >
             {this.state.subjects != null &&
               this.state.subjects.map((subject, index) => {
@@ -140,21 +142,21 @@ class Class extends BaseComponent {
             form="carform"
             type="text"
             sty
-            onchange={(e) => this.setSelectSubject(e.target.value)}
+            onChange={(e) => this.setSelectSubject(e.target.value)}
           ></input> */}
           <label>Mã Môn</label>
           <input
             name="carlist"
             form="carform"
             type="text"
-            onchange={(e) => this.setSelectSubject(e.target.value)}
+            onChange={(e) => this.setSelectSubject(e)}
           ></input>
           <label>Mã Lớp</label>
           <input
             name="carlist"
             form="carform"
             type="text"
-            onchange={(e) => this.setSelectSubject(e.target.value)}
+            onChange={(e) => this.setSelectSubject(e)}
           ></input>
         </div>
       </div>

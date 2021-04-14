@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-export default ({ path, ...rest }) => (
+const index = ({ path, ...rest }) => (
     <Switch>
         {typeof path === 'string' ? <Route path={path} {...rest} /> :
             path.map((item, index) => (
@@ -8,4 +8,5 @@ export default ({ path, ...rest }) => (
             ))}
     </Switch>
 )
+export default index;
 

@@ -1,8 +1,6 @@
-import React, { Component } from "react";
 import { api_study_process } from "@utils/API.js";
-import Loading from "@components/loading";
-import Head from "@components/head-tag/Head";
-import { BaseComponent, connect } from "@utils/BaseComponent";
+import { BaseComponent,connect } from "@utils/BaseComponent";
+import React from "react";
 
 class StudyProcess extends BaseComponent {
   constructor(props) {

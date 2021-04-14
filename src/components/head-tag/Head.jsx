@@ -6,7 +6,7 @@ class Head extends Component {
     return (
       <div className="head-tag">
         {this.props.changeModel != null && (
-          <button class="default-btn" onClick={() => this.props.changeModel()}>
+          <button className="default-btn" onClick={() => this.props.changeModel()}>
             Thêm mới
           </button>
         )}

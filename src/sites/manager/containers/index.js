@@ -1,18 +1,17 @@
+import Loading from "@components/loading";
+import RouterWithPaths from "@components/RouterWithPaths";
+import constants from "@src/resourses/const";
 import React from "react";
+import Loadable from "react-loadable";
+import { useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
   Redirect,
-  Route,
-  Switch,
+  Switch
 } from "react-router-dom";
-import Loadable from "react-loadable";
-import RouterWithPaths from "@components/RouterWithPaths";
-import Menu from "../sidebar/Menu";
-import { useSelector } from "react-redux";
-import Loading from "@components/loading";
-import Login from "./account";
 import Head from "../../../components/head";
-import constants from "@src/resourses/const";
+import Menu from "../sidebar/Menu";
+import Login from "./account";
 
 function Load() {
   return <Loading></Loading>;

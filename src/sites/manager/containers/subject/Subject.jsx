@@ -1,9 +1,9 @@
-import React from "react";
+import { faEdit,faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { api_subject } from "@utils/API";
-import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { BaseComponent,connect } from "@utils/BaseComponent";
+import React from "react";
 import SubjectForm from "./SubjectForm";
-import { BaseComponent, connect } from "@utils/BaseComponent";
 
 class Subject extends BaseComponent {
   constructor(props) {

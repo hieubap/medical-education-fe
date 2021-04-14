@@ -68,7 +68,7 @@ class CourseDetail extends Component {
       method: "post",
       headers: {
         "content-type": "application/json",
-        // Authorization: token,
+        Authorization: this.state.token,
       },
       body: JSON.stringify({
         courseId: this.state.data.id,
@@ -99,7 +99,7 @@ class CourseDetail extends Component {
         method: "delete",
         headers: {
           "content-type": "application/json",
-          // Authorization: token,
+          Authorization: this.state.token,
         },
       }
     )
@@ -126,11 +126,11 @@ class CourseDetail extends Component {
     console.log("render");
     console.log(this.state.data);
     if (this.state.data == null || this.state.subjects == null)
-      return <div class="loader" id="loader"></div>;
+      return <div className="loader" id="loader"></div>;
     else
       return (
         <div className="content detail-course">
-          <button class="default-btn" onClick={() => this.props.back()}>
+          <button className="default-btn" onClick={() => this.props.back()}>
             Trở lại
           </button>
 
@@ -142,7 +142,7 @@ class CourseDetail extends Component {
           </h2>
 
           <select
-            class="create_input select-type-product"
+            className="create_input select-type-product"
             name="carlist"
             form="carform"
             onChange={(e) => this.setSelectSubject(e.target.value)}
@@ -151,7 +151,7 @@ class CourseDetail extends Component {
               return <option value={subject.id}>{subject.name}</option>;
             })}
           </select>
-          <button class="default-btn" onClick={() => this.add()}>
+          <button className="default-btn" onClick={() => this.add()}>
             Thêm Môn
           </button>
 
@@ -160,7 +160,7 @@ class CourseDetail extends Component {
               <table>
                 <tr>
                   <td>Mã khóa học</td>
-                  <td>{this.state.data.id}</td>
+                  <td>{this.state.data.code}</td>
                 </tr>
                 <tr>
                   <td>Tên khóa học</td>
@@ -187,21 +187,17 @@ class CourseDetail extends Component {
                     <th>Thời gian học</th>
                     <th></th>
                   </tr>
-                  {
-                    (console.log(this.state.data != undefined),
-                    console.log(this.state.data))
-                  }
                   {this.state.data.listSubject.map((subject, index) => {
                     return (
                       <tr>
                         <td>{index + 1}</td>
-                        <td>{subject.id}</td>
+                        <td>{subject.code}</td>
                         <td>{subject.name}</td>
                         <td>{subject.id}</td>
                         <td>
                           <div
                             style={{ marginRight: "20px" }}
-                            class="i"
+                            className="i"
                             onClick={() => this.remove(subject.id, index)}
                           >
                             <FontAwesomeIcon

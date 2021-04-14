@@ -1,14 +1,13 @@
-import React, { Component } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faEdit,
   faEye,
   faLock,
-  faTrashAlt,
+  faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { api_user } from "@utils/API.js";
+import { BaseComponent,connect } from "@utils/BaseComponent";
+import React from "react";
 import "./style.scss";
-import { BaseComponent, connect } from "@utils/BaseComponent";
 class User extends BaseComponent {
   constructor(props) {
     super(props);
@@ -96,15 +95,15 @@ class User extends BaseComponent {
   action(o, index) {
     return (
       <td style={{ width: "10%" }}>
-        <div class="i" onClick={() => this.setDetail(o.id)}>
+        <div class="i" onClick={() => this.detail(o.id)}>
           <FontAwesomeIcon icon={faEye} className="icon-green" />
         </div>
         <div class="i">
           <FontAwesomeIcon icon={faLock} className="icon-mangeto" />
         </div>
-        <div class="i" onClick={() => this.changeModel()}>
+        {/* <div class="i" onClick={() => this.changeModel()}>
           <FontAwesomeIcon icon={faEdit} className="icon-blue" />
-        </div>
+        </div> */}
         <div class="i">
           <FontAwesomeIcon icon={faTrashAlt} className="icon-red" />
         </div>

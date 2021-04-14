@@ -1,6 +1,5 @@
 import { api_class, api_place, api_subject, api_user } from "@utils/API";
 import { BaseFormComponent, connect } from "@utils/BaseFormComponent";
-import FormClass from "@components/form";
 
 class ClassForm extends BaseFormComponent {
   constructor(props) {
@@ -63,9 +62,9 @@ class ClassForm extends BaseFormComponent {
 
   element() {
     if (
-      this.state.places == undefined ||
-      this.state.subjects == undefined ||
-      this.state.teachers == undefined
+      this.state.places === undefined ||
+      this.state.subjects === undefined ||
+      this.state.teachers === undefined
     )
       return "";
 

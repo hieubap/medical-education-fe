@@ -1,4 +1,4 @@
-import { faSignInAlt, faSubscript } from "@fortawesome/free-solid-svg-icons";
+import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { api_change_password } from "@utils/API.js";
@@ -18,7 +18,7 @@ const ChangePassword = (props) => {
   };
 
   const submit = () => {
-      if(password1 != password2)
+      if(password1 !== password2)
       {
           toast.error('Mật khẩu không đúng. nhập lại');
           return;

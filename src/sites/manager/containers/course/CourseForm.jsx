@@ -35,7 +35,7 @@ class CourseForm extends BaseFormComponent {
                 ? this.state.dataDetail.price
                 : ""
             }
-            onChange={this.change.bind(this)}
+            onChange={(e) => this.change(e)}
           />
         </div>
       </div>

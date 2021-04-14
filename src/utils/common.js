@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
+import React,{ useEffect,useState } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Common = (props) => {
   const userApp = useSelector((state) => state.userApp);
@@ -22,13 +21,13 @@ const Common = (props) => {
     totalPage: 0,
     token: userApp.token,
   });
-  const role = userApp.currentUser.authorities[0];
+  // const role = userApp.currentUser.authorities[0];
   const name = props.name;
   const has_action = true;
   const api_get = props.api;
-  const api_post = null;
-  const api_update = null;
-  const api_delete = null;
+  // const api_post = null;
+  // const api_update = null;
+  // const api_delete = null;
 
   console.log(props.bodyTable);
   const beforeTable = () => {};
@@ -66,23 +65,23 @@ const Common = (props) => {
             toast.error(json.message);
           }
         });
-  },[]);
+  },[api_get,state]);
 
   const setPage = (index) => {
     var newState = Object.assign({}, state);
     newState.page = index;
     setState(newState);
   };
-  const updateDataRender = (data, index) => {
-    var newData = Object.assign([], state.dataRender);
+  // const updateDataRender = (data, index) => {
+  //   var newData = Object.assign([], state.dataRender);
 
-    if (index === null) {
-      newData = [data, ...newData];
-    } else newData[index] = data;
+  //   if (index === null) {
+  //     newData = [data, ...newData];
+  //   } else newData[index] = data;
 
-    const newState = { ...state, dataRender: newData };
-    setState(newState);
-  };
+  //   const newState = { ...state, dataRender: newData };
+  //   setState(newState);
+  // };
   const changeModel = (id, index) => {
     var newState = Object.assign({}, state);
     newState.showModal = !newState.showModal;
@@ -104,25 +103,25 @@ const Common = (props) => {
     setState(newState);
   };
 
-  const changeData = (e) => {
-    var newDataDetail = Object.assign({}, state.dataDetail);
-    newDataDetail = { ...newDataDetail, [e.target.name]: e.target.value };
-    console.log(e.target.name);
-    console.log(e.target.value);
+  // const changeData = (e) => {
+  //   var newDataDetail = Object.assign({}, state.dataDetail);
+  //   newDataDetail = { ...newDataDetail, [e.target.name]: e.target.value };
+  //   console.log(e.target.name);
+  //   console.log(e.target.value);
 
-    setState({ ...state, dataDetail: newDataDetail });
-  };
+  //   setState({ ...state, dataDetail: newDataDetail });
+  // };
 
-  const back = () => {
-    setState({ ...state, isDetail: false });
-  };
+  // const back = () => {
+  //   setState({ ...state, isDetail: false });
+  // };
 
-  const detail = (id) => {
-    var newState = Object.assign({}, state);
-    newState.isDetail = true;
-    newState.idDetail = id;
-    setState(newState);
-  };
+  // const detail = (id) => {
+  //   var newState = Object.assign({}, state);
+  //   newState.isDetail = true;
+  //   newState.idDetail = id;
+  //   setState(newState);
+  // };
   const form = () => {};
 
   let listPage = [];

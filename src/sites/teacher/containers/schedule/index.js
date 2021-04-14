@@ -1,12 +1,8 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import { toast } from "react-toastify";
-import Base from "@utils/common";
-import { useSelector } from "react-redux";
-import { api_class_register } from "@utils/API";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import HeadTable from '@components/head-table'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { api_class_register } from "@utils/API";
+import Base from "@utils/common";
+import React from "react";
 
 const Schedule = (props) => {
   const headTable = () => {
@@ -41,7 +37,6 @@ const Schedule = (props) => {
     );
   };
 
-  const userApp = useSelector((state) => state.userApp);
   return (
     <Base
       name="Lịch dạy"

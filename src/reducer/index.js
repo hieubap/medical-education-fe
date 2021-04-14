@@ -1,5 +1,3 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import constants from '../resourses/const';
 
 const defaultState = {
@@ -27,7 +25,7 @@ const reducer = (state = defaultState,action) => {
             newState.userApp.isLogin = false;
             newState.userApp.token = "";
             return newState;
-            
+        default:{}
     }
     return newState;
 }

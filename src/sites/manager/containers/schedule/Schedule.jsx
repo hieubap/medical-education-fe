@@ -1,8 +1,6 @@
-import React, { Component } from "react";
 import { api_class_register } from "@utils/API.js";
-import Head from "@components/head-tag/Head";
-import Loading from "@components/loading";
-import { BaseComponent, connect } from "@utils/BaseComponent";
+import { BaseComponent,connect } from "@utils/BaseComponent";
+import React from "react";
 
 class Schedule extends BaseComponent {
   constructor(props) {

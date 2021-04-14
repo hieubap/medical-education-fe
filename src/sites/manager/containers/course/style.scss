@@ -16,6 +16,14 @@
 .detail-course>div>div>table>tbody>tr>th{
     height: 25px;
     padding: 10px;
+    border: none;
+}
+.detail-course>div>div>table>tbody>tr>td{
+    height: 25px;
+    padding: 10px;
+    background-color: #fcfcfc;
+    border: none;
+    border-bottom: 1px solid #bbb;
 }
 .detail-course>div>div>table{
     margin-top: 20px;

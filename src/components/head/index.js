@@ -1,6 +1,5 @@
 import {
   faChalkboardTeacher,
-  faDatabase,
   faUserCog,
   faUserGraduate,
 } from "@fortawesome/free-solid-svg-icons";
@@ -19,6 +18,8 @@ const Head = (props) => {
     case constants.role.teacher:
       i = faChalkboardTeacher;
       break;
+    default: {
+    }
   }
   const userApp = useSelector((state) => state.userApp);
   const [click, setClick] = useState(false);
@@ -48,7 +49,7 @@ const Head = (props) => {
 
   const handleEditProfile = () => {
     window.location.href = "/manager/edit-profile";
-  }
+  };
 
   return (
     <div className="head-body">
@@ -67,7 +68,7 @@ const Head = (props) => {
             <span>{userApp.currentUser.full_name}</span>
           </div>
           <div className="avatar" style={{}} onClick={() => handleClick()}>
-            <img src={logo} style={{ width: "70px" }}></img>
+            <img src={logo} style={{ width: "70px" }} alt=""></img>
           </div>
         </div>
         <div className="t" style={{ display: click ? "block" : "none" }}>

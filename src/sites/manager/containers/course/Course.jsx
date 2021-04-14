@@ -1,15 +1,15 @@
-import React from "react";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { convertPrice } from "@components/common";
-import { faEdit, faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faEdit,faEye,faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import constant from "@src/resourses/const";
+import { api_course } from "@utils/API";
+import { BaseComponent,connect } from "@utils/BaseComponent";
+import { Tooltip } from "antd";
+import React from "react";
+import CourseDetail from "./CourseDetail";
 // import BaseComponent from "@utils/BaseComponent";
 import CourseForm from "./CourseForm";
-import { api_course } from "@utils/API";
-import CourseDetail from "./CourseDetail";
-import { Tooltip } from "antd";
-import { connect, BaseComponent } from "@utils/BaseComponent";
-import constant from "@src/resourses/const";
+
 
 class Course extends BaseComponent {
   constructor(props) {
@@ -62,7 +62,7 @@ class Course extends BaseComponent {
     );
   }
   action(o, index) {
-    if (this.role != constant.role.admin) {
+    if (this.role !== constant.role.admin) {
       return (
         <td>
           <div className="i" onClick={() => this.detail(o.id)}>

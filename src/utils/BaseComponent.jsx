@@ -181,8 +181,8 @@ export class BaseComponent extends Component {
     return (
       <>
         <Head title={this.nameComponent} changeModel={this.changeModel}></Head>
+        {this.state.loading && <Loading></Loading>}
         <div className="content" style={{ fontSize: "15px" }}>
-          {this.state.loading && <Loading></Loading>}
           {this.beforeTable()}
           <div>
             <table>
