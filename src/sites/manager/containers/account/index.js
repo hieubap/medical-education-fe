@@ -15,13 +15,23 @@ function Login() {
 
   const dispatch = useDispatch();
 
-  const handleChange = (name, value) => {
-    if (name === "username") {
-      setUsername(value);
+  const handleChange = (e) => {
+    console.log(e.target.name);
+    console.log(e.target.value);
+    
+    if (e.target.name === "username") {
+      setUsername(e.target.value);
     } else {
-      setPassword(value);
+      setPassword(e.target.value);
     }
   };
+
+  const handleEnter = (e) => {
+    console.log(e.keyCode);
+      if(e.keyCode === 13){
+        handleLogin(e);
+      }
+  }
   
   const handleLogin = (e) => {
     e.preventDefault();
@@ -83,7 +93,7 @@ function Login() {
             value={username}
             autoComplete="off"
             placeholder="Tên đăng nhập"
-            onChange={(e) => handleChange(e.target.name, e.target.value)}
+            onChange={(e) => handleChange(e)}
           ></input>
         </div>
         <div className="a">
@@ -95,7 +105,8 @@ function Login() {
             type="password"
             value={password}
             placeholder="Password"
-            onChange={(e) => handleChange(e.target.name, e.target.value)}
+            onChange={(e) => handleChange(e)}
+            onKeyDown={(e) => handleEnter(e)}
           ></input>
         </div>
         <div className="b">

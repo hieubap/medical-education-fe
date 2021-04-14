@@ -3,7 +3,12 @@ import "./style.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
-import { api_user, api_upload_image, api_images } from "@utils/API";
+import {
+  api_user,
+  api_change_info,
+  api_upload_image,
+  api_images,
+} from "@utils/API";
 import { toast } from "react-toastify";
 
 const Edit = (props) => {
@@ -11,10 +16,10 @@ const Edit = (props) => {
   const userApp = useSelector((state) => state.userApp);
 
   const handleSubmit = () => {
-    fetch(api_user + "/" + userApp.currentUser.userId, {
+    fetch(api_change_info, {
       method: "put",
       headers: {
-        "content-type": "multipart/form-data",
+        "content-type": "application/json",
         Authorization: userApp.token,
       },
       body: JSON.stringify(profile),
@@ -68,6 +73,8 @@ const Edit = (props) => {
         if (json.code === 200) {
           setProfile(json.data);
           console.log(profile);
+        } else if (json.code === 401) {
+          window.location.href = "/login";
         } else {
           toast.error(json.message);
         }
@@ -102,7 +109,10 @@ const Edit = (props) => {
                   )}
                 </div>
               </div>
-              <input value={profile ? profile.avatar : ""} defaultValue=""></input>
+              <input
+                value={profile ? profile.avatar : ""}
+                defaultValue=""
+              ></input>
               <input
                 className="i_f"
                 name="file"
