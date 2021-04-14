@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 
 const Edit = (props) => {
   const [profile, setProfile] = useState({});
-  const [file, setFile] = useState(null);
   const userApp = useSelector((state) => state.userApp);
 
   const handleSubmit = () => {
@@ -33,9 +32,7 @@ const Edit = (props) => {
   const handleSubmitFile = (event) => {
     const formData = new FormData();
     formData.append("file", event.target.files[0]);
-    setFile(event.target.files[0]);
 
-    console.log(formData);
     fetch(api_upload_image, {
       method: "post",
       headers: {
@@ -46,8 +43,7 @@ const Edit = (props) => {
       .then((res) => res.json())
       .then((json) => {
         if (json.code === 200) {
-          console.log(file);
-          setProfile({ ...profile, avatar: file.name });
+          setProfile({ ...profile, avatar: event.target.files[0].name });
           toast.success("cập nhật thành công");
         } else {
           toast.error(json.message);
@@ -71,6 +67,7 @@ const Edit = (props) => {
       .then((json) => {
         if (json.code === 200) {
           setProfile(json.data);
+          console.log(profile);
         } else {
           toast.error(json.message);
         }
@@ -105,7 +102,7 @@ const Edit = (props) => {
                   )}
                 </div>
               </div>
-              <input value={file ? file.name : ""}></input>
+              <input value={profile ? profile.avatar : ""} defaultValue=""></input>
               <input
                 className="i_f"
                 name="file"
