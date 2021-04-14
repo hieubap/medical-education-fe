@@ -38,6 +38,9 @@ const ChangePassword = (props) => {
         if(json.code === 200){
             toast.success('Đổi mật khẩu thành công');
         }
+        else if(json.code === 401){
+          window.location.href = "/login";
+        }
         else{
             toast.error(json.message);
         }
