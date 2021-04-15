@@ -1,6 +1,6 @@
 import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
-import React,{ useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -32,8 +32,12 @@ const Common = (props) => {
   console.log(props.bodyTable);
   const beforeTable = () => {};
   const headTable = props.headTable != null ? props.headTable : () => {};
-  const bodyTable = props.bodyTable != null ? (obj,index) => props.bodyTable(obj,index) : () => {};
-  const action = props.action!=null? (obj, index) => props.action(obj,index):() => {};
+  const bodyTable =
+    props.bodyTable != null
+      ? (obj, index) => props.bodyTable(obj, index)
+      : () => {};
+  const action =
+    props.action != null ? (obj, index) => props.action(obj, index) : () => {};
 
   useEffect(() => {
     if (api_get != null)
@@ -65,7 +69,7 @@ const Common = (props) => {
             toast.error(json.message);
           }
         });
-  },[api_get,state]);
+  }, [api_get, state]);
 
   const setPage = (index) => {
     var newState = Object.assign({}, state);
@@ -178,3 +182,46 @@ const Common = (props) => {
 };
 
 export default Common;
+
+export const setPage = (index, state) => {
+  var newState = Object.assign({}, state);
+  newState.page = index;
+  state = newState;
+};
+
+export const changeModal = (id, index,state) => {
+  var newState = Object.assign({}, state);
+  newState.showModal = !newState.showModal;
+  if (id != null)
+    newState = {
+      ...newState,
+      idDetail: id,
+      indexDetail: index,
+      dataDetail: state.dataRender[index],
+    };
+  else
+    newState = {
+      ...newState,
+      idDetail: null,
+      indexDetail: null,
+      dataDetail: null,
+    };
+  console.log(newState);
+  state = newState;
+};
+
+export const defaultState = {
+  loading: true,
+  isShowDetail: false,
+  isShowModal: false,
+  idDetail: null,
+  indexDetail: null,
+  dataDetail: null,
+
+  dataRender: null,
+
+  page: 0,
+  size: 10,
+  totalPage: 0,
+  token: "",
+}

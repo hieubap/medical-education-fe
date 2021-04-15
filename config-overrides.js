@@ -18,6 +18,8 @@ module.exports = function override(config) {
             '@teacher': path.resolve(__dirname, 'src/sites/teacher'),
             '@manager': path.resolve(__dirname, 'src/sites/manager'),
             '@styles': path.resolve(__dirname, 'src/styles'),
+            '@items': path.resolve(__dirname, 'src/items'),
+            
         },
     };
 

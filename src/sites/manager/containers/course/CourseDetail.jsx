@@ -177,7 +177,7 @@ class CourseDetail extends Component {
               </table>
             </div>
             <div>
-              <div>Các môn trong chương trình:</div>
+              <div style={{marginTop:"20px"}}>Các môn trong chương trình:</div>
               <table>
                 <tbody>
                   <tr>

@@ -84,7 +84,7 @@ const Edit = (props) => {
       });
 
     return () => {};
-  }, [userApp]);
+  }, [userApp,profile]);
 
   return (
     <>
