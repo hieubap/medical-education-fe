@@ -1,11 +1,12 @@
+import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
-import { api_class_register } from "@utils/API.js";
-import { changeModal, defaultState, setPage } from "@utils/common";
 import Table from "@items/table/Table";
-import React, { useEffect, useState } from "react";
+import { api_class_register } from "@utils/API.js";
+import { changeModal,defaultState,setPage } from "@utils/common";
+import React,{ useCallback, useEffect,useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import Head from "../../../../components/head-tag/Head";
+
 const Schedule = (props) => {
   const userApp = useSelector((state) => state.userApp);
   const api_get = api_class_register;
@@ -14,7 +15,7 @@ const Schedule = (props) => {
     token: userApp.token,
   });
 
-  useEffect(() => {
+  const fet = useCallback(() => {
     if (api_get != null)
       fetch(api_get, {
         headers: {
@@ -41,7 +42,10 @@ const Schedule = (props) => {
             toast.error(json.message);
           }
         });
-  }, [api_get]);
+  },[api_get,state])
+  useEffect(() => {
+    fet();
+  }, [fet]);
 
   const form = () => {
     return <h1 style={{ fontSize: "50px" }}>nội dung</h1>;

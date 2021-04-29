@@ -31,28 +31,28 @@ function Index(props) {
     {
       path: ["/manager/courses"],
       component: Loadable({
-        loader: () => import("@manager/containers/course/Course"),
+        loader: () => import("@manager/containers/course"),
         loading: Load,
       }),
     },
     {
       path: ["/manager/subject"],
       component: Loadable({
-        loader: () => import("@manager/containers/subject/Subject"),
+        loader: () => import("@manager/containers/subject"),
         loading: Load,
       }),
     },
     {
-      path: ["/manager/class"],
+      path: ["/manager/health-facility"],
       component: Loadable({
-        loader: () => import("@manager/containers/class/Class"),
+        loader: () => import("@manager/containers/healthFacility"),
         loading: Load,
       }),
     },
     {
       path: ["/manager/place"],
       component: Loadable({
-        loader: () => import("@manager/containers/place/Place"),
+        loader: () => import("@manager/containers/place"),
         loading: Load,
       }),
     },
@@ -64,25 +64,9 @@ function Index(props) {
       }),
     },
     {
-      path: ["/manager/register-course"],
-      component: Loadable({
-        loader: () =>
-          import("@manager/containers/register-course/RegistryCourse"),
-        loading: Load,
-      }),
-    },
-    {
-      path: ["/manager/register-class"],
-      component: Loadable({
-        loader: () =>
-          import("@manager/containers/register-class/RegisterClass"),
-        loading: Load,
-      }),
-    },
-    {
       path: ["/manager/schedule"],
       component: Loadable({
-        loader: () => import("@manager/containers/schedule/Schedule"),
+        loader: () => import("@manager/containers/schedule"),
         loading: Load,
       }),
     },
@@ -96,7 +80,7 @@ function Index(props) {
     {
       path: ["/manager/users"],
       component: Loadable({
-        loader: () => import("@manager/containers/users/User"),
+        loader: () => import("@manager/containers/users"),
         loading: Load,
       }),
     },

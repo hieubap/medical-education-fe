@@ -12,52 +12,32 @@ class Menu extends Component {
         {
           path: "/manager/dashboard",
           class: "bar",
-          name: "Thông báo",
+          name: "Thống kê",
         },
         {
           path: "/manager/courses",
           class: "bar",
-          name: "Quản lý khóa học",
+          name: "Danh mục khóa học",
         },
         {
           path: "/manager/subject",
           class: "bar",
-          name: "Quản lý môn học",
+          name: "Danh mục môn học",
         },
         {
-          path: "/manager/class",
+          path: "/manager/health-facility",
           class: "bar",
-          name: "Quản lý lớp",
+          name: "Danh mục cơ sở",
         },
         {
           path: "/manager/place",
           class: "bar",
-          name: "Quản lý địa điểm",
-        },
-        {
-          path: "/manager/student",
-          class: "bar",
-          name: "Quản lý học viên",
-        },
-        {
-          path: "/manager/register-course",
-          class: "bar",
-          name: "Đăng ký khóa học",
-        },
-        {
-          path: "/manager/register-class",
-          class: "bar",
-          name: "Đăng ký lớp",
+          name: "Danh mục địa điểm",
         },
         {
           path: "/manager/schedule",
           class: "bar",
-          name: "Lịch",
-        },
-        {
-          path: "/manager/result",
-          class: "bar",
-          name: "Kết quả",
+          name: "Xếp lịch",
         },
         {
           path: "/manager/users",

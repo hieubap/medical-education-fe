@@ -1,4 +1,5 @@
 import constants from '../resourses/const';
+import clientUtils from '@utils/client-utils';
 
 const defaultState = {
     userApp:{
@@ -19,11 +20,13 @@ const reducer = (state = defaultState,action) => {
             newState.userApp.currentUser = action.value ? action.value : newState.userApp.currentUser;
             newState.userApp.isLogin = action.value ? true : false ;//newState.userApp.currentUser && newState.userApp.currentUser.id;
             newState.userApp.token = action.value ? "Bearer "+action.value.token : "";
+            clientUtils.auth = newState.userApp.token ? newState.userApp.token : '';
             return newState;
         case constants.action.action_user_logout:
             newState.userApp.currentUser = {};
             newState.userApp.isLogin = false;
             newState.userApp.token = "";
+            clientUtils.auth = '';
             return newState;
         default:{}
     }

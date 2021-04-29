@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./style.scss";
 import { connect as reduxConnect } from "react-redux";
 export class BaseFormComponent extends Component {
   constructor(props) {

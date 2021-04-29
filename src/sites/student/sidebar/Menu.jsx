@@ -20,19 +20,9 @@ class Menu extends Component {
           name: "Khóa học",
         },
         {
-          path: "/student/class",
-          class: "bar",
-          name: "Lớp",
-        },
-        {
           path: "/student/register-course",
           class: "bar",
           name: "Đăng ký khóa học",
-        },
-        {
-          path: "/student/register-class",
-          class: "bar",
-          name: "Đăng ký lớp",
         },
         {
           path: "/student/schedule",

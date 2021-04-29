@@ -270,7 +270,6 @@ export class BaseComponent extends Component {
             toast.success("Xóa Thành Công");
             var newState = Object.assign({}, this.state);
             newState.dataRender.splice(index, 1);
-            console.log(newState.dataRender);
             this.setState(newState);
           } else {
             toast.error(json.message);

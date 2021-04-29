@@ -1,12 +1,16 @@
 .App {
   text-align: left;
+  
 }
 
 :root {
+  color:#444;
   --blue-1: #0d2745;
   --blue-2: #1b75bb;
   --blue-3: #d7eaf6;
   --blue-4: #90c5ee;
+  --blue-5: #2d4997;
+  
   --text-color: #82899a;
 
   --red: #be4942;
