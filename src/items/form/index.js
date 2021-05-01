@@ -37,6 +37,7 @@ const Form = (props) => {
             data={dataSet}
             change={change}
             index={index}
+            bundle={props.bundle}
           ></props.children>
           <div className="btn">
             <button className="default-btn" onClick={eventBack}>

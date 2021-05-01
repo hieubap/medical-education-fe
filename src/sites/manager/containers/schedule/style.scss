@@ -1,5 +1,25 @@
-.schedule{
-    th{
-        padding:20px;
-    }
+.schedule {
+  th {
+    padding: 20px;
+  }
+  h3 {
+    padding-left: 30px;
+    color: var(--blue-1);
+    margin: 0;
+    margin-bottom: 15px;
+  }
+  .default-btn:disabled,
+  .default-btn:disabled:hover {
+    background-image: linear-gradient(to right, #ddd,#ddd);
+    cursor: default;
+  }
+  .default-btn {
+    width: 110px;
+    height: 35px;
+    background-image: linear-gradient(to right, var(--blue), var(--cyan));
+    padding: 5px;
+    margin-top: 10px;
+    margin-right: 20px;
+  }
+  
 }

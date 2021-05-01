@@ -7,7 +7,7 @@ export default {
         const parameters =
             (param.page ? "?page=" + param.page : "?page=0") +
             (param.size ? "&size=" + param.size : "&size=10") +
-            (param.address ? "&address=" + param.address : "");
+            (param.courseId ? "&courseId=" + param.courseId : "");
 
         return new Promise((resolve, reject) => {
             clientUtils

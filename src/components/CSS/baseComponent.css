@@ -198,6 +198,11 @@ input {
   border-radius: 2px;
   outline: none;
 }
+.default-btn:disabled,
+.default-btn:disabled:hover {
+  background-color: #ddd;
+  cursor: default;
+}
 .default-btn:active {
   border: none;
 }

@@ -26,8 +26,8 @@ const FormCourse = (props) => {
     courseProvider.detail(data.id).then((json) => {
       if (json && json.code === 200) {
         setData(json.data);
-        setSelects(json.data.listSubject);
-        setSubjectIds(json.data.listSubject.map((item) => {return item.id}));
+        setSelects(json.data.listSubject || []);
+        setSubjectIds((json.data.listSubject && json.data.listSubject.map((item) => {return item.id})) || []);
       }
     });
   }, []);
@@ -45,7 +45,8 @@ const FormCourse = (props) => {
     }
 
     let list = [];
-    for (let i = 0; i< selects.length ; i++) {
+    if(selects)
+     for (let i = 0; i< selects.length ; i++) {
       list.push(
         <li style={{ display: "flex", justifyContent: "space-between" }}>
           <div>{i+1}</div>

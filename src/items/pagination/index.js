@@ -95,7 +95,7 @@ const Pagination = (props) => {
       </div>
 
       <span>
-        {page + 1} / {totalPage} trang
+        {totalPage ? (page + 1) : 0} / {totalPage || 0} trang
       </span>
       <ul>{listPage}</ul>
     </div>

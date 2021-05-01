@@ -176,7 +176,7 @@ const Course = (props) => {
         <td style={{ minWidth: "150px" }}>
           {data.numberRegister
             ? data.numberRegister
-            : "0/" + data.limitRegister}
+            : "0/" + (data.limitRegister || 0)}
         </td>
         <td style={{ minWidth: "150px" }}>{data.limitRegister}</td>
         <td style={{ minWidth: "150px" }}>{data.numberLesson}</td>
