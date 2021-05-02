@@ -78,7 +78,7 @@ function Login() {
     e.preventDefault();
     window.location.href = "/register";
   };
-
+console.log("11:10Pm")
   return (
     <div className="background">
       <div className="login">
