@@ -15,9 +15,6 @@
     --header-sort-bar-height: 46px;
 }
 
-
-/* width */
-
 ::-webkit-scrollbar {
     width: 5px;
 }
