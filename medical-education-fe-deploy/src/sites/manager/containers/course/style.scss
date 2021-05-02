@@ -1,0 +1,89 @@
+.detail-course {
+  h2 {
+    font-size: 17px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #aaa;
+  }
+  button {
+    width: 120px;
+    padding: 10px;
+    margin-top: -5px;
+  }
+  select {
+    margin-left: 20px;
+    width: 400px;
+    height: 35px;
+  }
+}
+.detail-course > div > div > table > tbody > tr > th {
+  height: 25px;
+  padding: 10px;
+  border: none;
+}
+.detail-course > div > div > table > tbody > tr > td {
+  height: 20px;
+  padding: 0px;
+  background-color: #fcfcfc;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+.detail-course > div > div > table {
+  margin-top: 20px;
+  font-family: none;
+}
+.course-form {
+  width: 900px;
+  height: 450px;
+  margin-top: 20px;
+  .head-info,
+  .head-subject {
+    position: absolute;
+    color: var(--blue-1);
+    font-size: 20px;
+    background-color: white;
+    padding: 5px;
+  }
+  .head-info {
+    top: 67px;
+    left: 150px;
+  }
+  .head-subject {
+    top: 67px;
+    left: 640px;
+  }
+  .base-content {
+    border: 3px solid var(--blue);
+    border-radius: 20px;
+    padding: 20px;
+  }
+  .subject {
+    margin-left: 30px;
+    width: 60%;
+    border: 3px solid var(--blue);
+    border-radius: 20px;
+    padding: 10px;
+    .search {
+      display: inline;
+      input {
+        margin-left: 30px;
+        width: 60%;
+      }
+    }
+    ul {
+      height: 330px;
+      overflow: scroll;
+      padding:5px;
+      margin:5px 2px;
+    }
+    li {
+      list-style-type: none;
+      border-top: 1px solid #ddd;
+      padding: 5px;
+    }
+    .list{
+      margin-top:25px;
+      border: 1px solid var(--blue);
+      border-radius: 10px;
+    }
+  }
+}
