@@ -6,7 +6,7 @@ const Head = (props) => {
     <div className="head-tag">
       {props.changeModal != null && (
         <button className="default-btn" onClick={() => props.changeModal()}>
-          Thêm mới
+          {props.textSubmit || "Thêm mới"}
         </button>
       )}
       <Tooltip title="Tiêu đề">

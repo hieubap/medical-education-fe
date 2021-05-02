@@ -20,7 +20,7 @@ module.exports = {
     class:'/class',
     place:'/place',
     users:'/users',
-    registerCourse:'/course-register',
+    registerCourse:'/register',
     healthFacility:'/health-facility',
     schedule:'/schedule',
   },

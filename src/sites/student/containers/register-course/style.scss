@@ -1,0 +1,10 @@
+.register{
+    .default-btn {
+        width: 110px;
+        height: 35px;
+        background-color: none;
+        background-image: linear-gradient(to right, var(--blue), var(--cyan));
+        padding: 5px;
+        margin: 22px 0 0 30px;
+      }
+}

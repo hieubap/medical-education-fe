@@ -17,6 +17,7 @@ import "./style.scss";
 const RegisterCourse = (props) => {
   const userApp = useSelector((state) => state.userApp);
   const [state, setState] = useState(defaultState);
+  const [body, setBody] = useState({});
 
   const setPage = (value) => {
     setState({ ...state, page: value });
@@ -38,6 +39,7 @@ const RegisterCourse = (props) => {
 
   useEffect(() => {
     loadPage();
+    getCourse();
   }, [state.page, state.size]);
 
   const loadPage = () => {
@@ -64,6 +66,18 @@ const RegisterCourse = (props) => {
           toast.error(json.message);
         }
       });
+  };
+
+  const getCourse = () => {
+    courseProvider.search({ page: 0, size: 999999 }).then((json) => {
+      if (json && json.code === 200 && json.data) {
+        setState({
+          ...state,
+          loading: false,
+          course: json.data,
+        });
+      }
+    });
   };
 
   const add = (code) => {
@@ -150,8 +164,8 @@ const RegisterCourse = (props) => {
             <div className="i">
               <Tooltip title="hủy đăng ký" visible={true}>
                 <CheckCircleOutlined
-                  // onClick={() => {}}
-                  // className="icon-yellow"
+                // onClick={() => {}}
+                // className="icon-yellow"
                 />
               </Tooltip>
             </div>
@@ -166,21 +180,26 @@ const RegisterCourse = (props) => {
   };
   return (
     <>
-      <Head title="Danh mục môn học"></Head>
+      <Head title="Đăng ký khóa học"></Head>
       <Loading loading={state.loading}></Loading>
-      <div className="content">
+      <div className="content register">
         <div className="search">
           <div>
             <label>Tên khóa học</label>
-            <input
-              placeholder="Tên khóa học"
-              onKeyDown={(e) => handleAdd(e)}
-            ></input>
+            <select placeholder="Tên khóa học" onKeyDown={(e) => handleAdd(e)}>
+              {state.course &&
+                state.course.map((data, index) => (
+                  <option key={index} value={data.id}>
+                    {data.name}
+                  </option>
+                ))}
+            </select>
           </div>
           <div>
             <label>Cơ sở đào tạo</label>
             <input placeholder="Tên cơ sở đào tạo"></input>
           </div>
+          <button className="default-btn" onClick={() => registerCourse()}>Đăng ký</button>
         </div>
         <div>
           <Table fields={fields} data={state.dataRender}>
