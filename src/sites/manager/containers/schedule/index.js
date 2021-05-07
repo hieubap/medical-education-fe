@@ -1,4 +1,4 @@
-import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import { DeleteOutlined,EditOutlined } from "@ant-design/icons";
 import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
 import courseProvider from "@data-access/course-provider";
@@ -6,10 +6,8 @@ import scheduleProvider from "@data-access/schedule-provider";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "@items/pagination";
 import "@items/style.scss";
-// import Table from "@items/table/Table";
-import constants from "@src/resourses/const";
-import { convertPrice, defaultState } from "@utils/common";
-import React, { useEffect, useRef, useState } from "react";
+import { defaultState } from "@utils/common";
+import React,{ useEffect,useRef,useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Button } from "reactstrap";
@@ -18,10 +16,9 @@ import "./style.scss";
 
 const Schedule = (props) => {
   const userApp = useSelector((state) => state.userApp);
-  const [state, setState] = useState({ ...defaultState, id: -1 });
-  const [param, setParam] = useState({ page: 0, size: 10 });
+  const [state, setState] = useState({ ...defaultState, id: -1, loading: false });
+  const [courses, setCourse] = useState([]);
   const timeout = useRef(null);
-  let reload = false;
 
   const setPage = (value) => {
     setState({ ...state, page: value });
@@ -43,7 +40,7 @@ const Schedule = (props) => {
       clearTimeout(timeout.current);
     }
     timeout.current = setTimeout(() => {
-      setState({ ...state, id: e.target.value ,loading: true});
+      setState({ ...state, id: e.target.value, loading: true });
       clearTimeout(timeout);
     }, 500);
   };
@@ -60,7 +57,10 @@ const Schedule = (props) => {
           totalPage: size,
           totalElements: json.totalElements,
           showModal: false,
-          dataRender: {...state.dataRender, listSchedules: [...state.dataRender.listSchedules,json.data]}
+          dataRender: {
+            ...state.dataRender,
+            listSchedules: [...state.dataRender.listSchedules, json.data],
+          },
         });
         toast.success("tạo mới thành công");
       } else if (json && json.code === 401) {
@@ -76,7 +76,7 @@ const Schedule = (props) => {
       if (json && json.code === 200 && json.data) {
         var newData = Object.assign([], state.dataRender);
         newData.listSchedules[index] = json.data;
-        
+
         setState({
           ...state,
           loading: false,
@@ -155,11 +155,7 @@ const Schedule = (props) => {
     // });
     courseProvider.search({ page: 0, size: 1000 }).then((json) => {
       if (json && json.code === 200 && json.data) {
-        setState({
-          ...state,
-          loading: false,
-          courses: [{ id: "-1", name: "-- chọn khóa học --" }, ...json.data],
-        });
+        setCourse([{ id: "-1", name: "-- chọn khóa học --" }, ...json.data]);
       } else if (json && json.code === 401) {
         window.location.href = "/login";
       } else {
@@ -179,6 +175,7 @@ const Schedule = (props) => {
     newState.idDetail = id;
     setState(newState);
   };
+  console.log(state);
   return (
     <>
       <Head title="Xếp lịch"></Head>
@@ -193,14 +190,14 @@ const Schedule = (props) => {
               name="name"
               onChange={(e) => search(e)}
             >
-              {state.courses &&
-                state.courses.map((item) => (
+              {courses &&
+                courses.map((item) => (
                   <option value={item.id}>{item.name}</option>
                 ))}
             </select>
           </div>
         </div>
-        <div className="table">
+        <div className="tbl">
           <table>
             <thead>
               <tr>
@@ -247,21 +244,21 @@ const Schedule = (props) => {
             disabled={!state.dataRender}
             onClick={() => changeModal()}
           >
-            Thêm mới
+            Tạo lịch
           </Button>
           <h3 className="title">Lịch dạy</h3>
         </div>
-        <div className="table">
+        <div className="tbl">
           <table>
             <thead>
               <tr>
-                <th>STT</th>
-                <th>Mã môn</th>
-                <th>Tên môn</th>
-                <th>Thứ</th>
-                <th>Thời gian</th>
-                <th>Giảng viên</th>
-                <th>Địa điểm</th>
+                <th style={{ minWidth: "3%" }}>STT</th>
+                <th style={{ minWidth: "20%" }}>Mã môn</th>
+                <th style={{ minWidth: "20%" }}>Tên môn</th>
+                <th style={{ minWidth: "20%" }}>Thứ</th>
+                <th style={{ minWidth: "20%" }}>Thời gian</th>
+                <th style={{ minWidth: "20%" }}>Giảng viên</th>
+                <th style={{ minWidth: "20%" }}>Địa điểm</th>
                 <th></th>
               </tr>
             </thead>
@@ -269,21 +266,15 @@ const Schedule = (props) => {
               {state.dataRender && state.dataRender.listSchedules ? (
                 state.dataRender.listSchedules.map((data, index) => (
                   <tr>
-                    <td style={{ minWidth: "50px" }}>{index+1}</td>
-                    <td style={{ minWidth: "150px" }}>{data.subject.code}</td>
-                    <td style={{ minWidth: "200px" }}>{data.subject.name}</td>
-                    <td style={{ minWidth: "50px" }}>
-                      {data.day || ''}
-                    </td>
-                    <td style={{ minWidth: "150px" }}>
-                      {data.startTime +' - ' + data.endTime}
-                    </td>
-                    <td style={{ minWidth: "150px" }}>
-                      {data.teacher || ""}
-                    </td>
-                    <td style={{ minWidth: "150px" }}>{data.place.address}</td>
-                    
-                    <td style={{ minWidth: "50px" }}>
+                    <td>{index + 1}</td>
+                    <td>{data.subject.code}</td>
+                    <td>{data.subject.name}</td>
+                    <td>{data.day || ""}</td>
+                    <td>{data.startTime + " - " + data.endTime}</td>
+                    <td>{data.teacher || ""}</td>
+                    <td>{data.place.address}</td>
+
+                    <td>
                       <div
                         className="i"
                         onClick={() => changeModal(data, index)}

@@ -5,13 +5,12 @@ import subjectProvider from "@data-access/subject-provider";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "@items/pagination";
 import "@items/style.scss";
-import Table from "@items/table/Table";
 import constants from "@src/resourses/const";
 import { defaultState } from "@utils/common";
 import React,{ useEffect,useRef,useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import "./style.scss";
+import { Input } from "reactstrap";
 import SubjectForm from "./subject-form";
 
 const Subject = (props) => {
@@ -127,57 +126,77 @@ const Subject = (props) => {
     });
   };
 
-  const child = (props) => {
-    const { data, index } = props;
-    return (
-      <tr>
-        <td>{index + 1}</td>
-        <td>{data.code}</td>
-        <td>{data.name}</td>
-        <td>{data.type}</td>
-        <td>{data.lesson}</td>
-        {state.role !== constants.role.admin ? (
-          <td></td>
-        ) : (
-          <td style={{ width: "8%" }}>
-            <div className="i" onClick={() => changeModal(data, index)}>
-              <EditOutlined className="icon-blue" />
-            </div>
-            <div className="i" onClick={() => handleDelete(data.id, index)}>
-              <DeleteOutlined icon={faTrashAlt} className="icon-red" />
-            </div>
-          </td>
-        )}
-      </tr>
-    );
-  };
   return (
     <>
       <Head title="Danh mục môn học" changeModal={changeModal}></Head>
       <Loading loading={state.loading}></Loading>
       <div className="content">
-        <div className="search">
-          <div>
-            <label>Mã môn</label>
-            <input
-              placeholder="nhập mã môn"
-              name="code"
-              onChange={(e) => search(e)}
-            ></input>
-          </div>
-          <div>
-            <label>Tên môn</label>
-            <input
-              name="name"
-              placeholder="nhập tên môn"
-              onChange={(e) => search(e)}
-            ></input>
-          </div>
-        </div>
-        <div>
-          <Table fields={fields} data={state.dataRender}>
-            {child}
-          </Table>
+        <div className="tbl">
+          <table>
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th style={{ width: "20%" }}>Mã môn</th>
+                <th style={{ width: "20%" }}>Tên môn</th>
+                <th style={{ width: "20%" }}>Loại môn</th>
+                <th style={{ width: "20%" }}>Số tiết</th>
+                <th style={{ width: "10%" }}>Tiện ích</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>
+                  <Input
+                    placeholder="nhập mã môn"
+                    name="code"
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
+                <td>
+                  <Input
+                    name="name"
+                    placeholder="nhập tên môn"
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              {state.dataRender &&
+                state.dataRender.map((data, index) => (
+                  <tr>
+                    <td>{index + 1}</td>
+                    <td>{data.code}</td>
+                    <td>{data.name}</td>
+                    <td>{data.type}</td>
+                    <td>{data.lesson}</td>
+                    {state.role !== constants.role.admin ? (
+                      <td></td>
+                    ) : (
+                      <td>
+                        <div
+                          className="i"
+                          onClick={() => changeModal(data, index)}
+                        >
+                          <EditOutlined className="icon-blue" />
+                        </div>
+                        <div
+                          className="i"
+                          onClick={() => handleDelete(data.id, index)}
+                        >
+                          <DeleteOutlined
+                            icon={faTrashAlt}
+                            className="icon-red"
+                          />
+                        </div>
+                      </td>
+                    )}
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
         <Pagination
           totalPage={state.totalPage}

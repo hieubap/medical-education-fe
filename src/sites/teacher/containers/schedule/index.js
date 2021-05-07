@@ -13,6 +13,7 @@ const Schedule = (props) => {
         <th>Thời gian</th>
         <th>Lớp</th>
         <th>Địa điểm</th>
+        <th>Giảng viên</th>
       </>
     );
   };

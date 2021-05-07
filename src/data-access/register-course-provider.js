@@ -16,16 +16,23 @@ export default {
             })
         })
     },
-    register(param){
+    register(body){
         return new Promise((resolve, reject) => {
-            var body = {
-
-            }
             clientUtils.requestApi('post', constants.api.registerCourse, body).then(x => {
                 resolve(x)
             }).catch(e => {
                 reject(e)
             })
         })
-    }
+    },
+    delete(id){
+        return new Promise((resolve, reject) => {
+            clientUtils.requestApi('delete', constants.api.registerCourse + "/" + id, {}).then(x => {
+                resolve(x)
+            }).catch(e => {
+                reject(e)
+            })
+        })
+    },
+    
 }

@@ -23,6 +23,7 @@ module.exports = {
     registerCourse:'/register',
     healthFacility:'/health-facility',
     schedule:'/schedule',
+    result:'/result'
   },
   courseRegister:{
     status:{

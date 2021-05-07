@@ -61,7 +61,7 @@ function Index(props) {
     {
       path: ["/student/result"],
       component: Loadable({
-        loader: () => import("@manager/containers/result/StudyProcess"),
+        loader: () => import("@student/containers/result"),
         loading: Load,
       }),
     },

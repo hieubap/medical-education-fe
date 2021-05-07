@@ -21,6 +21,7 @@ import { defaultState } from "@utils/common";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { Input } from "reactstrap";
 import "./style.scss";
 import UserForm from "./user-form";
 
@@ -103,84 +104,158 @@ const User = (props) => {
     });
   };
 
-  const child = (props) => {
-    const { data, index } = props;
-    return (
-      <tr>
-        <td style={{minWidth:"50px"}}>{index + 1}</td>
-        <td style={{minWidth:"50px"}}>{data.id}</td>
-        <td style={{minWidth:"150px"}}>{data.fullName}</td>
-        <td style={{minWidth:"150px"}}>{data.username}</td>
-        <td>{data.status}</td>
-        <td>{data.role}</td>
-        <td>{data.gender}</td>
-        <td>{data.age}</td>
-        <td style={{minWidth:"150px"}}>{data.address}</td>
-        <td style={{minWidth:"150px"}}>{data.phoneNumber}</td>
-        <td style={{minWidth:"150px"}}>{data.email}</td>
-        <td style={{minWidth:"250px"}}>{data.createAt}</td>
-        <td style={{minWidth:"250px"}}>{data.updateAt}</td>
-        <td style={{minWidth:"150px"}}>
-          {data.idChange && (
-            <div className="i">
-              <CheckCircleOutlined
-                icon={faCheckCircle}
-                className="icon-yellow"
-              />
-            </div>
-          )}
-          <div className="i">
-            <EyeOutlined icon={faEye} className="icon-green" />
-          </div>
-          <div className="i">
-            <LockOutlined className="icon-mangeto" />
-          </div>
-          <div className="i" onClick={() => changeModal(data, index)}>
-            <EditOutlined className="icon-blue" />
-          </div>
-          <div className="i">
-            <DeleteOutlined icon={faTrashAlt} className="icon-red" />
-          </div>
-        </td>
-      </tr>
-    );
-  };
   return (
     <>
       <Head title="Quản lý tài khoản" changeModal={changeModal}></Head>
       <Loading loading={state.loading}></Loading>
       <div className="content">
-        <div className="search">
-          <div>
-            <label>Tên người dùng</label>
-            <input name="fullName" onChange={(e) => search(e)}></input>
-          </div>
-          <div>
-            <label>Tên đăng nhập</label>
-            <input name="username" onChange={(e) => search(e)}></input>
-          </div>
-          <div>
-            <label>Trạng thái</label>
-            <input name="status" onChange={(e) => search(e)}></input>
-          </div>
-          <div>
-            <label>Vai trò</label>
-            <select name="roles" onChange={(e) => search(e)}>
-              <option value={""}>TẤT CẢ</option>
-              <option value={constants.roles.admin}>ADMIN</option>
-              <option value={constants.roles.teacher}>GIẢNG VIÊN</option>
-              <option value={constants.roles.student}>SINH VIÊN</option>
-            </select>
-          </div>
-          <div>
-            <label>Địa chỉ</label>
-            <input name="address" onChange={(e) => search(e)}></input>
-          </div>
-        </div>
-        <div>
-          <Table fields={fields} data={state.dataRender}>
+        <div className="tbl">
+          <table>
+            <thead>
+              <tr>
+                <th style={{ minWidth: "50px" }}>STT</th>
+                <th style={{ minWidth: "100px" }}>ID</th>
+                <th style={{ minWidth: "180px" }}>Họ tên</th>
+                <th style={{ minWidth: "150px" }}>Tên đăng nhập</th>
+                <th style={{ minWidth: "150px" }}>Trạng thái</th>
+                <th style={{ minWidth: "150px" }}>Loại</th>
+                <th style={{ minWidth: "150px" }}>Giới tính</th>
+                <th style={{ minWidth: "150px" }}>Tuổi</th>
+                <th style={{ minWidth: "200px" }}>Địa chỉ</th>
+                <th style={{ minWidth: "150px" }}>SĐT</th>
+                <th style={{ minWidth: "150px" }}>Email</th>
+                <th style={{ minWidth: "150px" }}>Ngày tạo</th>
+                <th style={{ minWidth: "150px" }}>Ngày cập nhật</th>
+                <th style={{ minWidth: "100px" }}>Tiện ích</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <Input
+                    type="text"
+                    name="fullName"
+                    placeholder="Tìm kiếm ..."
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
+                <td>
+                  <Input
+                    type="text"
+                    name="username"
+                    placeholder="Tìm kiếm ..."
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
+                <td>
+                  <Input
+                    type="text"
+                    name="status"
+                    placeholder="Tìm kiếm ..."
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
+                <td>
+                  <select name="roles" onChange={(e) => search(e)}>
+                    <option value={""}>TẤT CẢ</option>
+                    <option value={constants.roles.admin}>ADMIN</option>
+                    <option value={constants.roles.teacher}>GIẢNG VIÊN</option>
+                    <option value={constants.roles.student}>SINH VIÊN</option>
+                  </select>
+                </td>
+                <td>
+                  <select name="gender" onChange={(e) => search(e)}>
+                    <option value={""}>TẤT CẢ</option>
+                    <option value={"nam"}>NAM</option>
+                    <option value={"nu"}>NỮ</option>
+                  </select>
+                </td>
+                <td>
+                  <Input
+                    type="number"
+                    name="status"
+                    placeholder="Tìm kiếm ..."
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
+                <td>
+                  <Input
+                    type="text"
+                    name="address"
+                    placeholder="Tìm kiếm ..."
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
+                <td>
+                  <Input
+                    type="text"
+                    name="phone"
+                    placeholder="Tìm kiếm ..."
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
+                <td>
+                  <Input
+                    type="text"
+                    name="email"
+                    placeholder="Tìm kiếm ..."
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
+              </tr>
+              {state.dataRender &&
+                state.dataRender.map((data, index) => (
+                  <tr>
+                    <td>{index + 1}</td>
+                    <td>{data.id}</td>
+                    <td>{data.fullName}</td>
+                    <td>{data.username}</td>
+                    <td>{data.status}</td>
+                    <td>{data.role}</td>
+                    <td>{data.gender}</td>
+                    <td>{data.age}</td>
+                    <td>{data.address}</td>
+                    <td>{data.phoneNumber}</td>
+                    <td>{data.email}</td>
+                    <td>{data.createAt}</td>
+                    <td>{data.updateAt}</td>
+                    <td>
+                      {data.idChange && (
+                        <div className="i">
+                          <CheckCircleOutlined
+                            icon={faCheckCircle}
+                            className="icon-yellow"
+                          />
+                        </div>
+                      )}
+                      <div className="i">
+                        <EyeOutlined icon={faEye} className="icon-green" />
+                      </div>
+                      <div className="i">
+                        <LockOutlined className="icon-mangeto" />
+                      </div>
+                      <div
+                        className="i"
+                        onClick={() => changeModal(data, index)}
+                      >
+                        <EditOutlined className="icon-blue" />
+                      </div>
+                      <div className="i">
+                        <DeleteOutlined
+                          icon={faTrashAlt}
+                          className="icon-red"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+          {/* <Table fields={fields} data={state.dataRender}>
             {child}
-          </Table>
+          </Table> */}
         </div>
         <Pagination
           totalPage={state.totalPage}

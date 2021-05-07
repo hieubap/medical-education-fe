@@ -11,6 +11,7 @@ import { convertPrice, defaultState } from "@utils/common";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { Input } from "reactstrap";
 import CourseForm from "./course-form.js";
 import "./style.scss";
 
@@ -22,10 +23,12 @@ const Course = (props) => {
 
   const setPage = (value) => {
     setState({ ...state, page: value });
+    setParam({ ...param, page: value });
     console.log(state);
   };
   const setSize = (value) => {
     setState({ ...state, size: value, page: 0 });
+    setParam({ ...param, size: value, page: 0 });
   };
   const changeModal = (data, index) => {
     setState({
@@ -121,35 +124,33 @@ const Course = (props) => {
   ];
 
   const loadPage = () => {
-    courseProvider
-      .search(param)
-      .then((json) => {
-        if (json && json.code === 200 && json.data) {
-          const size =
-            json.totalElements % state.size === 0
-              ? parseInt(json.totalElements / state.size)
-              : parseInt(json.totalElements / state.size) + 1;
-          setState({
-            ...state,
-            loading: false,
-            dataRender: json.data,
-            role: userApp.currentUser.role,
-            token: userApp.token,
-            totalPage: size,
-            totalElements: json.totalElements,
-          });
-        } else if (json && json.code === 401) {
-          window.location.href = "/login";
-        } else {
-          setState({ ...state, loading: false });
-          toast.error(json.message);
-        }
-      });
+    courseProvider.search(param).then((json) => {
+      if (json && json.code === 200 && json.data) {
+        const size =
+          json.totalElements % state.size === 0
+            ? parseInt(json.totalElements / state.size)
+            : parseInt(json.totalElements / state.size) + 1;
+        setState({
+          ...state,
+          loading: false,
+          dataRender: json.data,
+          role: userApp.currentUser.role,
+          token: userApp.token,
+          totalPage: size,
+          totalElements: json.totalElements,
+        });
+      } else if (json && json.code === 401) {
+        window.location.href = "/login";
+      } else {
+        setState({ ...state, loading: false });
+        toast.error(json.message);
+      }
+    });
   };
 
   useEffect(() => {
     loadPage();
-  }, [state.size, state.page,param]);
+  }, [state.size, state.page, param]);
 
   const detail = (id) => {
     var newState = Object.assign({}, state);
@@ -206,55 +207,111 @@ const Course = (props) => {
 
   return (
     <>
-      <Head title="Danh mục khóa học" changeModal={() => changeModal()}></Head>
+      {state.role !== constants.role.admin ? (
+        <Head title="Danh mục khóa học"></Head>
+      ) : (
+        <Head
+          title="Danh mục khóa học"
+          changeModal={() => changeModal()}
+        ></Head>
+      )}
+
       <Loading loading={state.loading}></Loading>
       <div className="content" style={{ fontSize: "15px" }}>
-        <div className="search">
-          <div>
-            <label>Tên khóa học</label>
-            <input
-              placeholder="Tên khóa học"
-              name="name"
-              onChange={(e) => search(e)}
-            ></input>
-          </div>
-          <div>
-            <label>Tên cơ sở</label>
-            <input
-              placeholder="Tên cơ sở"
-              name="nameFacility"
-              onChange={(e) => search(e)}
-            ></input>
-          </div>
-          <div>
-            <label>Người tạo</label>
-            <input
-              placeholder="tên người tạo"
-              name="nameCreator"
-              onChange={(e) => search(e)}
-            ></input>
-          </div>
-          <div>
-            <label>Khoảng giá từ</label>
-            <input
-              placeholder="giá từ"
-              name="priceFrom"
-              onChange={(e) => search(e)}
-            ></input>
-          </div>
-          <div>
-            <label>Khoảng giá đến</label>
-            <input
-              placeholder="giá đến"
-              name="priceTo"
-              onChange={(e) => search(e)}
-            ></input>
-          </div>
-        </div>
-        <div>
-          <Table fields={fields} data={state.dataRender}>
-            {child}
-          </Table>
+        <div className="tbl">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th style={{ minWidth: "150px" }}>Mã khóa học</th>
+                <th style={{ minWidth: "220px" }}>Tên khóa học</th>
+                <th style={{ minWidth: "220px" }}>Cơ sở đào tạo</th>
+                <th style={{ minWidth: "150px" }}>Người tạo</th>
+                <th style={{ minWidth: "150px" }}>Học phí</th>
+                <th style={{ minWidth: "150px" }}>Số lượng đăng ký</th>
+                <th style={{ minWidth: "150px" }}>Giới hạn đăng ký</th>
+                <th style={{ minWidth: "150px" }}>Số tiết</th>
+                <th style={{ minWidth: "150px" }}>Trạng thái</th>
+                <th style={{ minWidth: "120px" }}>Tiện ích</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <Input
+                    placeholder="Tên khóa học"
+                    name="name"
+                    type="text"
+                    autoComplete="off"
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
+                <td>
+                  <Input
+                    placeholder="Tên cơ sở"
+                    name="nameFacility"
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              {state.dataRender &&
+                state.dataRender.map((data, index) => (
+                  <tr>
+                    <td>{data.id}</td>
+                    <td>{data.code}</td>
+                    <td>{data.name}</td>
+                    <td>{data.healthFacility && data.healthFacility.name}</td>
+                    <td>{data.userCreated && data.userCreated.fullName}</td>
+                    <td>{convertPrice(data.price)}</td>
+                    <td>
+                      {data.numberRegister
+                        ? data.numberRegister
+                        : "0/" + (data.limitRegister || 0)}
+                    </td>
+                    <td>{data.limitRegister}</td>
+                    <td>{data.numberLesson}</td>
+                    <td>{data.status}</td>
+                    {state.role !== constants.role.admin ? (
+                      <td>
+                        <div className="i" onClick={() => detail(data.id)}>
+                          <EyeOutlined className="icon-green" />
+                        </div>
+                      </td>
+                    ) : (
+                      <td>
+                        <div className="i" onClick={() => detail(data.id)}>
+                          <EyeOutlined className="icon-green" />
+                        </div>
+                        <div
+                          className="i"
+                          onClick={() => changeModal(data, index)}
+                        >
+                          <EditOutlined className="icon-blue" />
+                        </div>
+                        <div
+                          className="i"
+                          onClick={() => handleDelete(data.id, index)}
+                        >
+                          <DeleteOutlined
+                            icon={faTrashAlt}
+                            className="icon-red"
+                          />
+                        </div>
+                      </td>
+                    )}
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
         <Pagination
           totalPage={state.totalPage}

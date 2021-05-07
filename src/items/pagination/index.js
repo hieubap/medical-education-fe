@@ -41,7 +41,10 @@ const Pagination = (props) => {
     }
   } else if (page > totalPage - initConstant.totalShow / 2) {
     for (
-      let i = totalPage - parseInt(initConstant.totalShow);
+      let i =
+        totalPage - parseInt(initConstant.totalShow) >= 0
+          ? totalPage - parseInt(initConstant.totalShow)
+          : 0;
       i < totalPage;
       i++
     ) {
@@ -89,13 +92,11 @@ const Pagination = (props) => {
           <option value="20">20</option>
           <option value="50">50</option>
         </select>
-        <span>
-          {totalElements} bản ghi
-        </span>
+        <span>{totalElements} bản ghi</span>
       </div>
 
       <span>
-        {totalPage ? (page + 1) : 0} / {totalPage || 0} trang
+        {totalPage ? page + 1 : 0} / {totalPage || 0} trang
       </span>
       <ul>{listPage}</ul>
     </div>

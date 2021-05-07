@@ -8,6 +8,8 @@ export default {
       (param.page ? "?page=" + param.page : "?page=0") +
       (param.size ? "&size=" + param.size : "&size=10") +
       (param.name ? "&name=" + param.name : "") +
+      (param.id ? "&id=" + param.id : "") +
+      (param.healthFacilityId ? "&healthFacilityId=" + param.healthFacilityId : "") +
       (param.nameFacility ? "&nameFacility=" + param.nameFacility : "") +
       (param.nameCreator ? "&nameCreator=" + param.nameCreator : "") +
       (param.priceFrom ? "&priceFrom=" + param.priceFrom : "") +

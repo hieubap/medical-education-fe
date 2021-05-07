@@ -101,7 +101,7 @@ const Head = (props) => {
             <img src={logo} style={{ width: "70px" }} alt=""></img>
           </div>
         </div>
-        <div className="t" style={{ display: click ? "block" : "none" }}>
+        <div className="t" style={{ display: click ? "block" : "none" ,zIndex:"1"}}>
           <ul>
             <li onClick={() => handleProfile()}>hồ sơ</li>
             <li onClick={() => handleEditProfile()}>chỉnh sửa thông tin</li>

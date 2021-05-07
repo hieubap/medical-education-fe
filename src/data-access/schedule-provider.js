@@ -20,6 +20,18 @@ export default {
                 });
         });
     },
+    getSchedule() {
+        return new Promise((resolve, reject) => {
+            clientUtils
+                .requestApi("get", constants.api.schedule + "/get", {})
+                .then((x) => {
+                    resolve(x);
+                })
+                .catch((e) => {
+                    reject(e);
+                });
+        });
+    },
     create(body) {
         return new Promise((resolve, reject) => {
             clientUtils
