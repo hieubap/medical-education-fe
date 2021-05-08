@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-a {
+a,a:hover{
   text-decoration: none;
 }
 html {
@@ -111,11 +111,12 @@ input {
 .head-body {
   display: flex;
   flex-direction: row;
-  margin-top: -20px;
+  margin-bottom: 5px;
+  margin-top: -5px;
 }
 .head-body > .head-icon {
   color: var(--blue-2);
-  padding-top: 20px;
+  /* padding-top: 10px; */
   padding-left: 20px;
   font-size: 30px;
 }
@@ -127,7 +128,7 @@ input {
 }
 .name-user {
   font-size: 15px;
-  padding-top: 20px;
+  /* padding-top: 20px; */
   /* flex-basis: 75%; */
 }
 .head-body > div > .tab {
@@ -143,6 +144,7 @@ input {
   margin-top: -20px;
 }
 .avatar {
+  margin-top: -15px;
   cursor: pointer;
   opacity: 1;
 }
@@ -197,6 +199,7 @@ input {
   border: none;
   border-radius: 2px;
   outline: none;
+  font-size: 14px;
 }
 .default-btn:disabled,
 .default-btn:disabled:hover {

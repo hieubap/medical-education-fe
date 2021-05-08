@@ -8,9 +8,17 @@ export default {
       (param.page ? "?page=" + param.page : "?page=0") +
       (param.size ? "&size=" + param.size : "&size=10") +
       (param.name ? "&name=" + param.name : "") +
+      (param.code ? "&code=" + param.code : "") +
+      (param.limitRegister ? "&limitRegister=" + param.limitRegister : "") +
+      (param.numberLesson ? "&numberLesson=" + param.numberLesson : "") +
+      (param.status && param.status !== "-1" ? "&status=" + param.status : "") +
       (param.id ? "&id=" + param.id : "") +
-      (param.healthFacilityId ? "&healthFacilityId=" + param.healthFacilityId : "") +
-      (param.nameFacility ? "&nameFacility=" + param.nameFacility : "") +
+      (param.healthFacilityId
+        ? "&healthFacilityId=" + param.healthFacilityId
+        : "") +
+      (param.nameHealthFacility
+        ? "&nameHealthFacility=" + param.nameHealthFacility
+        : "") +
       (param.nameCreator ? "&nameCreator=" + param.nameCreator : "") +
       (param.priceFrom ? "&priceFrom=" + param.priceFrom : "") +
       (param.priceTo ? "&priceTo=" + param.priceTo : "");

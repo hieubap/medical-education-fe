@@ -21,7 +21,7 @@ import { defaultState } from "@utils/common";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { Input } from "reactstrap";
+import { Badge, Input } from "reactstrap";
 import "./style.scss";
 import UserForm from "./user-form";
 
@@ -61,23 +61,6 @@ const User = (props) => {
     loadPage();
     console.log("use effect");
   }, [state.page, state.size, param]);
-
-  const fields = [
-    "Stt",
-    "ID",
-    "Tên",
-    "Tên đăng nhập",
-    "Trạng thái",
-    "Vai trò",
-    "Giới tính",
-    "Tuổi",
-    "Địa chỉ",
-    "SĐT",
-    "Email",
-    "Ngày tạo",
-    "Ngày cập nhật",
-    "",
-  ];
 
   const loadPage = () => {
     userProvider.search(param).then((json) => {
@@ -132,7 +115,14 @@ const User = (props) => {
             <tbody>
               <tr>
                 <td></td>
-                <td></td>
+                <td>
+                  <Input
+                    type="text"
+                    name="id"
+                    placeholder="Tìm kiếm ..."
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
                 <td>
                   <Input
                     type="text"
@@ -150,32 +140,39 @@ const User = (props) => {
                   ></Input>
                 </td>
                 <td>
-                  <Input
-                    type="text"
+                  <select
                     name="status"
                     placeholder="Tìm kiếm ..."
                     onChange={(e) => search(e)}
-                  ></Input>
+                  >
+                    <option value="-1">Tất cả</option>
+                    <option value="0">Hoạt động</option>
+                    <option value="1">Khóa</option>
+                  </select>
                 </td>
                 <td>
                   <select name="roles" onChange={(e) => search(e)}>
                     <option value={""}>TẤT CẢ</option>
-                    <option value={constants.roles.admin}>ADMIN</option>
-                    <option value={constants.roles.teacher}>GIẢNG VIÊN</option>
-                    <option value={constants.roles.student}>SINH VIÊN</option>
+                    <option value={constants.roles.admin.value}>ADMIN</option>
+                    <option value={constants.roles.teacher.value}>
+                      GIẢNG VIÊN
+                    </option>
+                    <option value={constants.roles.student.value}>
+                      SINH VIÊN
+                    </option>
                   </select>
                 </td>
                 <td>
-                  <select name="gender" onChange={(e) => search(e)}>
+                  {/* <select name="gender" onChange={(e) => search(e)}>
                     <option value={""}>TẤT CẢ</option>
-                    <option value={"nam"}>NAM</option>
-                    <option value={"nu"}>NỮ</option>
-                  </select>
+                    <option value={"Nam"}>NAM</option>
+                    <option value={"Nữ"}>NỮ</option>
+                  </select> */}
                 </td>
                 <td>
                   <Input
                     type="number"
-                    name="status"
+                    name="age"
                     placeholder="Tìm kiếm ..."
                     onChange={(e) => search(e)}
                   ></Input>
@@ -191,7 +188,7 @@ const User = (props) => {
                 <td>
                   <Input
                     type="text"
-                    name="phone"
+                    name="phoneNumber"
                     placeholder="Tìm kiếm ..."
                     onChange={(e) => search(e)}
                   ></Input>
@@ -212,15 +209,38 @@ const User = (props) => {
                     <td>{data.id}</td>
                     <td>{data.fullName}</td>
                     <td>{data.username}</td>
-                    <td>{data.status}</td>
-                    <td>{data.role}</td>
+                    <td>
+                      {(data.status === 0 && (
+                        <Badge color="success">Hoạt động</Badge>
+                      )) ||
+                        (data.status === 1 && (
+                          <Badge color="danger">Khóa</Badge>
+                        ))}
+                    </td>
+                    <td>
+                      {(data.role === constants.roles.admin.value && (
+                        <Badge color={constants.roles.admin.color}>
+                          {constants.roles.admin.name}
+                        </Badge>
+                      )) ||
+                        (data.role === constants.roles.teacher.value && (
+                          <Badge color={constants.roles.teacher.color}>
+                            {constants.roles.teacher.name}
+                          </Badge>
+                        )) ||
+                        (data.role === constants.roles.student.value && (
+                          <Badge color={constants.roles.student.color}>
+                            {constants.roles.student.name}
+                          </Badge>
+                        ))}
+                    </td>
                     <td>{data.gender}</td>
                     <td>{data.age}</td>
                     <td>{data.address}</td>
                     <td>{data.phoneNumber}</td>
                     <td>{data.email}</td>
-                    <td>{data.createAt}</td>
-                    <td>{data.updateAt}</td>
+                    <td>{data.createdAt}</td>
+                    <td>{data.updatedAt}</td>
                     <td>
                       {data.idChange && (
                         <div className="i">

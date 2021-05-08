@@ -1,4 +1,4 @@
-import { DeleteOutlined,EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
 import subjectProvider from "@data-access/subject-provider";
@@ -7,7 +7,7 @@ import Pagination from "@items/pagination";
 import "@items/style.scss";
 import constants from "@src/resourses/const";
 import { defaultState } from "@utils/common";
-import React,{ useEffect,useRef,useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Input } from "reactstrap";
@@ -95,8 +95,6 @@ const Subject = (props) => {
     });
   };
 
-  const fields = ["STT", "Mã môn", "Tên môn học", "Loại môn", "Số tiết", ""];
-
   useEffect(() => {
     loadPage();
   }, [state.page, state.size, param]);
@@ -161,7 +159,14 @@ const Subject = (props) => {
                   ></Input>
                 </td>
                 <td></td>
-                <td></td>
+                <td>
+                  <Input
+                    name="numberLesson"
+                    type="number"
+                    placeholder="Tìm kiếm ..."
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
                 <td></td>
               </tr>
               {state.dataRender &&

@@ -86,11 +86,10 @@ const Head = (props) => {
       <div className="head-icon" style={{ flexBasis: "5%" }}>
         <FontAwesomeIcon icon={i} className="head-icon"></FontAwesomeIcon>
       </div>
-
       <div className="h" style={{ flexBasis: "80%" }}>
-        <h2 data-wow-duration="1s" data-wow-delay="0.1s">
+        <h3 data-wow-duration="1s" data-wow-delay="0.1s">
           {props.title}
-        </h2>
+        </h3>
       </div>
       <div style={{ flexBasis: "15%" }}>
         <div style={{ display: "flex" }}>

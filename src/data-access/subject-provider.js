@@ -8,6 +8,7 @@ export default {
             (param.page ? "?page=" + param.page : "?page=0") +
             (param.size ? "&size=" + param.size : "&size=10") +
             (param.name ? "&name=" + param.name : "") +
+            (param.numberLesson ? "&numberLesson=" + param.numberLesson : "") +
             (param.code ? "&code=" + param.code : "");
 
         return new Promise((resolve, reject) => {

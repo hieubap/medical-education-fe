@@ -1,13 +1,13 @@
+import "bootstrap/dist/css/bootstrap.css";
 import React from "react";
-import thunk from 'redux-thunk';
-import { applyMiddleware, createStore } from 'redux';
-import AppReducer from './reducer/index';
-import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from "react-redux";
-import Main from "./Main";
+import { toast,ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { applyMiddleware,createStore } from 'redux';
+import thunk from 'redux-thunk';
 import './App.css';
-
+import Main from "./Main";
+import AppReducer from './reducer/index';
 const store = createStore(AppReducer,applyMiddleware(thunk));
 
 const Kernel = () => (

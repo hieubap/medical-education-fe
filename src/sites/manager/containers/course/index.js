@@ -11,7 +11,8 @@ import { convertPrice, defaultState } from "@utils/common";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { Input } from "reactstrap";
+import { Badge, Input } from "reactstrap";
+import { courseRegister } from "../../../../resourses/const.js";
 import CourseForm from "./course-form.js";
 import "./style.scss";
 
@@ -45,7 +46,7 @@ const Course = (props) => {
     timeout.current = setTimeout(() => {
       setParam({ ...param, page: 0, [e.target.name]: e.target.value });
       clearTimeout(timeout);
-    }, 500);
+    }, 300);
   };
   const create = (body) => {
     courseProvider.create(body).then((json) => {
@@ -108,20 +109,6 @@ const Course = (props) => {
       }
     });
   };
-
-  const fields = [
-    "ID",
-    "Mã khóa học",
-    "Tên khóa học",
-    "Cơ sở đào tạo",
-    "Người tạo",
-    "Giá",
-    "Số lượng đăng kí",
-    "Giới hạn đăng kí",
-    "Số tiết",
-    "Trạng thái",
-    "",
-  ];
 
   const loadPage = () => {
     courseProvider.search(param).then((json) => {
@@ -238,10 +225,18 @@ const Course = (props) => {
             <tbody>
               <tr>
                 <td></td>
-                <td></td>
                 <td>
                   <Input
-                    placeholder="Tên khóa học"
+                    placeholder="Tìm kiếm ..."
+                    name="code"
+                    type="text"
+                    autoComplete="off"
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
+                <td>
+                  <Input
+                    placeholder="Tìm kiếm ..."
                     name="name"
                     type="text"
                     autoComplete="off"
@@ -250,17 +245,51 @@ const Course = (props) => {
                 </td>
                 <td>
                   <Input
-                    placeholder="Tên cơ sở"
-                    name="nameFacility"
+                    placeholder="Tìm kiếm ..."
+                    name="nameHealthFacility"
+                    autoComplete="off"
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
+                <td>
+                  <Input
+                    placeholder="Tìm kiếm ..."
+                    name="userCreated"
+                    type="text"
+                    autoComplete="off"
                     onChange={(e) => search(e)}
                   ></Input>
                 </td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>
+                  <Input
+                    placeholder="Tìm kiếm ..."
+                    name="limitRegister"
+                    type="text"
+                    autoComplete="off"
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
+                <td>
+                  <Input
+                    placeholder="Tìm kiếm ..."
+                    name="numberLesson"
+                    type="text"
+                    autoComplete="off"
+                    onChange={(e) => search(e)}
+                  ></Input>
+                </td>
+                <td>
+                  <select name="status" onChange={(e) => search(e)}>
+                    <option value="-1">Tất cả</option>
+                    <option value="1">
+                      {constants.courseStatus.timeRegister.name}
+                    </option>
+                    <option value="2">{constants.courseStatus.studying.name}</option>
+                    <option value="3">{constants.courseStatus.done.name}</option>
+                  </select>
+                </td>
                 <td></td>
               </tr>
               {state.dataRender &&
@@ -279,7 +308,25 @@ const Course = (props) => {
                     </td>
                     <td>{data.limitRegister}</td>
                     <td>{data.numberLesson}</td>
-                    <td>{data.status}</td>
+                    <td style={{ textAlign: "center" }}>
+                      {(data.status && data.status === 1 && (
+                        <Badge
+                          color={constants.courseStatus.timeRegister.color}
+                        >
+                          {constants.courseStatus.timeRegister.name}
+                        </Badge>
+                      )) ||
+                        (data.status === 2 && (
+                          <Badge color={constants.courseStatus.studying.color}>
+                            {constants.courseStatus.studying.name}
+                          </Badge>
+                        )) ||
+                        (data.status === 3 && (
+                          <Badge color={constants.courseStatus.done.color}>
+                            {constants.courseStatus.done.name}
+                          </Badge>
+                        ))}
+                    </td>
                     {state.role !== constants.role.admin ? (
                       <td>
                         <div className="i" onClick={() => detail(data.id)}>
