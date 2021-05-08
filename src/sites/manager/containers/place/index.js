@@ -181,8 +181,8 @@ const Place = (props) => {
                   <tr>
                     <td>{index + 1}</td>
                     <td>{data.address}</td>
-                    <td>{data.createAt}</td>
-                    <td>{data.updateAt}</td>
+                    <td>{data.createdAt}</td>
+                    <td>{data.updatedAt}</td>
 
                     {state.role !== constants.role.admin ? (
                       <td>

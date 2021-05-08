@@ -219,6 +219,8 @@ const Course = (props) => {
                 <th style={{ minWidth: "150px" }}>Giới hạn đăng ký</th>
                 <th style={{ minWidth: "150px" }}>Số tiết</th>
                 <th style={{ minWidth: "150px" }}>Trạng thái</th>
+                <th style={{ minWidth: "180px" }}>Ngày tạo</th>
+                <th style={{ minWidth: "180px" }}>Ngày sửa</th>
                 <th style={{ minWidth: "120px" }}>Tiện ích</th>
               </tr>
             </thead>
@@ -327,6 +329,8 @@ const Course = (props) => {
                           </Badge>
                         ))}
                     </td>
+                    <td>{data.createdAt}</td>
+                    <td>{data.updatedAt}</td>
                     {state.role !== constants.role.admin ? (
                       <td>
                         <div className="i" onClick={() => detail(data.id)}>

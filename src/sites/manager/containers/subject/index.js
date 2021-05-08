@@ -134,10 +134,12 @@ const Subject = (props) => {
             <thead>
               <tr>
                 <th>STT</th>
-                <th style={{ width: "20%" }}>Mã môn</th>
+                <th style={{ width: "10%" }}>Mã môn</th>
                 <th style={{ width: "20%" }}>Tên môn</th>
                 <th style={{ width: "20%" }}>Loại môn</th>
-                <th style={{ width: "20%" }}>Số tiết</th>
+                <th style={{ width: "10%" }}>Số tiết</th>
+                <th style={{ width: "15%" }}>Ngày tạo</th>
+                <th style={{ width: "15%" }}>Ngày sửa</th>
                 <th style={{ width: "10%" }}>Tiện ích</th>
               </tr>
             </thead>
@@ -177,6 +179,8 @@ const Subject = (props) => {
                     <td>{data.name}</td>
                     <td>{data.type}</td>
                     <td>{data.lesson}</td>
+                    <td>{data.createdAt}</td>
+                    <td>{data.updatedAt}</td>
                     {state.role !== constants.role.admin ? (
                       <td></td>
                     ) : (

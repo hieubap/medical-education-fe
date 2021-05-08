@@ -213,9 +213,9 @@ const HealthFacility = (props) => {
                     <td style={{ minWidth: "150px" }}>{data.name}</td>
                     <td style={{ minWidth: "150px" }}>{data.address}</td>
                     <td style={{ minWidth: "150px" }}>{data.level}</td>
-                    <td style={{ minWidth: "150px" }}>{data.createAt}</td>
+                    <td style={{ minWidth: "150px" }}>{data.createdAt}</td>
                     <td style={{ minWidth: "100px" }}>{data.createdBy}</td>
-                    <td style={{ minWidth: "150px" }}>{data.updateAt}</td>
+                    <td style={{ minWidth: "150px" }}>{data.updatedAt}</td>
                     <td style={{ minWidth: "100px" }}>{data.updatedBy}</td>
                     {state.role !== constants.role.admin ? (
                       <td>
