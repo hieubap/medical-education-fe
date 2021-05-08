@@ -270,7 +270,7 @@ const Schedule = (props) => {
                     <td>{data.subject.code}</td>
                     <td>{data.subject.name}</td>
                     <td>{data.day || ""}</td>
-                    <td>{data.startTime + " - " + data.endTime}</td>
+                    <td>{data.kipHoc}</td>
                     <td>{data.teacher || ""}</td>
                     <td>{data.place.address}</td>
 

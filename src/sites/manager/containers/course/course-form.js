@@ -3,6 +3,7 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import subjectProvider from "@data-access/subject-provider";
 import courseProvider from "@data-access/course-provider";
+import healthFacilityProvider from "@data-access/health-facility-provider";
 import Form from "@items/form";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -10,6 +11,7 @@ import { toast } from "react-toastify";
 const FormCourse = (props) => {
   const [data,setData] = useState(props.data || {});
   const [subjects, setSubjects] = useState([]);
+  const [healthFacility, setHealthFacility] = useState([]);
   const [selects, setSelects] = useState(data.listSubject || []);
   const [subjectIds, setSubjectIds] = useState((data.listSubject && data.listSubject.map((item) => {return item.id})) || []);
   
@@ -18,6 +20,11 @@ const FormCourse = (props) => {
   console.log(selects);
   
   useEffect(() => {
+    healthFacilityProvider.search({ page: 0, size: 1000 }).then((json) => {
+      if (json && json.code === 200) {
+        setHealthFacility([{}, ...json.data]);
+      }
+    });
     subjectProvider.search({ page: 0, size: 1000 }).then((json) => {
       if (json && json.code === 200) {
         setSubjects([{}, ...json.data]);
@@ -82,42 +89,54 @@ const FormCourse = (props) => {
             <input
               name="name"
               type="text"
+              autoComplete="off"
               value={data.name || ""}
               onChange={(e) => change(e)}
             />
-            <input
+            <select
               name="healthFacilityId"
               type="number"
               value={data.healthFacilityId || ""}
               onChange={(e) => change(e)}
-            />
+            >
+              {
+                healthFacility.map((data,index) => 
+                <option value={data.id}>{data.name}</option>
+                )
+              }
+            </select>
             <input
               name="startTime"
               type="text"
+              autoComplete="off"
               value={data.startTime || ""}
               onChange={(e) => change(e)}
             />
             <input
               name="endTime"
               type="text"
+              autoComplete="off"
               value={data.endTime || ""}
               onChange={(e) => change(e)}
             />
             <input
               name="price"
               type="number"
+              autoComplete="off"
               value={data.price || ""}
               onChange={(e) => change(e)}
             />
             <input
               name="numberLesson"
               type="number"
+              autoComplete="off"
               value={data.numberLesson || ""}
               onChange={(e) => change(e)}
             />
             <input
               name="limitRegister"
               type="number"
+              autoComplete="off"
               value={data.limitRegister || ""}
               onChange={(e) => change(e)}
             />

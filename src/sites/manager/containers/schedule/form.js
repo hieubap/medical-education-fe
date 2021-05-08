@@ -29,13 +29,12 @@ const FormSchedule = (props) => {
     const { change } = props;
     const { listSubject, dataRender } = props.bundle;
     const data = props.data || { name: "", price: "" };
-    
+
     console.log(data);
-    if(init){
-      change("courseId",dataRender.id);
+    if (init) {
+      change("courseId", dataRender.id);
       init = false;
     }
-    
 
     return (
       <div className="body-form">
@@ -45,8 +44,7 @@ const FormSchedule = (props) => {
             <label>Địa điểm</label>
             <label>Giảng viên</label>
             <label>Thứ</label>
-            <label>Bắt đầu</label>
-            <label>Kết thúc</label>
+            <label>Thời gian</label>
           </div>
           <div>
             <select
@@ -100,18 +98,18 @@ const FormSchedule = (props) => {
               <option value={7}>Thứ 7</option>
               <option value={8}>Chủ nhật</option>
             </select>
-            <input
-              name="startTime"
+            <select
+              name="kipHoc"
               type="text"
-              value={data.startTime || ""}
+              value={data.kipHoc || ""}
               onChange={(e) => change(e)}
-            />
-            <input
-              name="endTime"
-              type="text"
-              value={data.endTime || ""}
-              onChange={(e) => change(e)}
-            />
+            >
+              <option value="">-- chọn thời gian --</option>
+              <option value="1">07:00 - 09:00</option>
+              <option value="2">09:00 - 11:00</option>
+              <option value="3">12:00 - 15:00</option>
+              <option value="4">15:00 - 17:00</option>
+            </select>
           </div>
         </div>
       </div>

@@ -1,8 +1,6 @@
+import subjectProvider from "@data-access/subject-provider";
 import Form from "@items/form";
 import React, { useEffect, useState } from "react";
-import courseProvider from "@data-access/course-provider";
-import subjectProvider from "@data-access/subject-provider";
-import userProvider from "@data-access/user-provider";
 
 const FormSchedule = (props) => {
   const [state, setState] = useState({});
@@ -10,7 +8,6 @@ const FormSchedule = (props) => {
   useEffect(() => {
     const { data, index } = props;
     if (data) {
-      
     } else {
       subjectProvider.search({ page: 0, size: 1000 }).then((json) => {
         if (json && json.code === 200) {
@@ -77,18 +74,17 @@ const FormSchedule = (props) => {
               value={data.day || ""}
               onChange={(e) => change(e)}
             />
-            <input
-              name="startTime"
+            <select
+              name="kipHoc"
               type="text"
               value={data.startTime || ""}
               onChange={(e) => change(e)}
-            />
-            <input
-              name="endTime"
-              type="text"
-              value={data.endTime || ""}
-              onChange={(e) => change(e)}
-            />
+            >
+              <option value="1">07:00 - 09:00</option>
+              <option value="2">09:00 - 11:00</option>
+              <option value="3">12:00 - 15:00</option>
+              <option value="4">15:00 - 17:00</option>
+            </select>
           </div>
         </div>
       </div>
