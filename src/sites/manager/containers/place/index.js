@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import { Input } from "reactstrap";
 import PlaceForm from "./place-form.js";
 import "./style.scss";
+import Tooltip from "@items/tooltip";
 
 const Place = (props) => {
   const userApp = useSelector((state) => state.userApp);
@@ -196,16 +197,20 @@ const Place = (props) => {
                           className="i"
                           onClick={() => changeModal(data, index)}
                         >
-                          <EditOutlined className="icon-blue" />
+                          <Tooltip placement="top" tooltip="Sửa">
+                            <EditOutlined className="icon-blue" />
+                          </Tooltip>
                         </div>
                         <div
                           className="i"
                           onClick={() => handleDelete(data.id, index)}
                         >
-                          <DeleteOutlined
-                            icon={faTrashAlt}
-                            className="icon-red"
-                          />
+                          <Tooltip placement="top" tooltip="Xóa">
+                            <DeleteOutlined
+                              icon={faTrashAlt}
+                              className="icon-red"
+                            />
+                          </Tooltip>
                         </div>
                       </td>
                     )}

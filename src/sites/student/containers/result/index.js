@@ -3,6 +3,7 @@ import Loading from "@components/loading";
 import resultProvider from "@data-access/result-provider";
 import "@items/style.scss";
 import React, { useEffect, useState } from "react";
+import { Alert } from "reactstrap";
 
 const Schedule = (props) => {
   const [state, setState] = useState({});
@@ -49,8 +50,8 @@ const Schedule = (props) => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="8" className="no-data">
-                    Không có dữ liệu. Vui lòng chọn khóa học
+                  <td colSpan="8">
+                    <Alert color="danger">Không có dữ liệu</Alert>
                   </td>
                 </tr>
               )}

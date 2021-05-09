@@ -4,6 +4,7 @@ import {
   EditOutlined,
   EyeOutlined,
   LockOutlined,
+  UnlockOutlined,
 } from "@ant-design/icons";
 import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
@@ -24,6 +25,7 @@ import { toast } from "react-toastify";
 import { Badge, Input } from "reactstrap";
 import "./style.scss";
 import UserForm from "./user-form";
+import Tooltip from "@items/tooltip";
 
 const User = (props) => {
   const userApp = useSelector((state) => state.userApp);
@@ -100,8 +102,10 @@ const User = (props) => {
                 <th style={{ minWidth: "100px" }}>ID</th>
                 <th style={{ minWidth: "180px" }}>Họ tên</th>
                 <th style={{ minWidth: "150px" }}>Tên đăng nhập</th>
-                <th style={{ minWidth: "150px" }}>Trạng thái</th>
-                <th style={{ minWidth: "150px" }}>Loại</th>
+                <th style={{ minWidth: "150px", textAlign: "center" }}>
+                  Trạng thái
+                </th>
+                <th style={{ minWidth: "150px", textAlign: "center" }}>Loại</th>
                 <th style={{ minWidth: "150px" }}>Giới tính</th>
                 <th style={{ minWidth: "150px" }}>Tuổi</th>
                 <th style={{ minWidth: "200px" }}>Địa chỉ</th>
@@ -209,7 +213,7 @@ const User = (props) => {
                     <td>{data.id}</td>
                     <td>{data.fullName}</td>
                     <td>{data.username}</td>
-                    <td>
+                    <td style={{ textAlign: "center" }}>
                       {(data.status === 0 && (
                         <Badge color="success">Hoạt động</Badge>
                       )) ||
@@ -217,7 +221,7 @@ const User = (props) => {
                           <Badge color="danger">Khóa</Badge>
                         ))}
                     </td>
-                    <td>
+                    <td style={{ textAlign: "center" }}>
                       {(data.role === constants.roles.admin.value && (
                         <Badge color={constants.roles.admin.color}>
                           {constants.roles.admin.name}
@@ -251,22 +255,37 @@ const User = (props) => {
                         </div>
                       )}
                       <div className="i">
-                        <EyeOutlined icon={faEye} className="icon-green" />
+                        <Tooltip placement="top" tooltip="Chi tiết">
+                          <EyeOutlined icon={faEye} className="icon-green" />
+                        </Tooltip>
                       </div>
                       <div className="i">
-                        <LockOutlined className="icon-mangeto" />
+                        {(data.status === 0 && (
+                          <Tooltip placement="top" tooltip="Khóa">
+                            <LockOutlined className="icon-mangeto" />
+                          </Tooltip>
+                        )) ||
+                          (data.status === 1 && (
+                            <Tooltip placement="top" tooltip="Khóa">
+                              <UnlockOutlined className="icon-mangeto" />
+                            </Tooltip>
+                          ))}
                       </div>
                       <div
                         className="i"
                         onClick={() => changeModal(data, index)}
                       >
-                        <EditOutlined className="icon-blue" />
+                        <Tooltip placement="top" tooltip="Sửa">
+                          <EditOutlined className="icon-blue" />
+                        </Tooltip>
                       </div>
                       <div className="i">
-                        <DeleteOutlined
-                          icon={faTrashAlt}
-                          className="icon-red"
-                        />
+                        <Tooltip placement="top" tooltip="Xóa">
+                          <DeleteOutlined
+                            icon={faTrashAlt}
+                            className="icon-red"
+                          />
+                        </Tooltip>
                       </div>
                     </td>
                   </tr>

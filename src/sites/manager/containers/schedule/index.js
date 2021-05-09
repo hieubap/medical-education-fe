@@ -1,4 +1,4 @@
-import { DeleteOutlined,EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
 import courseProvider from "@data-access/course-provider";
@@ -7,16 +7,20 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "@items/pagination";
 import "@items/style.scss";
 import { defaultState } from "@utils/common";
-import React,{ useEffect,useRef,useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { Button } from "reactstrap";
+import { Alert, Button } from "reactstrap";
 import FormSchedule from "./form";
 import "./style.scss";
 
 const Schedule = (props) => {
   const userApp = useSelector((state) => state.userApp);
-  const [state, setState] = useState({ ...defaultState, id: -1, loading: false });
+  const [state, setState] = useState({
+    ...defaultState,
+    id: -1,
+    loading: false,
+  });
   const [courses, setCourse] = useState([]);
   const timeout = useRef(null);
 
@@ -219,8 +223,10 @@ const Schedule = (props) => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="9" className="no-data">
-                    Không có dữ liệu. Vui lòng chọn khóa học
+                  <td colSpan="9" style={{ padding: "0" }}>
+                    <Alert color="danger">
+                      Không có dữ liệu. Vui lòng chọn khóa học
+                    </Alert>
                   </td>
                 </tr>
               )}
@@ -295,8 +301,10 @@ const Schedule = (props) => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="9" className="no-data">
-                    Không có dữ liệu. Vui lòng chọn khóa học
+                  <td colSpan="9" style={{ padding: "0" }}>
+                    <Alert color="danger">
+                      Không có dữ liệu. Vui lòng chọn khóa học
+                    </Alert>
                   </td>
                 </tr>
               )}

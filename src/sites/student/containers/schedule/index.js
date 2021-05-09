@@ -3,9 +3,10 @@ import Loading from "@components/loading";
 import scheduleProvider from "@data-access/schedule-provider";
 import "@items/style.scss";
 import { defaultState } from "@utils/common";
-import React,{ useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { Alert } from "reactstrap";
 
 const Schedule = (props) => {
   const userApp = useSelector((state) => state.userApp);
@@ -31,6 +32,9 @@ const Schedule = (props) => {
         });
         // window.location.href = "/login";
       } else {
+        setState({
+          loading: false,
+        });
         toast.error(json.message);
       }
     });
@@ -38,25 +42,6 @@ const Schedule = (props) => {
   useEffect(() => {
     getData();
   }, []);
-
-  const child = (props) => {
-    const { index, data } = props;
-
-    return (
-      <tr>
-        <td style={{ minWidth: "50px" }}>{index + 1}</td>
-        <td style={{ minWidth: "150px" }}>{data.subject.code}</td>
-        <td style={{ minWidth: "200px" }}>{data.subject.name}</td>
-        <td style={{ minWidth: "50px" }}>{data.day || ""}</td>
-        <td style={{ minWidth: "150px" }}>
-          {data.startTime + " - " + data.endTime}
-        </td>
-        <td style={{ minWidth: "150px" }}>{data.teacher || ""}</td>
-        <td style={{ minWidth: "150px" }}>{data.place.address}</td>
-        <td style={{ minWidth: "80px" }}>{data.subject.lesson || ""}</td>
-      </tr>
-    );
-  };
 
   return (
     <>
@@ -84,7 +69,7 @@ const Schedule = (props) => {
                     <td>{data.subject.code}</td>
                     <td>{data.subject.name}</td>
                     <td>{data.day || ""}</td>
-                    <td>{data.startTime + " - " + data.endTime}</td>
+                    <td>{data.kipHoc || ''}</td>
                     <td>{data.teacher || ""}</td>
                     <td>{data.place.address}</td>
                   </tr>
@@ -92,7 +77,9 @@ const Schedule = (props) => {
               ) : (
                 <tr>
                   <td colSpan="9" className="no-data">
-                    Không có dữ liệu.
+                    <Alert color="danger">
+                      Chưa có lịch học cho khóa
+                    </Alert>
                   </td>
                 </tr>
               )}

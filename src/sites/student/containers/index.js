@@ -37,13 +37,6 @@ function Index(props) {
       }),
     },
     {
-      path: ["/student/class"],
-      component: Loadable({
-        loader: () => import("@manager/containers/class"),
-        loading: Load,
-      }),
-    },
-    {
       path: ["/student/register-course"],
       component: Loadable({
         loader: () =>
@@ -54,7 +47,7 @@ function Index(props) {
     {
       path: ["/student/schedule"],
       component: Loadable({
-        loader: () => import("@manager/containers/schedule/Schedule"),
+        loader: () => import("@student/containers/schedule"),
         loading: Load,
       }),
     },

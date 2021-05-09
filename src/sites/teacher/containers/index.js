@@ -32,21 +32,21 @@ function Index(props) {
     {
       path: ["/teacher/courses"],
       component: Loadable({
-        loader: () => import("@manager/containers/course/Course"),
+        loader: () => import("@manager/containers/course"),
         loading: Load,
       }),
     },
     {
       path: ["/teacher/subject"],
       component: Loadable({
-        loader: () => import("@manager/containers/subject/Subject"),
+        loader: () => import("@manager/containers/subject"),
         loading: Load,
       }),
     },
     {
       path: ["/teacher/class"],
       component: Loadable({
-        loader: () => import("@manager/containers/class/Class"),
+        loader: () => import("@teacher/containers/class"),
         loading: Load,
       }),
     },

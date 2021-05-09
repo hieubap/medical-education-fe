@@ -4,6 +4,7 @@ import Loading from "@components/loading";
 import courseProvider from "@data-access/course-provider";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "@items/pagination";
+import Tooltip from "@items/tooltip";
 import "@items/style.scss";
 import Table from "@items/table/Table";
 import constants from "@src/resourses/const";
@@ -146,52 +147,6 @@ const Course = (props) => {
     setState(newState);
   };
 
-  const child = (props) => {
-    const { data, index } = props;
-
-    return (
-      <tr>
-        <td style={{ minWidth: "80px" }}>{data.id}</td>
-        <td style={{ minWidth: "150px" }}>{data.code}</td>
-        <td style={{ minWidth: "200px" }}>{data.name}</td>
-        <td style={{ minWidth: "300px" }}>
-          {data.healthFacility && data.healthFacility.name}
-        </td>
-        <td style={{ minWidth: "150px" }}>
-          {data.userCreated && data.userCreated.fullName}
-        </td>
-        <td style={{ minWidth: "150px" }}>{convertPrice(data.price)}</td>
-        <td style={{ minWidth: "150px" }}>
-          {data.numberRegister
-            ? data.numberRegister
-            : "0/" + (data.limitRegister || 0)}
-        </td>
-        <td style={{ minWidth: "150px" }}>{data.limitRegister}</td>
-        <td style={{ minWidth: "150px" }}>{data.numberLesson}</td>
-        <td style={{ minWidth: "150px" }}>{data.status}</td>
-        {state.role !== constants.role.admin ? (
-          <td>
-            <div className="i" onClick={() => detail(data.id)}>
-              <EyeOutlined className="icon-green" />
-            </div>
-          </td>
-        ) : (
-          <td style={{ minWidth: "100px" }}>
-            <div className="i" onClick={() => detail(data.id)}>
-              <EyeOutlined className="icon-green" />
-            </div>
-            <div className="i" onClick={() => changeModal(data, index)}>
-              <EditOutlined className="icon-blue" />
-            </div>
-            <div className="i" onClick={() => handleDelete(data.id, index)}>
-              <DeleteOutlined icon={faTrashAlt} className="icon-red" />
-            </div>
-          </td>
-        )}
-      </tr>
-    );
-  };
-
   return (
     <>
       {state.role !== constants.role.admin ? (
@@ -288,8 +243,12 @@ const Course = (props) => {
                     <option value="1">
                       {constants.courseStatus.timeRegister.name}
                     </option>
-                    <option value="2">{constants.courseStatus.studying.name}</option>
-                    <option value="3">{constants.courseStatus.done.name}</option>
+                    <option value="2">
+                      {constants.courseStatus.studying.name}
+                    </option>
+                    <option value="3">
+                      {constants.courseStatus.done.name}
+                    </option>
                   </select>
                 </td>
                 <td></td>
@@ -340,22 +299,28 @@ const Course = (props) => {
                     ) : (
                       <td>
                         <div className="i" onClick={() => detail(data.id)}>
-                          <EyeOutlined className="icon-green" />
+                          <Tooltip placement="top" tooltip="Chi tiết">
+                            <EyeOutlined className="icon-green" />
+                          </Tooltip>
                         </div>
                         <div
                           className="i"
                           onClick={() => changeModal(data, index)}
                         >
-                          <EditOutlined className="icon-blue" />
+                          <Tooltip placement="top" tooltip="Sửa">
+                            <EditOutlined className="icon-blue" />
+                          </Tooltip>
                         </div>
                         <div
                           className="i"
                           onClick={() => handleDelete(data.id, index)}
                         >
-                          <DeleteOutlined
-                            icon={faTrashAlt}
-                            className="icon-red"
-                          />
+                          <Tooltip placement="top" tooltip="Xóa">
+                            <DeleteOutlined
+                              icon={faTrashAlt}
+                              className="icon-red"
+                            />
+                          </Tooltip>
                         </div>
                       </td>
                     )}

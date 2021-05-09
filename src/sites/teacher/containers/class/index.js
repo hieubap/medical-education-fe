@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "./style.scss";
+import "@items/style.scss";
 
 const Class = (props) => {
   const userApp = useSelector((state) => state.userApp);
@@ -35,7 +36,7 @@ const Class = (props) => {
     "Thời gian",
     "Địa điểm",
     "Số lượng đăng kí",
-    "Trạng thái"
+    "Trạng thái",
   ];
 
   const loadPage = () => {
@@ -43,7 +44,7 @@ const Class = (props) => {
       .search({ page: state.page, size: state.size })
       .then((json) => {
         if (json && json.code === 200 && json.data) {
-            const size =
+          const size =
             json.totalElements % state.size === 0
               ? parseInt(json.totalElements / state.size)
               : parseInt(json.totalElements / state.size) + 1;
@@ -66,36 +67,57 @@ const Class = (props) => {
 
   useEffect(() => {
     loadPage();
-  }, [state.size,state.page]);
+  }, [state.size, state.page]);
 
-  const child = (props) => {
-    const { data, index } = props;
-    return (
-      <tr>
-        <td>{index + 1}</td>
-        <td>{data.code}</td>
-        <td>{data.subject.name}</td>
-        <td>{data.subject.code}</td>
-        <td>{data.teacher.fullName}</td>
-        <td>{data.time}</td>
-        <td>{data.place.address}</td>
-        <td>
-          {data.numberRegister}/{data.limitRegister}
-        </td>
-        <td>{data.status}</td>
-      </tr>
-    );
-  };
   return (
     <>
       <Head title="Danh mục lớp học"></Head>
       <Loading loading={state.loading}></Loading>
       <div className="content">
         <div className="search"></div>
-        <div>
-          <Table fields={fields} data={state.dataRender}>
-            {child}
-          </Table>
+        <div className="tbl">
+          <table>
+            <thead>
+              <tr>
+                <th style={{ minWidth: "150px" }}>STT</th>
+                <th style={{ minWidth: "150px" }}>Mã khóa</th>
+                <th style={{ minWidth: "150px" }}>Khóa</th>
+                <th style={{ minWidth: "150px" }}>Tên môn</th>
+                <th style={{ minWidth: "150px" }}>Mã môn</th>
+                <th style={{ minWidth: "150px" }}>Số lượng</th>
+                <th style={{ minWidth: "150px" }}>Trạng thái</th>
+                <th style={{ minWidth: "150px" }}>Tiện ích</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              {state.dataRender &&
+                state.dataRender.map((data, index) => (
+                  <tr>
+                    <td>{index + 1}</td>
+                    <td>{data.code}</td>
+                    <td>{data.subject.name}</td>
+                    <td>{data.subject.code}</td>
+                    <td>{data.teacher.fullName}</td>
+                    <td>{data.time}</td>
+                    <td>{data.place.address}</td>
+                    <td>
+                      {data.numberRegister}/{data.limitRegister}
+                    </td>
+                    <td>{data.status}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
         <Pagination
           totalPage={state.totalPage}
