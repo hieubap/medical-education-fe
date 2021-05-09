@@ -4,7 +4,7 @@ td {
 
 .form-user {
   width: 900px;
-  height: auto;
+  // height: 1900px;
   margin-top: 20px;
 
   .head-avatar,
@@ -12,12 +12,14 @@ td {
   .head-log {
     position: absolute;
     color: var(--blue-1);
-    font-size: 20px;
+    font-size: 18px;
     background-color: white;
-    padding: 5px;
+    height: 20px;
+    padding: 0 5px;
+    color: var(--red);
   }
   .head-avatar {
-    top: 63px;
+    top: 77px;
     left: 180px;
   }
   .head-log {
@@ -25,7 +27,7 @@ td {
     left: 150px;
   }
   .head-info {
-    top: 67px;
+    top: 77px;
     left: 640px;
   }
   .info {
@@ -55,12 +57,12 @@ td {
       border-radius: 20px;
       padding: 10px;
       align-content: center;
+      // margin-top: 0;
 
-      
-      img{
-          margin-left: 5%;
-          width: 370px;
-          height: 240px;
+      img {
+        margin-left: 5%;
+        width: 370px;
+        height: 240px;
       }
       label {
         margin-left: 40%;
@@ -69,10 +71,24 @@ td {
     }
     .log {
       height: 29%;
-      margin-top: 25px;
+      margin-top: 15px;
       border: 3px solid var(--blue);
       border-radius: 20px;
       padding: 10px;
+    }
+  }
+}
+.list-subject {
+  .list {
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid var(--red);
+    li {
+      margin-top: 5px;
+      overflow: visible;
+      .name {
+        width: 50%;
+      }
     }
   }
 }

@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { Alert, Button } from "reactstrap";
 import FormSchedule from "./form";
 import "./style.scss";
+import constants from "@src/resourses/const";
 
 const Schedule = (props) => {
   const userApp = useSelector((state) => state.userApp);
@@ -276,10 +277,18 @@ const Schedule = (props) => {
                     <td>{data.subject.code}</td>
                     <td>{data.subject.name}</td>
                     <td>{data.day || ""}</td>
-                    <td>{data.kipHoc}</td>
-                    <td>{data.teacher || ""}</td>
+                    <td>
+                      {(data.kipHoc === constants.kip.kip1.value &&
+                        constants.kip.kip1.name) ||
+                        (data.kipHoc === constants.kip.kip2.value &&
+                          constants.kip.kip2.name) ||
+                        (data.kipHoc === constants.kip.kip3.value &&
+                          constants.kip.kip3.name) ||
+                        (data.kipHoc === constants.kip.kip4.value &&
+                          constants.kip.kip4.name)}
+                    </td>
+                    <td>{data.teacher && data.teacher.fullName}</td>
                     <td>{data.place.address}</td>
-
                     <td>
                       <div
                         className="i"

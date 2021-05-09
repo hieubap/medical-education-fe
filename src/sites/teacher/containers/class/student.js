@@ -20,9 +20,8 @@ import {
   SolutionOutlined,
   TeamOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
 
-const Class = (props) => {
+const Student = (props) => {
   const userApp = useSelector((state) => state.userApp);
   const [state, setState] = useState(defaultState);
 
@@ -66,9 +65,6 @@ const Class = (props) => {
     loadPage();
   }, [state.size, state.page]);
 
-  // const showClass = () => {
-
-  // }
   return (
     <>
       <Head title="Danh mục lớp học"></Head>
@@ -80,11 +76,11 @@ const Class = (props) => {
             <thead>
               <tr>
                 <th style={{ minWidth: "150px" }}>STT</th>
-                <th style={{ minWidth: "150px" }}>Mã khóa</th>
-                <th style={{ minWidth: "150px" }}>Khóa</th>
-                <th style={{ minWidth: "150px" }}>Mã môn</th>
-                <th style={{ minWidth: "150px" }}>Tên môn</th>
-                <th style={{ minWidth: "150px" }}>Số lượng</th>
+                <th style={{ minWidth: "150px" }}>Mã sinh viên</th>
+                <th style={{ minWidth: "150px" }}>Tên sinh viên</th>
+                <th style={{ minWidth: "150px" }}>Điểm giữa kì</th>
+                <th style={{ minWidth: "150px" }}>Điểm cuối</th>
+                <th style={{ minWidth: "150px" }}>Tổng kết</th>
                 <th style={{ minWidth: "180px", textAlign: "center" }}>
                   Trạng thái
                 </th>
@@ -137,12 +133,29 @@ const Class = (props) => {
                           )))}
                     </td>
                     <td>
-                      <div className="i">
-                        <Link to="/teacher/class/student">
-                          <Tooltip placement="top" tooltip="Danh sách lớp">
-                            <TeamOutlined className="icon-green" />
-                          </Tooltip>
-                        </Link>
+                      <div
+                        className="i"
+                        onClick={() => changeModal(data, index)}
+                      >
+                        <Tooltip placement="top" tooltip="Danh sách lớp">
+                          <TeamOutlined className="icon-green" />
+                        </Tooltip>
+                      </div>
+                      <div
+                        className="i"
+                        onClick={() => changeModal(data, index)}
+                      >
+                        <Tooltip placement="top" tooltip="Điểm danh">
+                          <ScheduleOutlined className="icon-yellow" />
+                        </Tooltip>
+                      </div>
+                      <div
+                        className="i"
+                        onClick={() => changeModal(data, index)}
+                      >
+                        <Tooltip placement="top" tooltip="Nhập điểm">
+                          <SolutionOutlined className="icon-blue" />
+                        </Tooltip>
                       </div>
                     </td>
                   </tr>
@@ -162,4 +175,4 @@ const Class = (props) => {
   );
 };
 
-export default Class;
+export default Student;

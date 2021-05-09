@@ -51,6 +51,13 @@ function Index(props) {
       }),
     },
     {
+      path: ["/teacher/class/student"],
+      component: Loadable({
+        loader: () => import("@teacher/containers/class/student"),
+        loading: Load,
+      }),
+    },
+    {
       path: ["/teacher/schedule"],
       component: Loadable({
         loader: () => import("@teacher/containers/schedule"),

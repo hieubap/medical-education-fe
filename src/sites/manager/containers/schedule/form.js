@@ -3,9 +3,12 @@ import React, { useEffect, useState } from "react";
 import placeProvider from "@data-access/place-provider";
 import subjectProvider from "@data-access/subject-provider";
 import userProvider from "@data-access/user-provider";
-
+import constants from "@src/resourses/const";
+import { toast } from "react-toastify";
 const FormSchedule = (props) => {
   const [state, setState] = useState({});
+  const [teachers, setTeachers] = useState([]);
+  const { data } = props || {};
 
   useEffect(() => {
     placeProvider.search({ page: 0, size: 1000 }).then((json) => {
@@ -17,6 +20,7 @@ const FormSchedule = (props) => {
       }
     });
 
+    // getTeacher();
     // courseProvider.detail(data.id).then((json) => {
     //   if (json && json.code === 200) {
     //     setState({...state,subject:[{}, ...json.data]});
@@ -29,6 +33,27 @@ const FormSchedule = (props) => {
     const { change } = props;
     const { listSubject, dataRender } = props.bundle;
     const data = props.data || { name: "", price: "" };
+
+    const getTeacher = (subjectId) => {
+      change("subjectId", subjectId);
+      userProvider
+        .search({
+          page: 0,
+          size: 1000,
+          subjectId,
+          role: constants.roles.teacher.value,
+        })
+        .then((json) => {
+          if (json && json.code === 200 && json.data) {
+            setTeachers([
+              { id: -1, fullName: "-- Chọn giảng viên --" },
+              ...json.data,
+            ]);
+            if (json.data.length === 0)
+              toast.error("Không có giảng viên nào dạy môn này");
+          }
+        });
+    };
 
     console.log(data);
     if (init) {
@@ -51,7 +76,7 @@ const FormSchedule = (props) => {
               name="subjectId"
               type="text"
               value={data.subjectId || ""}
-              onChange={(e) => change(e)}
+              onChange={(e) => getTeacher(e.target.value)}
             >
               {listSubject &&
                 [{ id: -1, name: "-- Chọn Môn --" }, ...listSubject].map(
@@ -76,12 +101,17 @@ const FormSchedule = (props) => {
                   </option>
                 ))}
             </select>
-            <input
-              name="teacher"
-              type="text"
-              value={data.teacher || ""}
+            <select
+              name="teacherId"
+              value={data.teacherId || ""}
               onChange={(e) => change(e)}
-            />
+            >
+              {teachers.map((data, index) => (
+                <option key={index} value={data.id}>
+                  {data.fullName}
+                </option>
+              ))}
+            </select>
             <select
               name="day"
               type="text"

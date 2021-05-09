@@ -1,5 +1,4 @@
 import {
-  CheckCircleOutlined,
   DeleteOutlined,
   EditOutlined,
   EyeOutlined,
@@ -10,13 +9,14 @@ import Head from "@components/head-tag/Head";
 import Loading from "@components/loading";
 import userProvider from "@data-access/user-provider";
 import {
-  faCheckCircle,
+  faChalkboardTeacher,
   faEye,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Pagination from "@items/pagination";
 import "@items/style.scss";
-import Table from "@items/table/Table";
+import Tooltip from "@items/tooltip";
 import constants from "@src/resourses/const";
 import { defaultState } from "@utils/common";
 import React, { useEffect, useRef, useState } from "react";
@@ -25,7 +25,7 @@ import { toast } from "react-toastify";
 import { Badge, Input } from "reactstrap";
 import "./style.scss";
 import UserForm from "./user-form";
-import Tooltip from "@items/tooltip";
+import TeacherForm from "./form-teacher";
 
 const User = (props) => {
   const userApp = useSelector((state) => state.userApp);
@@ -47,6 +47,15 @@ const User = (props) => {
       indexDetail: index,
     });
   };
+  const changeModalTeacher = (data, index) => {
+    setState({
+      ...state,
+      showModalTeacher: !state.showModalTeacher,
+      dataDetail: data,
+      indexDetail: index,
+    });
+  };
+  const updateTeacher = () => {};
   const create = () => {};
   const update = () => {};
   const search = (e) => {
@@ -113,7 +122,7 @@ const User = (props) => {
                 <th style={{ minWidth: "150px" }}>Email</th>
                 <th style={{ minWidth: "150px" }}>Ngày tạo</th>
                 <th style={{ minWidth: "150px" }}>Ngày cập nhật</th>
-                <th style={{ minWidth: "100px" }}>Tiện ích</th>
+                <th style={{ minWidth: "120px" }}>Tiện ích</th>
               </tr>
             </thead>
             <tbody>
@@ -155,7 +164,7 @@ const User = (props) => {
                   </select>
                 </td>
                 <td>
-                  <select name="roles" onChange={(e) => search(e)}>
+                  <select name="role" onChange={(e) => search(e)}>
                     <option value={""}>TẤT CẢ</option>
                     <option value={constants.roles.admin.value}>ADMIN</option>
                     <option value={constants.roles.teacher.value}>
@@ -238,7 +247,12 @@ const User = (props) => {
                           </Badge>
                         ))}
                     </td>
-                    <td>{data.gender}</td>
+                    <td>
+                      {(data.gender === constants.gender.nam.value &&
+                        constants.gender.nam.name) ||
+                        (data.gender === constants.gender.nu.value &&
+                          constants.gender.nu.name)}
+                    </td>
                     <td>{data.age}</td>
                     <td>{data.address}</td>
                     <td>{data.phoneNumber}</td>
@@ -246,14 +260,6 @@ const User = (props) => {
                     <td>{data.createdAt}</td>
                     <td>{data.updatedAt}</td>
                     <td>
-                      {data.idChange && (
-                        <div className="i">
-                          <CheckCircleOutlined
-                            icon={faCheckCircle}
-                            className="icon-yellow"
-                          />
-                        </div>
-                      )}
                       <div className="i">
                         <Tooltip placement="top" tooltip="Chi tiết">
                           <EyeOutlined icon={faEye} className="icon-green" />
@@ -287,14 +293,27 @@ const User = (props) => {
                           />
                         </Tooltip>
                       </div>
+                      {data.role === constants.roles.student.value && (
+                        <div
+                          className="i fi"
+                          onClick={() => changeModalTeacher(data,index)}
+                        >
+                          <Tooltip
+                            placement="top"
+                            tooltip="Cấp quyền giảng viên"
+                          >
+                            <FontAwesomeIcon
+                              icon={faChalkboardTeacher}
+                              className="ii icon-yellow"
+                            />
+                          </Tooltip>
+                        </div>
+                      )}
                     </td>
                   </tr>
                 ))}
             </tbody>
           </table>
-          {/* <Table fields={fields} data={state.dataRender}>
-            {child}
-          </Table> */}
         </div>
         <Pagination
           totalPage={state.totalPage}
@@ -311,9 +330,19 @@ const User = (props) => {
           eventBack={() => changeModal()}
           create={create}
           update={update}
-          data={param.dataDetail}
-          index={param.indexDetail}
+          data={state.dataDetail}
+          index={state.indexDetail}
         ></UserForm>
+      )}
+      {state.showModalTeacher && (
+        <TeacherForm
+          title="Chọn môn giảng dạy"
+          eventBack={() => changeModalTeacher()}
+          create={create}
+          update={updateTeacher}
+          data={state.dataDetail}
+          index={state.indexDetail}
+        ></TeacherForm>
       )}
     </>
   );

@@ -9,7 +9,6 @@ const Form = (props) => {
   const isCreate = data ? false : true;
 
   const change = (e, value) => {
-    console.log(dataSet);
     if (typeof e === "string") {
       setDataSet({ ...dataSet, [e]: value });
     } else setDataSet({ ...dataSet, [e.target.name]: e.target.value });
@@ -18,16 +17,14 @@ const Form = (props) => {
   return (
     <div
       className="modal"
-      style={
-        position
-          ? { display: "flex", position: "absolute" }
-          : { display: "flex", position: "fixed" }
-      }
+      style={{ display: "flex", position: "absolute" }}
+      // style={
+      //   position
+      //     ? { display: "flex", position: "absolute" }
+      //     : { display: "flex", position: "fixed" }
+      // }
     >
-      <div
-        className="overlay"
-        style={height ? { height: height } : { height: "100%" }}
-      ></div>
+      <div className="overlay" style={{ position: "fixed" }}></div>
       <div className="body">
         <div className="form-base">
           <div className="head-form">

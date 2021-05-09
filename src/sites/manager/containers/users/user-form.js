@@ -11,13 +11,13 @@ const FormUser = (props) => {
     return (
       <div className="body-form form-user">
         <div className="head-avatar">
-          <label>Ảnh đại diện</label>
+          <label>I, Ảnh đại diện</label>
         </div>
         <div className="head-info">
-          <label>Thông tin cá nhân</label>
+          <label>II, Thông tin cá nhân</label>
         </div>
         <div className="head-log">
-          <label>Thông tin đăng nhập</label>
+          <label>III, Thông tin đăng nhập</label>
         </div>
 
         <div className="content-info">

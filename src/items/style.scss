@@ -68,6 +68,7 @@
   animation: fadeIn ease 0.1s;
   text-align: left;
   z-index: 1;
+  // height: 1900px;
 
   .overlay {
     position: fixed;
@@ -229,7 +230,7 @@
       font-size: 0.95em;
       color: #666;
     }
-    .badge{
+    .badge {
       font-size: 85%;
     }
   }

@@ -16,13 +16,27 @@ export default {
       (param.id ? "&id=" + param.id : "") +
       (param.status && param.status !== "-1" ? "&status=" + param.status : "") +
       (param.gender ? "&gender=" + param.gender : "") +
-      (param.roles ? "&role=" + param.roles : "");
+      (param.subjectId ? "&subjectId=" + param.subjectId : "") +
+      (param.role ? "&role=" + param.role : "");
 
     console.log(parameters);
 
     return new Promise((resolve, reject) => {
       clientUtils
         .requestApi("get", constants.api.users + parameters, {})
+        .then((x) => {
+          resolve(x);
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  },
+  approveTeacher(id, data) {
+    let body = {subjectsId:data};
+    return new Promise((resolve, reject) => {
+      clientUtils
+        .requestApi("put", constants.api.approveTeacher + id, body)
         .then((x) => {
           resolve(x);
         })
