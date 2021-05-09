@@ -1,7 +1,7 @@
 
 const UrlServer = () => {
   // const userApp = useSelector(state => state.userApp);
-  const localhost = true;
+  const localhost = false;
   return localhost ? "http://localhost:8082" : "http://45.13.132.247:8082";
 };
 
